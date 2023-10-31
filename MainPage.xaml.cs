@@ -18,7 +18,7 @@ public partial class MainPage : ContentPage
 		// Progress.Text = "Started";
 		DebuggerCollection.Add("Apple");
 
-		BindingContext = this; // Bind initialized data here with xaml file
+		// BindingContext = this; // Bind initialized data here with xaml file
 		System.Diagnostics.Debug.WriteLine("MainPage Constructor ended");
 	}
 
