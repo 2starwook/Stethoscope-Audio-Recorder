@@ -8,17 +8,21 @@ namespace NET_MAUI_BLE;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private readonly IBleManager _bleManager;
+	public ObservableList<ScanResult> Results { get; } = new ObservableList<ScanResult>();
 
+	// Practice Purpose
+	int count = 0;
 	public Collection<String> DebuggerCollection { get; set; } = new Collection<string>();
 
-	public MainPage()
+	public MainPage(IBleManager bleManager)
 	{
+		_bleManager = bleManager;
 		InitializeComponent();
-		// Progress.Text = "Started";
+		// Title.Text = "Started";
 		DebuggerCollection.Add("Apple");
 
-		// BindingContext = this; // Bind initialized data here with xaml file
+		BindingContext = this; // Bind modified data with xaml file
 		System.Diagnostics.Debug.WriteLine("MainPage Constructor ended");
 	}
 

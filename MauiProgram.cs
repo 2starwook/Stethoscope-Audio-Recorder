@@ -36,6 +36,6 @@ public static class MauiProgram
 
 	private static void AddDependencies(this IServiceCollection services)
 	{
-		// services.AddSingleton<BluetoothCourse.Scan.ScanResults>();
+		services.AddSingleton<NET_MAUI_BLE.MainPage>();
 	}
 }
