@@ -2,6 +2,7 @@
 using Shiny;
 using Shiny.BluetoothLE;
 using System.Collections;
+using BluetoothCourse.Extensions;
 using System.Collections.ObjectModel;
 
 namespace NET_MAUI_BLE;
@@ -37,5 +38,54 @@ public partial class MainPage : ContentPage
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        try { Scan(); }
+        catch { }
+
+        lvDevices.ItemSelected += async (s, e) => {
+            System.Diagnostics.Debug.WriteLine($"Item Selected: {lvDevices.SelectedItem.GetType().ToString()}");
+
+            var device = (ScanResult)lvDevices.SelectedItem;
+            
+            device.Peripheral.WhenStatusChanged().Subscribe(_status => {
+                System.Diagnostics.Debug.WriteLine($"Status Changed: ${_status.ToString()}");
+            });
+
+            await device.Peripheral.ConnectAsync();
+            device.Peripheral.CancelConnection();
+        };
+    }
+    public void Scan()
+    {
+        if (!_bleManager.IsScanning)
+        {
+            _bleManager.StopScan();
+        }
+
+        Results.Clear();
+
+        var heartRateServiceUuid = 0x180D.UuidFromPartial();
+
+
+        _bleManager.Scan()
+            .Subscribe(_result => {
+                System.Diagnostics.Debug.WriteLine($"Scanned for: {_result.Peripheral.Uuid.ToString()}");
+
+                if (_result.AdvertisementData != null && 
+                    _result.AdvertisementData.ServiceUuids != null &&
+                    _result.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())) {
+                    if (!Results.Any(a => a.Peripheral.Uuid.Equals(_result.Peripheral.Uuid)))
+                    {
+                        Results.Add(_result);
+                    }
+                }
+            });
+    }
+
+
 }
 
