@@ -11,9 +11,9 @@ public partial class MainPage : ContentPage
 {
 	private readonly IBleManager _bleManager;
 	public ObservableList<ScanResult> Results { get; } = new ObservableList<ScanResult>();
+	bool isScanning = true;
 
 	// Practice Purpose
-	int count = 0;
 	public Collection<String> DebuggerCollection { get; set; } = new Collection<string>();
 
 	public MainPage(IBleManager bleManager)
@@ -27,16 +27,20 @@ public partial class MainPage : ContentPage
 		System.Diagnostics.Debug.WriteLine("MainPage Constructor ended");
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private void OnScanControllerClicked(object sender, EventArgs e)
 	{
-		count++;
+		if (isScanning == true){
+			_bleManager.StopScan();
+			isScanning = false;
+			ScanControllerBtn.Text = $"Start Scan";
+		}
+		else{
+			Scan();
+			isScanning = true;
+			ScanControllerBtn.Text = $"Stop Scan";
+		}
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		SemanticScreenReader.Announce(ScanControllerBtn.Text);
 	}
 
     protected override void OnAppearing()
@@ -74,7 +78,7 @@ public partial class MainPage : ContentPage
         _bleManager.Scan()
             .Subscribe(scanResult => {
                 System.Diagnostics.Debug.WriteLine($"Scanned for: {scanResult.Peripheral.Uuid.ToString()}");
-							
+
                 if (scanResult.AdvertisementData != null && 
                     scanResult.AdvertisementData.ServiceUuids != null &&
                     scanResult.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())) {

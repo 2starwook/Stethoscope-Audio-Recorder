@@ -16,10 +16,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button
-            x:Name="CounterBtn"
-            Text="Click me"
-            SemanticProperties.Hint="Counts the number of times you click"
-            Clicked="OnCounterClicked"
+            x:Name="ScanControllerBtn"
+            Text="Stop Scan"
+            Clicked="OnScanControllerClicked"
             HorizontalOptions="Center" />
         <ListView x:Name="lvDevices"
             ItemsSource="{Binding Results}">
