@@ -72,15 +72,15 @@ public partial class MainPage : ContentPage
 
 
         _bleManager.Scan()
-            .Subscribe(_result => {
-                System.Diagnostics.Debug.WriteLine($"Scanned for: {_result.Peripheral.Uuid.ToString()}");
-
-                if (_result.AdvertisementData != null && 
-                    _result.AdvertisementData.ServiceUuids != null &&
-                    _result.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())) {
-                    if (!Results.Any(a => a.Peripheral.Uuid.Equals(_result.Peripheral.Uuid)))
+            .Subscribe(scanResult => {
+                System.Diagnostics.Debug.WriteLine($"Scanned for: {scanResult.Peripheral.Uuid.ToString()}");
+							
+                if (scanResult.AdvertisementData != null && 
+                    scanResult.AdvertisementData.ServiceUuids != null &&
+                    scanResult.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())) {
+                    if (!Results.Any(a => a.Peripheral.Uuid.Equals(scanResult.Peripheral.Uuid)))
                     {
-                        Results.Add(_result);
+                        Results.Add(scanResult);
                     }
                 }
             });
