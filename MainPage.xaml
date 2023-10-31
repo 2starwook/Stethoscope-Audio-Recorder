@@ -4,7 +4,7 @@
              x:Class="NET_MAUI_BLE.MainPage">
     <StackLayout>
         <Label x:Name="Title"
-               Text=".NET MAUI "
+               Text=".NET MAUI BLE"
                SemanticProperties.HeadingLevel="Level1"
                FontSize="32"
                HorizontalOptions="Center" />
