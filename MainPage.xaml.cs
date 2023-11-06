@@ -63,6 +63,53 @@ public partial class MainPage : ContentPage
             device.Peripheral.CancelConnection();
         };
     }
+
+    private async Task<int> MeasureHeartRate(IPeripheral device)
+    {
+        TaskCompletionSource<int> tcs = new TaskCompletionSource<int>();
+
+        await device.ConnectAsync();
+
+        var serviceUUID = 0x180D.UuidFromPartial();
+        var characteristicsUUID = 0x2A37.UuidFromPartial();
+        var characteristic = await device.GetCharacteristicAsync(serviceUUID.ToString(), characteristicsUUID.ToString());
+
+        int counter = 0;
+        int heartRate = 0;
+
+        IDisposable notifications = null;
+
+        notifications = device.NotifyCharacteristic(characteristic, true)
+            .Subscribe(_result => {
+                counter++;
+
+                var data = _result.Data;
+
+                if (data != null && data.Length > 0)
+                {
+                    var heartRateData = data.DecodeHeartRate();
+
+                    if (counter == 0) 
+                    {
+                        heartRate = (int)heartRateData;
+                    }
+                    else
+                    {
+                        heartRate = (int)((heartRate + heartRateData) / 2);
+                    }
+
+                    if (counter == 10)
+                    {
+                        notifications.Dispose();
+                        _ = tcs.TrySetResult(heartRate);
+                        device.CancelConnection();
+                    }
+                }
+            });
+
+        return await tcs.Task;
+    }
+
     public void Scan()
     {
         if (!_bleManager.IsScanning)
@@ -72,21 +119,22 @@ public partial class MainPage : ContentPage
 
         Results.Clear();
 
-        var heartRateServiceUuid = 0x180D.UuidFromPartial();
-
+        var heartRateServiceUuid = "180d";
 
         _bleManager.Scan()
-            .Subscribe(scanResult => {
-                System.Diagnostics.Debug.WriteLine($"Scanned for: {scanResult.Peripheral.Uuid.ToString()}");
-
-                if (scanResult.AdvertisementData != null && 
-                    scanResult.AdvertisementData.ServiceUuids != null &&
-                    scanResult.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())) {
-                    if (!Results.Any(a => a.Peripheral.Uuid.Equals(scanResult.Peripheral.Uuid)))
-                    {
-                        Results.Add(scanResult);
+            .Subscribe(async _scanResult => {
+                // System.Diagnostics.Debug.WriteLine($"Scanned for: {scanResult.Peripheral.Uuid.ToString()}");
+                if (_scanResult.AdvertisementData != null && _scanResult.AdvertisementData.ServiceUuids != null){
+                    if (_scanResult.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())){
+                        var scannedData = await MeasureHeartRate(_scanResult.Peripheral);
+                        System.Diagnostics.Debug.WriteLine($"{scannedData.ToString()}");
                     }
                 }
+                if (!Results.Any(a => a.Peripheral.Uuid.Equals(_scanResult.Peripheral.Uuid)))
+                {
+                    Results.Add(_scanResult);
+                }
+                
             });
     }
 
