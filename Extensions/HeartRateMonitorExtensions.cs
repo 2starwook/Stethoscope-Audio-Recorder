@@ -1,7 +1,7 @@
 namespace BluetoothCourse.Extensions;
 
-public static class HeartRateMonitorExtensions
-{
+public static class HeartRateMonitorExtensions {
+	// Analyze the BLE data
 	const byte HEART_RATE_VALUE_FORMAT = 0x01;
 	const byte ENERGY_EXPANDED_STATUS = 0x08;
 
