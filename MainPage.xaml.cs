@@ -7,34 +7,30 @@ using System.Collections.ObjectModel;
 
 namespace NET_MAUI_BLE;
 
-public partial class MainPage : ContentPage
-{
+public partial class MainPage : ContentPage {
 	private readonly IBleManager _bleManager;
-	public ObservableList<ScanResult> Results { get; } = new ObservableList<ScanResult>();
 	bool isScanning = true;
+    // flag that shows if scanner is currently scanning or not
 
 	// Practice Purpose
 	public Collection<String> DebuggerCollection { get; set; } = new Collection<string>();
 
-	public MainPage(IBleManager bleManager)
-	{
+	public MainPage(IBleManager bleManager) {
 		_bleManager = bleManager;
 		InitializeComponent();
-		// Title.Text = "Started";
-		DebuggerCollection.Add("Apple");
+		// DebuggerCollection.Add("Apple");
 
 		BindingContext = this; // Bind modified data with xaml file
 		System.Diagnostics.Debug.WriteLine("MainPage Constructor ended");
 	}
 
-	private void OnScanControllerClicked(object sender, EventArgs e)
-	{
-		if (isScanning == true){
+	private void OnScanControllerClicked(object sender, EventArgs e) {
+		if (isScanning == true) {
 			_bleManager.StopScan();
 			isScanning = false;
 			ScanControllerBtn.Text = $"Start Scan";
 		}
-		else{
+		else {
 			Scan();
 			isScanning = true;
 			ScanControllerBtn.Text = $"Stop Scan";
@@ -43,39 +39,24 @@ public partial class MainPage : ContentPage
 		SemanticScreenReader.Announce(ScanControllerBtn.Text);
 	}
 
-    protected override void OnAppearing()
-    {
+    protected override void OnAppearing() {
         base.OnAppearing();
 
         try { Scan(); }
         catch { }
-
-        lvDevices.ItemSelected += async (s, e) => {
-            System.Diagnostics.Debug.WriteLine($"Item Selected: {lvDevices.SelectedItem.GetType().ToString()}");
-
-            var device = (ScanResult)lvDevices.SelectedItem;
-            
-            device.Peripheral.WhenStatusChanged().Subscribe(_status => {
-                System.Diagnostics.Debug.WriteLine($"Status Changed: ${_status.ToString()}");
-            });
-
-            await device.Peripheral.ConnectAsync();
-            device.Peripheral.CancelConnection();
-        };
     }
 
-    private async Task<int> MeasureHeartRate(IPeripheral device)
-    {
+    private async Task<int> AnalyzeData(IPeripheral device) {
         TaskCompletionSource<int> tcs = new TaskCompletionSource<int>();
 
         await device.ConnectAsync();
 
-        var serviceUUID = 0x180D.UuidFromPartial();
-        var characteristicsUUID = 0x2A37.UuidFromPartial();
-        var characteristic = await device.GetCharacteristicAsync(serviceUUID.ToString(), characteristicsUUID.ToString());
+        var serviceUUID_128 = 0x180D.UuidFromPartial();
+        var characteristicsUUID_128 = 0x2A37.UuidFromPartial();
+        var characteristic = await device.GetCharacteristicAsync(serviceUUID_128.ToString(), characteristicsUUID_128.ToString());
 
         int counter = 0;
-        int heartRate = 0;
+        int shownData = 0;
 
         IDisposable notifications = null;
 
@@ -85,23 +66,20 @@ public partial class MainPage : ContentPage
 
                 var data = _result.Data;
 
-                if (data != null && data.Length > 0)
-                {
-                    var heartRateData = data.DecodeHeartRate();
+                if (data != null && data.Length > 0) {
+                    var ScannedData = data.DecodeHeartRate();
 
-                    if (counter == 0) 
-                    {
-                        heartRate = (int)heartRateData;
+                    if (counter == 0) {
+                        shownData = (int)ScannedData;
                     }
-                    else
-                    {
-                        heartRate = (int)((heartRate + heartRateData) / 2);
+                    else {
+                        shownData = (int)((shownData + ScannedData) / 2);
                     }
 
-                    if (counter == 10)
-                    {
+                    if (counter == 10) {
+                        //Show average data
                         notifications.Dispose();
-                        _ = tcs.TrySetResult(heartRate);
+                        _ = tcs.TrySetResult(shownData);
                         device.CancelConnection();
                     }
                 }
@@ -110,31 +88,22 @@ public partial class MainPage : ContentPage
         return await tcs.Task;
     }
 
-    public void Scan()
-    {
-        if (!_bleManager.IsScanning)
-        {
+    public void Scan() {
+        if (!_bleManager.IsScanning) {
             _bleManager.StopScan();
         }
 
-        Results.Clear();
-
-        var heartRateServiceUuid = "180d";
+        var serviceUDID_16 = "180d";
 
         _bleManager.Scan()
             .Subscribe(async _scanResult => {
                 // System.Diagnostics.Debug.WriteLine($"Scanned for: {scanResult.Peripheral.Uuid.ToString()}");
-                if (_scanResult.AdvertisementData != null && _scanResult.AdvertisementData.ServiceUuids != null){
-                    if (_scanResult.AdvertisementData.ServiceUuids.Contains(heartRateServiceUuid.ToString())){
-                        var scannedData = await MeasureHeartRate(_scanResult.Peripheral);
-                        System.Diagnostics.Debug.WriteLine($"{scannedData.ToString()}");
+                if (_scanResult.AdvertisementData != null && _scanResult.AdvertisementData.ServiceUuids != null) {
+                    if (_scanResult.AdvertisementData.ServiceUuids.Contains(serviceUDID_16.ToString())) {
+                        var scannedData = await AnalyzeData(_scanResult.Peripheral);
+                        resultData.Text = scannedData.ToString();
                     }
                 }
-                if (!Results.Any(a => a.Peripheral.Uuid.Equals(_scanResult.Peripheral.Uuid)))
-                {
-                    Results.Add(_scanResult);
-                }
-                
             });
     }
 
