@@ -5,8 +5,7 @@ public static class HeartRateMonitorExtensions {
 	const byte HEART_RATE_VALUE_FORMAT = 0x01;
 	const byte ENERGY_EXPANDED_STATUS = 0x08;
 
-	public static uint DecodeHeartRate(this byte[] data)
-	{
+	public static uint DecodeHeartRate(this byte[] data) {
 		byte currentOffset = 0;
 		byte flags = data[currentOffset];
 		bool isHeartRateValueSizeLong = (flags & HEART_RATE_VALUE_FORMAT) != 0;
