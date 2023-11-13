@@ -5,7 +5,6 @@
     <StackLayout Spacing="15">
         <Label 
             x:Name="resultData"
-            Text="Waiting to be connected..."
             FontSize="32"
             HorizontalOptions="Center"
             VerticalOptions="Center" />
