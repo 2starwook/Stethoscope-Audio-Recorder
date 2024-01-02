@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Infrastructure;
+using Plugin.Maui.Audio;
 
 namespace NET_MAUI_BLE;
 
@@ -20,6 +21,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		builder.Services.AddSingleton(AudioManager.Current);
 		builder.Services.AddShiny();
 		builder.Services.AddDependencies();
 
@@ -39,5 +41,6 @@ public static class MauiProgram
 	private static void AddDependencies(this IServiceCollection services)
 	{
 		services.AddSingleton<NET_MAUI_BLE.Pages.HomePage>();
+		services.AddSingleton<NET_MAUI_BLE.Pages.AudioPage>();
 	}
 }
