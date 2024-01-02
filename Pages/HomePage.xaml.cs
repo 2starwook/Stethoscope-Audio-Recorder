@@ -3,19 +3,18 @@ using Shiny;
 using Shiny.BluetoothLE;
 using BluetoothCourse.Extensions;
 
-namespace NET_MAUI_BLE;
+using static Config;
 
-public partial class MainPage : ContentPage {
+namespace NET_MAUI_BLE.Pages;
+
+public partial class HomePage : ContentPage {
 	private readonly IBleManager _bleManager;
 	bool isScanning = true;
     // flag that shows if scanner is currently scanning or not
 
-    string serviceUUID = "180d";
-    string characteristicUUID = "2a37";
     string waitingString = "Waiting to be connected...";
-    // serviceUUID_16 = "19B10000-E8F2-537E-4F6C-D104768A1214".ToLower();
 
-	public MainPage(IBleManager bleManager) {
+	public HomePage(IBleManager bleManager) {
 		_bleManager = bleManager;
 		InitializeComponent();
         resultData.Text = waitingString;
@@ -61,7 +60,7 @@ public partial class MainPage : ContentPage {
         //     // Add breakpoint and check serviceUUID
         //     var a = 1;
         // });
-        device.GetCharacteristic(serviceUUID, characteristicUUID)
+        device.GetCharacteristic(Config.serviceUUID, Config.characteristicUUID)
         .Subscribe(characteristic => {
             device.NotifyCharacteristic(characteristic, true)
                 .Subscribe(notification => {
@@ -85,7 +84,7 @@ public partial class MainPage : ContentPage {
                 
                 if (_scanResult.AdvertisementData != null && 
                 _scanResult.AdvertisementData.ServiceUuids != null &&
-                _scanResult.AdvertisementData.ServiceUuids.Contains(serviceUUID)){
+                _scanResult.AdvertisementData.ServiceUuids.Contains(Config.serviceUUID)){
                     _bleManager.StopScan();
                     await AnalyzeData(_scanResult.Peripheral);
                 }

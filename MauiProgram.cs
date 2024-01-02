@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microcharts.Maui;
+using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Infrastructure;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
 
 		builder
 			.UseMauiApp<App>()
+			.UseMicrocharts()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -36,6 +38,6 @@ public static class MauiProgram
 
 	private static void AddDependencies(this IServiceCollection services)
 	{
-		services.AddSingleton<NET_MAUI_BLE.MainPage>();
+		services.AddSingleton<NET_MAUI_BLE.Pages.HomePage>();
 	}
 }
