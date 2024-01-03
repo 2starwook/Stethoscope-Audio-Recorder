@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Microcharts;
 using static Config;
@@ -32,7 +32,9 @@ public partial class GraphPage : ContentPage {
 		InitializeComponent();
 		try {
 			chartView.Chart = new LineChart {
-				Entries = data
+				Entries = data,
+				IsAnimated = false,
+				LineAreaAlpha = 0, // Remove background grey
 			};
 		}
 		catch (Exception e){
