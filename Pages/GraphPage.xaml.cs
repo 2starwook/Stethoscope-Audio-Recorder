@@ -30,6 +30,7 @@ public partial class GraphPage : ContentPage {
 	};
 
 	public GraphPage() {
+		// TODO - How to Convert audio to number
 		InitializeComponent();
 		try {
 			chartView.Chart = new LineChart {
