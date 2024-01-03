@@ -1,12 +1,24 @@
 ﻿using System;
 using System.Diagnostics;
 using Microcharts;
-// using SkiaSharp;
 using static Config;
 
 namespace NET_MAUI_BLE.Pages;
 
-public partial class TestPage : ContentPage {
+
+public partial class GraphPage : ContentPage {
+
+	public GraphPage() {
+		InitializeComponent();
+		try {
+			chartView.Chart = new LineChart {
+				Entries = entries
+			};
+		}
+		catch (Exception e){
+			System.Diagnostics.Debug.WriteLine(e.ToString());
+		}
+	}
 	ChartEntry[] entries = new[]
 	{
 		new ChartEntry(212){
@@ -22,18 +34,5 @@ public partial class TestPage : ContentPage {
 			ValueLabel = "428",
 		}
 	};
-
-	public TestPage() {
-		InitializeComponent();
-		try {
-			chartView.Chart = new LineChart {
-				Entries = entries
-			};
-		}
-		catch (Exception e){
-			System.Diagnostics.Debug.WriteLine(e.ToString());
-		}
-	}
-
 }
 

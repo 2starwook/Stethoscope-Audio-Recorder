@@ -23,8 +23,8 @@
         <Tab Title="Audio">
             <ShellContent ContentTemplate="{DataTemplate pages:AudioPage}" />
         </Tab>
-        <Tab Title="Test">
-            <ShellContent ContentTemplate="{DataTemplate pages:TestPage}" />
+        <Tab Title="GraphPage">
+            <ShellContent ContentTemplate="{DataTemplate pages:GraphPage}" />
         </Tab>
     </TabBar>
 
