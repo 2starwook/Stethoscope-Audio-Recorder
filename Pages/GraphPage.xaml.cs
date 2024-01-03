@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using Microcharts;
+using SkiaSharp;
 using static Config;
 
 namespace NET_MAUI_BLE.Pages;
@@ -11,21 +12,21 @@ public partial class GraphPage : ContentPage {
 	{
 			// Label = "112",
 			// ValueLabel = "112",
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 		new ChartEntry(100){},
-		new ChartEntry(0){},
+		new ChartEntry(-100){},
 	};
 
 	public GraphPage() {
