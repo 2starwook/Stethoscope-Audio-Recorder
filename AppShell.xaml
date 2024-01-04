@@ -27,7 +27,7 @@
             <ShellContent ContentTemplate="{DataTemplate pages:GraphPage}" />
         </Tab>
         <Tab Title="FilePage">
-            <ShellContent ContentTemplate="{DataTemplate pages:FilePage}" />
+            <ShellContent ContentTemplate="{DataTemplate pages:TestPage}" />
         </Tab>
     </TabBar>
 

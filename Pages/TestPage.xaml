@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
-             x:Class="NET_MAUI_BLE.Pages.FilePage">
+             x:Class="NET_MAUI_BLE.Pages.TestPage">
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
@@ -10,17 +10,23 @@
             VerticalOptions="Center">
 
             <Label
-                x:Name="fileSaverResult"
+                x:Name="label"
                 Text="Hello, World!"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
             <Button
-                x:Name="SaveBtn"
-                Text="Save File"
-                Clicked="SaveBtnClicked"
+                x:Name="Btn1"
+                Text="Button 1"
+                Clicked="Btn1Clicked"
                 HorizontalOptions="Center" />
+            <Button
+                x:Name="Btn2"
+                Text="Button 2"
+                Clicked="Btn2Clicked"
+                HorizontalOptions="Center" />
+
 
         </VerticalStackLayout>
     </ScrollView>
