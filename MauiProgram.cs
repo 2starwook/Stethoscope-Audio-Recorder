@@ -5,7 +5,6 @@ using Shiny.Infrastructure;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
-using Microsoft.Maui.Media;
 
 namespace NET_MAUI_BLE;
 
