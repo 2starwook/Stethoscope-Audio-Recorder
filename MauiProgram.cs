@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Infrastructure;
 using Plugin.Maui.Audio;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Storage;
 
 namespace NET_MAUI_BLE;
 
@@ -15,14 +17,17 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMicrocharts()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton(AudioManager.Current);
 		builder.Services.AddShiny();
+		builder.Services.AddSingleton(AudioManager.Current);
+		builder.Services.AddSingleton(FileSaver.Default);
+		builder.Services.AddSingleton(FolderPicker.Default);
 		builder.Services.AddDependencies();
 
 #if DEBUG
@@ -42,5 +47,6 @@ public static class MauiProgram
 	{
 		services.AddSingleton<NET_MAUI_BLE.Pages.HomePage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.AudioPage>();
+		services.AddSingleton<NET_MAUI_BLE.Pages.FilePage>();
 	}
 }
