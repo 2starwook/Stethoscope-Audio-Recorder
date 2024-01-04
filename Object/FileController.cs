@@ -1,63 +1,67 @@
-using System.IO;
-using System.Diagnostics;
-using System.Text;
 using CommunityToolkit.Maui.Storage;
+using MyConfig;
+
 
 namespace Object.MyFileController;
 public class FileController
 {
-	private readonly IFileSaver _fileSaver;
-    private readonly IFolderPicker _folderPicker;
-	private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-    private CancellationToken cancellationToken = new CancellationToken();
-    private string rootPath = FileSystem.Current.AppDataDirectory;
-    private string rootCachePath = FileSystem.Current.CacheDirectory;
 
-	public FileController(IFileSaver fileSaver, IFolderPicker folderPicker) {
-		this._fileSaver = fileSaver;
-        this._folderPicker = folderPicker;
+	public FileController() {
 	}
 
-    public void WriteData(string filename, byte[] data){
-        var fullPath = Path.Combine(rootPath, filename);
+    public static void WriteData(string filename, byte[] data){
+        var fullPath = Path.Combine(Config.rootPath, filename);
         File.WriteAllBytes(fullPath, data);
     }
 
-    public byte[] ReadData(string filename){
-        var fullPath = Path.Combine(rootPath, filename);
+    public static byte[] ReadData(string filename){
+        var fullPath = Path.Combine(Config.rootPath, filename);
         if (File.Exists(fullPath)){
             return File.ReadAllBytes(fullPath);
         }
         return null;
     }
 
-    public void WriteCacheData(string filename, byte[] data){
-        var fullPath = Path.Combine(rootCachePath, filename);
+    public static void WriteCacheData(string filename, byte[] data){
+        var fullPath = Path.Combine(Config.rootCachePath, filename);
         File.WriteAllBytes(fullPath, data);
     }
 
-    public byte[] ReadCacheData(string filename){
-        var fullPath = Path.Combine(rootCachePath, filename);
+    public static byte[] ReadCacheData(string filename){
+        var fullPath = Path.Combine(Config.rootCachePath, filename);
         if (File.Exists(fullPath)){
             return File.ReadAllBytes(fullPath);
         }
         return null;
     }
 
-    public async Task<string> ExportData(string filename, byte[] data){
+    public static async Task<string> ExportData(string filename, byte[] data){
         using var stream = new MemoryStream(data);
-        // Save file
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         #pragma warning disable CA1416 // Validate platform compatibility
-        var path = await _fileSaver.SaveAsync(filename, stream, cancellationTokenSource.Token);
+        var path = await FileSaver.Default.SaveAsync(
+            filename, stream, cancellationTokenSource.Token);
         #pragma warning restore CA1416 // Validate platform compatibility
         return path.FilePath;
     }
 
-    public async Task<string> GetDeviceFolderPath(){
+    public static async Task<string> GetDeviceFolderPath(){
+        CancellationToken cancellationToken = new CancellationToken();
 		#pragma warning disable CA1416 // Validate platform compatibility
-        var pickedFolder = await _folderPicker.PickAsync(cancellationToken);
+        var pickedFolder = await FolderPicker.Default.PickAsync(cancellationToken);
 		#pragma warning restore CA1416 // Validate platform compatibility
         return pickedFolder.Folder.Path;
+    }
+
+    public static async Task<string> GetDeviceFilePath(){
+		#pragma warning disable CA1416 // Validate platform compatibility
+        var pickedFile = await FilePicker.Default.PickAsync();
+		#pragma warning restore CA1416 // Validate platform compatibility
+        return pickedFile.FullPath;
+    }
+
+    public static void CreateDirectory(string path){
+        Directory.CreateDirectory(path);
     }
 
 }
