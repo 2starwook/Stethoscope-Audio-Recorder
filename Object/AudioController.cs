@@ -11,11 +11,13 @@ public class AudioController
 		this.audioManager = audioManager;
 	}
 
-    public async void OpenFile(string filename){
+    public async void OpenFile(string filePath){
 		try {
-        	this._currentAudioPlayer = new AudioPlayer(
-				audioManager.CreatePlayer(
-					await FileSystem.OpenAppPackageFileAsync(filename)));
+			if (_currentAudioPlayer == null || !_currentAudioPlayer.IsSameFilePath(filePath)){
+				this._currentAudioPlayer = new AudioPlayer(
+					audioManager.CreatePlayer(
+						await FileSystem.OpenAppPackageFileAsync(filePath)), filePath);
+			}
 		}
 		catch {
 			// File doesn't exist
