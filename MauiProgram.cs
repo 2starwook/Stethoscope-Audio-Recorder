@@ -1,10 +1,11 @@
-using Microcharts.Maui;
+﻿using Microcharts.Maui;
 using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Infrastructure;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
+using Microsoft.Maui.Media;
 
 namespace NET_MAUI_BLE;
 
@@ -28,6 +29,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton(AudioManager.Current);
 		builder.Services.AddSingleton(FileSaver.Default);
 		builder.Services.AddSingleton(FolderPicker.Default);
+		builder.Services.AddSingleton(FilePicker.Default);
 		builder.Services.AddDependencies();
 
 #if DEBUG
