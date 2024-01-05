@@ -33,4 +33,12 @@ public class AudioFileCollection
         }
     }
 
+    public List<string> GetPathList(){
+        List<string> pathList = new List<string>();
+        foreach( KeyValuePair<string, AudioFile> element in audioFiles ) {
+            pathList.Add(element.Key);
+        }
+        return pathList;
+    }
+
 }

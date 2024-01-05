@@ -16,4 +16,8 @@ public class DatabaseManager
         this.audioFileCollection = new AudioFileCollection(files);
 	}
 
+    public List<string> GetPathList(){
+        return audioFileCollection.GetPathList();
+    }
+
 }
