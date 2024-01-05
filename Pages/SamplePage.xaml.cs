@@ -1,7 +1,7 @@
 ﻿using System;
 using Microcharts;
 using SkiaSharp;
-using static Config;
+using MyConfig;
 
 namespace NET_MAUI_BLE.Pages;
 

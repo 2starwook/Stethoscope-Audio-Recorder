@@ -3,7 +3,7 @@ using Shiny;
 using Shiny.BluetoothLE;
 using BluetoothCourse.Extensions;
 
-using static Config;
+using MyConfig;
 
 namespace NET_MAUI_BLE.Pages;
 

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Plugin.Maui.Audio;
 using Object.MyAudio;
 
-using static Config;
+using MyConfig;
 
 
 namespace NET_MAUI_BLE.Pages;
