@@ -9,14 +9,15 @@ public partial class FilePage : ContentPage {
 	public FilePage()
 	{
 		this.databaseManager = new DatabaseManager();
+        UpdateFileListUI();
 
 	protected override void OnAppearing(){
 		base.OnAppearing();
 		UpdateFileListUI();
 	}
 
+	private void UpdateFileListUI(){
         StackLayout stackLayout = new StackLayout { Margin = new Thickness(20) };
-        stackLayout.Add(new Label { Text = "Primary colors" });
 		List<string> pathList = databaseManager.GetPathList();
 		foreach (string path in pathList){
 			var frame = CreateFrame(path);
