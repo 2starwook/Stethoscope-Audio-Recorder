@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Storage;
 
 
-namespace API.MyAPI;
+namespace MyAPI;
 public static class StorageAPI
 {
     public static async Task<string> ExportData(string filename, byte[] data){
