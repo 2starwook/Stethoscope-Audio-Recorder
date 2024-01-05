@@ -20,6 +20,9 @@
         <Tab Title="Setting">
             <ShellContent ContentTemplate="{DataTemplate pages:SettingPage}" />
         </Tab>
+        <Tab Title="File">
+            <ShellContent ContentTemplate="{DataTemplate pages:FilePage}" />
+        </Tab>
         <Tab Title="Audio">
             <ShellContent ContentTemplate="{DataTemplate pages:AudioPage}" />
         </Tab>
