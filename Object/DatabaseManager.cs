@@ -1,19 +1,18 @@
 using Object.MyAudio;
-using Object.MyFileController;
 using MyAPI;
 using MyConfig;
 
 
-namespace Object.MyDatabase;
+namespace Object.MyData;
 public class DatabaseManager {
     // Manager Database: Add/Remove/Modify data
     private RecordCollection recordCollection;
     
 	public DatabaseManager() {
         if(!File.Exists(Config.dataDirPath)){
-            FileController.CreateDirectory(Config.dataDirPath);
+            FileManager.CreateDirectory(Config.dataDirPath);
         }
-		var files = FileController.GetFiles(Config.dataDirPath);
+		var files = FileManager.GetFiles(Config.dataDirPath);
         this.recordCollection = new RecordCollection(files);
 	}
 
@@ -23,6 +22,7 @@ public class DatabaseManager {
 
     public void DeleteData(string audioFilePath){
         recordCollection.DeleteRecord(audioFilePath);
+        FileManager.DeleteFile(audioFilePath);
     }
 
     public void AttachPatientToRecord(string audioFilePath, string patientId){
