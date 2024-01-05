@@ -4,10 +4,10 @@ using MyConfig;
 
 
 namespace Object.MyDatabase;
-public class DatabaseManager
-{
+public class DatabaseManager {
+    // Manager Database: Add/Remove/Modify data
     private AudioFileCollection audioFileCollection;
-
+    
 	public DatabaseManager() {
         if(!File.Exists(Config.dataDirPath)){
             FileController.CreateDirectory(Config.dataDirPath);

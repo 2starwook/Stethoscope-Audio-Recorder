@@ -1,8 +1,8 @@
 
 
 namespace Object.MyAudio;
-public class AudioFileCollection
-{
+public class AudioFileCollection {
+    // Manage a set of audio files
     private Dictionary<string, AudioFile> audioFiles;
 
 	public AudioFileCollection(string [] paths) {
