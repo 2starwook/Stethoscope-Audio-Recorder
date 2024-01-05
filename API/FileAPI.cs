@@ -1,8 +1,8 @@
 using MyConfig;
 
 
-namespace Object.MyData;
-public static class FileManager
+namespace MyAPI;
+public static class FileAPI
 {
 
     public static void WriteData(string filename, byte[] data){

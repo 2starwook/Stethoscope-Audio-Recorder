@@ -10,9 +10,9 @@ public class DatabaseManager {
     
 	public DatabaseManager() {
         if(!File.Exists(Config.dataDirPath)){
-            FileManager.CreateDirectory(Config.dataDirPath);
+            FileAPI.CreateDirectory(Config.dataDirPath);
         }
-		var files = FileManager.GetFiles(Config.dataDirPath);
+		var files = FileAPI.GetFiles(Config.dataDirPath);
         this.recordCollection = new RecordCollection(files);
 	}
 
@@ -22,7 +22,7 @@ public class DatabaseManager {
 
     public void DeleteData(string audioFilePath){
         recordCollection.DeleteRecord(audioFilePath);
-        FileManager.DeleteFile(audioFilePath);
+        FileAPI.DeleteFile(audioFilePath);
     }
 
     public void AttachPatientToRecord(string audioFilePath, string patientId){
