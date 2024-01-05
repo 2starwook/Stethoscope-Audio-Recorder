@@ -4,29 +4,34 @@ using Object.MyPatient;
 namespace Object.MyAudio;
 public class Record
 {
-    private string audioPath;
+    private readonly string audioFilePath;
     private bool isAssigned;
-    private Patient patient;
+    private Patient assignedPatient;
 
-	public Record(string audioPath) {
-        this.audioPath = audioPath;
+	public Record(string audioFilePath) {
+        this.audioFilePath = audioFilePath;
         this.isAssigned = false;
 	}
 
-    public string GetPath() {
-        return this.audioPath;
+    public string GetAudioFile() {
+        return this.audioFilePath;
     }
 
     public bool IsPatientAssigned(){
         return this.isAssigned;
     }
 
-    public Patient getPatient() {
-        return this.patient;
+    public Patient getAssignedPatient() {
+        return this.assignedPatient;
     }
 
     public void AssignPatient(Patient patient){
-        this.patient = patient;
+        this.assignedPatient = patient;
         this.isAssigned = true;
+    }
+
+    public void DeleteAssignedPatient(){
+        this.assignedPatient = null;
+        this.isAssigned = false;
     }
 }
