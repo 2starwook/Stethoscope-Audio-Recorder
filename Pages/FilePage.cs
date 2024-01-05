@@ -33,6 +33,5 @@ public partial class FilePage : ContentPage {
 		databaseManager.DeleteData(path);
 		UpdateFileListUI();
 	}
-		return button;
-	}
+
 }
