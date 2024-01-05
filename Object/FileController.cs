@@ -3,11 +3,8 @@ using MyConfig;
 
 
 namespace Object.MyFileController;
-public class FileController
+public static class FileController
 {
-
-	public FileController() {
-	}
 
     public static void WriteData(string filename, byte[] data){
         var fullPath = Path.Combine(Config.rootPath, filename);
@@ -62,6 +59,10 @@ public class FileController
 
     public static void CreateDirectory(string path){
         Directory.CreateDirectory(path);
+    }
+
+    public static string [] GetFiles(string path){
+        return Directory.GetFiles(path);
     }
 
 }
