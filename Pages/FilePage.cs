@@ -41,7 +41,9 @@ public partial class FilePage : ContentPage {
 		StackLayout frameStackLayout = new StackLayout {
 			Orientation = StackOrientation.Horizontal, Spacing = 15};
 		frameStackLayout.Add(UIAPI.CreateLabel(path));
-		frameStackLayout.Add(UIAPI.CreateButton("delete",
+		frameStackLayout.Add(UIAPI.CreateButton("Play",
+			(sender, e) => OnPlayButtonClicked(path), "button_"+path));
+		frameStackLayout.Add(UIAPI.CreateButton("Delete",
 			(sender, e) => OnDeleteButtonClicked(path)));
         frame.Content = frameStackLayout;
 		return frame;
@@ -50,6 +52,16 @@ public partial class FilePage : ContentPage {
 	private void OnDeleteButtonClicked(string path){
 		databaseManager.DeleteData(path);
 		UpdateFileListUI();
+	}
+
+	private void OnPlayButtonClicked(string path){
+		audioController.OpenFile(path);
+		audioController.Play();
+		audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+	}
+
+	void HandlePlayEnded(object sender, EventArgs e){
+		// PlayBtn.Text = "Play";
 	}
 
 }
