@@ -29,11 +29,10 @@ public partial class FilePage : ContentPage {
 		return frame;
 	}
 
-	private Button CreateButton(string text, EventHandler e = null) {
-		Button button = new Button { Text = text };
-		if (e != null){
-			button.Clicked += e;
-		}
+	private void OnDeleteButtonClicked(string path){
+		databaseManager.DeleteData(path);
+		UpdateFileListUI();
+	}
 		return button;
 	}
 }
