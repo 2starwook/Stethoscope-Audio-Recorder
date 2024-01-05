@@ -7,8 +7,8 @@ public static class UIAPI{
 		}
 		return button;
 	}
-	public static Label CreateLabel(string text) {
-		Label label = new Label { Text = text, FontSize=5 };
+	public static Label CreateLabel(string text, double fontSize=5) {
+		Label label = new Label { Text = text, FontSize=fontSize };
 		return label;
 	}
 }
