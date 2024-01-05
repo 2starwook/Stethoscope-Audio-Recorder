@@ -39,4 +39,8 @@ public static class FileController
         return Directory.GetFiles(path);
     }
 
+    public static void DeleteFile(string path){
+        File.Delete(path);
+    }
+
 }
