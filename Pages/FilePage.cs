@@ -9,6 +9,12 @@ public partial class FilePage : ContentPage {
 	public FilePage()
 	{
 		this.databaseManager = new DatabaseManager();
+
+	protected override void OnAppearing(){
+		base.OnAppearing();
+		UpdateFileListUI();
+	}
+
         StackLayout stackLayout = new StackLayout { Margin = new Thickness(20) };
         stackLayout.Add(new Label { Text = "Primary colors" });
 		List<string> pathList = databaseManager.GetPathList();
