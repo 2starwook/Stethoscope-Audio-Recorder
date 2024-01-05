@@ -1,15 +1,20 @@
+using Plugin.Maui.Audio;
+
+using Object.MyAudio;
 using Object.MyData;
+using MYAPI;
 
 
 namespace NET_MAUI_BLE.Pages;
 
 public partial class FilePage : ContentPage {
 	private DatabaseManager databaseManager;
-
-	public FilePage()
-	{
+	private AudioController audioController;
+	public FilePage(IAudioManager audioManager) {
 		this.databaseManager = new DatabaseManager();
+		this.audioController = new AudioController(audioManager);
         UpdateFileListUI();
+	}
 
 	protected override void OnAppearing(){
 		base.OnAppearing();
