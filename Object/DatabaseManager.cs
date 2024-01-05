@@ -37,11 +37,11 @@ public class DatabaseManager {
         return recordCollection.IsExist(audioFilePath);
     }
 
-    public void ImportAudioFile(){
-        var srcPath = StorageAPI.GetFilePath().ToString();
+    public async void ImportAudioFile(){
+        var srcPath = await StorageAPI.GetFilePath();
         var filename = GetUniqueID() + ".wav";
         var dstPath = Path.Combine(Config.dataDirPath, filename);
-        File.Copy(srcPath, dstPath);
+        File.Copy(srcPath.ToString(), dstPath);
         AddData(dstPath);
     }
 
