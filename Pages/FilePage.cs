@@ -1,4 +1,4 @@
-﻿using Object.MyDatabase;
+using Object.MyDatabase;
 
 
 namespace NET_MAUI_BLE.Pages;
@@ -9,7 +9,6 @@ public partial class FilePage : ContentPage {
 	public FilePage()
 	{
 		this.databaseManager = new DatabaseManager();
-        Title = "Combined StackLayouts demo";
         StackLayout stackLayout = new StackLayout { Margin = new Thickness(20) };
         stackLayout.Add(new Label { Text = "Primary colors" });
 		List<string> pathList = databaseManager.GetPathList();
