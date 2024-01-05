@@ -19,12 +19,14 @@ public partial class FilePage : ContentPage {
         Content = stackLayout;
 	}
 
-	private Frame CreateFrame(string text) {
+	private Frame CreateFrame(string path) {
         Frame frame = new Frame {
 			BorderColor = Colors.Black, Padding = new Thickness(5)};
 		StackLayout frameStackLayout = new StackLayout {
 			Orientation = StackOrientation.Horizontal, Spacing = 15};
-		frameStackLayout.Add(CreateButton(text));
+		frameStackLayout.Add(UIAPI.CreateLabel(path));
+		frameStackLayout.Add(UIAPI.CreateButton("delete",
+			(sender, e) => OnDeleteButtonClicked(path)));
         frame.Content = frameStackLayout;
 		return frame;
 	}
