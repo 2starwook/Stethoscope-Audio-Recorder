@@ -1,41 +1,41 @@
 
 
 namespace Object.MyAudio;
-public class AudioFileCollection {
+public class RecordCollection {
     // Manage a set of audio files
-    private Dictionary<string, AudioFile> audioFiles;
+    private Dictionary<string, Record> data;
 
-	public AudioFileCollection(string [] paths) {
-        audioFiles = new Dictionary<string, AudioFile>();
+	public RecordCollection(string [] paths) {
+        data = new Dictionary<string, Record>();
         foreach (var path in paths) {
             AddAudioFile(path);
         }
 	}
 
     public int GetLength(){
-        return audioFiles.Count();
+        return data.Count();
     }
 
     public void AddAudioFile(string path){
         if (!IsExist(path)){            
-            var audioFile = new AudioFile(path);
-            audioFiles.Add(path, audioFile);
+            var record = new Record(path);
+            data.Add(path, record);
         }
     }
 
     public bool IsExist(string path){
-        return audioFiles.ContainsKey(path);
+        return data.ContainsKey(path);
     }
 
     public void RemoveAudioFile(string path){
         if (IsExist(path)){
-            audioFiles.Remove(path);
+            data.Remove(path);
         }
     }
 
     public List<string> GetPathList(){
         List<string> pathList = new List<string>();
-        foreach( KeyValuePair<string, AudioFile> element in audioFiles ) {
+        foreach( KeyValuePair<string, Record> element in data ) {
             pathList.Add(element.Key);
         }
         return pathList;
