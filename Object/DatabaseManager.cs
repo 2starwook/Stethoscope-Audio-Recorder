@@ -5,7 +5,7 @@ using MyConfig;
 
 namespace Object.MyData;
 public class DatabaseManager {
-    // Manager Database: Add/Remove/Modify data
+    // Manage Database: Add/Remove/Modify data
     private RecordCollection recordCollection;
     
 	public DatabaseManager() {
