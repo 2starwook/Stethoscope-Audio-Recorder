@@ -10,6 +10,10 @@ namespace NET_MAUI_BLE.Pages;
 public partial class FilePage : ContentPage {
 	private DatabaseManager databaseManager;
 	private AudioController audioController;
+
+	// TODO - Connect AudioController/Player to DatabaseManager
+	// TODO - Add EventHandler to each button to start music
+	// TODO - Implement: Rename each data (not real data name)
 	public FilePage(IAudioManager audioManager) {
 		this.databaseManager = new DatabaseManager();
 		this.audioController = new AudioController(audioManager);
