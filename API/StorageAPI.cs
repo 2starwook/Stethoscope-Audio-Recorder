@@ -1,10 +1,11 @@
 using CommunityToolkit.Maui.Storage;
 
 
-namespace Object.MyFileController;
+namespace API.MyAPI;
 public static class StorageAPI
 {
     public static async Task<string> ExportData(string filename, byte[] data){
+        // Export Data with given name to the selected path on device
         using var stream = new MemoryStream(data);
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         #pragma warning disable CA1416 // Validate platform compatibility
@@ -14,7 +15,8 @@ public static class StorageAPI
         return path.FilePath;
     }
 
-    public static async Task<string> GetDeviceFolderPath(){
+    public static async Task<string> GetFolderPath(){
+        // Select Folder Path from the device
         CancellationToken cancellationToken = new CancellationToken();
 		#pragma warning disable CA1416 // Validate platform compatibility
         var pickedFolder = await FolderPicker.Default.PickAsync(cancellationToken);
@@ -22,7 +24,8 @@ public static class StorageAPI
         return pickedFolder.Folder.Path;
     }
 
-    public static async Task<string> GetDeviceFilePath(){
+    public static async Task<string> GetFilePath(){
+        // Select File Path from the device
 		#pragma warning disable CA1416 // Validate platform compatibility
         var pickedFile = await FilePicker.Default.PickAsync();
 		#pragma warning restore CA1416 // Validate platform compatibility
