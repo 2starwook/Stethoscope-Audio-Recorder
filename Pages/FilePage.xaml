@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NET_MAUI_BLE.Pages.FilePage">
-
+             x:Class="NET_MAUI_BLE.Pages.FilePage"
+             xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
+             x:DataType="viewmodel:FileViewModel">
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+        <Label Text="Title: FilePage"
+                HorizontalOptions="Center"
+                Grid.Row="0"
+                Grid.Column="0" />
+        <Button Text="Import"
+                Command="{Binding AddCommand}"
+                Grid.Row="1"
+                Grid.Column="0" />
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FileViewModel}}, Path=DeleteCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding .}"
+                                           FontSize="24" />
+                                    <Button Text="Play"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FileViewModel}}, Path=PlayCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
