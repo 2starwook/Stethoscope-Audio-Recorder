@@ -9,5 +9,11 @@ public partial class AppShell : Shell
 		InitializeComponent();
 
 		Routing.RegisterRoute(nameof(RecordPage), typeof(RecordPage));
+		BindingContext = this;
+	}
+
+	public void SetTabVisibility(bool visibility)
+	{
+		Shell.SetTabBarIsVisible(mainTab, visibility);
 	}
 }
