@@ -1,22 +1,21 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Plugin.Maui.Audio;
 
 using Object.MyData;
-using Object.MyAudio;
+using NET_MAUI_BLE.Pages;
 
 
 namespace NET_MAUI_BLE.ViewModel;
 
 public partial class FileViewModel : ObservableObject
 {
-    public FileViewModel(IAudioManager audioManager)
+    public FileViewModel()
     {
-        audioController = new AudioController(audioManager);
         databaseManager = new DatabaseManager();
         items = new ObservableCollection<string>();
-        foreach(var each in databaseManager.GetPathList()) {
+        foreach(var each in databaseManager.GetPathList()) 
+        {
             Items.Add(each);
         }
     }
@@ -25,9 +24,6 @@ public partial class FileViewModel : ObservableObject
     ObservableCollection<string> items;
 
     private DatabaseManager databaseManager;
-
-    private AudioController audioController;
-    
 
     [RelayCommand]
     async Task Add()
@@ -48,14 +44,8 @@ public partial class FileViewModel : ObservableObject
     }
 
     [RelayCommand]
-	void Play(string path)
+    async Task Tap(string s)
     {
-		audioController.OpenFile(path);
-		audioController.Play();
-		audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
-	}
-
-	void HandlePlayEnded(object sender, EventArgs e){
-		// PlayBtn.Text = "Play";
-	}
+        await Shell.Current.GoToAsync($"{nameof(RecordPage)}?Text={s}");
+    }
 }

@@ -11,7 +11,8 @@ public partial class FilePage : ContentPage
 	// Setting - Background connection time (Default 5 min) / Recording length (default 15sec)
 	// Home - Record the sound (Save / Create new patient option)
 	// Records - Show list of records by each patients (Search bar, if there is any record / No Record, Otherwise)
-	public FilePage(FileViewModel vm) {
+	public FilePage(FileViewModel vm)
+	{
 		InitializeComponent();
 		BindingContext = vm;
 	}
