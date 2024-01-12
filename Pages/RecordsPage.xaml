@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NET_MAUI_BLE.Pages.FilePage"
+             x:Class="NET_MAUI_BLE.Pages.RecordsPage"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
              x:DataType="viewmodel:FileViewModel">
     <Grid RowDefinitions="100, Auto, *"
@@ -9,7 +9,7 @@
           Padding="10"
           RowSpacing="10"
           ColumnSpacing="10">
-        <Label Text="Title: FilePage"
+        <Label Text="Title: RecordsPage"
                 HorizontalOptions="Center"
                 Grid.Row="0"
                 Grid.Column="0" />

@@ -48,7 +48,7 @@ public static class MauiProgram
 	{
 		services.AddSingleton<NET_MAUI_BLE.Pages.HomePage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.AudioPage>();
-		services.AddSingleton<NET_MAUI_BLE.Pages.FilePage>();
+		services.AddSingleton<NET_MAUI_BLE.Pages.RecordsPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
