@@ -10,7 +10,6 @@ public partial class RecordPage : ContentPage
 		BindingContext = vm;
 	}
 
-
 	protected override void OnAppearing (){
 		base.OnAppearing();
 		(Shell.Current as AppShell).SetTabVisibility(false);
