@@ -3,9 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Plugin.Maui.Audio;
 
-using Object.MyData;
 using Object.MyAudio;
-using NET_MAUI_BLE.Pages;
+using MyAPI;
 
 
 namespace NET_MAUI_BLE.ViewModel;
@@ -32,5 +31,11 @@ public partial class RecordViewModel : ObservableObject
 
 	void HandlePlayEnded(object sender, EventArgs e){
 		// PlayBtn.Text = "Play";
+	}
+
+    [RelayCommand]
+	async Task Share(string path)
+    {
+		await StorageAPI.ExportData("file.wav", FileAPI.ReadData(path));
 	}
 }
