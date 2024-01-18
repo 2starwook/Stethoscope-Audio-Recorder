@@ -4,23 +4,24 @@
              x:Class="NET_MAUI_BLE.Pages.RecordPage"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
              x:DataType="viewmodel:RecordViewModel">
-    <Grid RowDefinitions="100, Auto, *"
-          ColumnDefinitions=".75*, .25*"
-          Padding="10"
-          RowSpacing="10"
-          ColumnSpacing="10">
-        <Label Text="Title: RecordPage"
-                HorizontalOptions="Center"
-                Grid.Row="0"
-                Grid.Column="0" />
+    <Grid Padding="10">
         <Label Text="{Binding Text}"
-                HorizontalOptions="Center"
-                Grid.Row="1"
-                Grid.Column="0" />
-        <Button Text="Play"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
-                CommandParameter="{Binding Text}" 
-                Grid.Row="1"
-                Grid.Column="1" />
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Grid.Row="0"/>
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*, *"
+              VerticalOptions="End">
+            <Frame Grid.Column="0">
+                <Button Text="Share"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=ShareCommand}"
+                        CommandParameter="{Binding Text}"/>
+            </Frame>
+            <Frame Grid.Column="1">
+                <Button Text="Play"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
+                        CommandParameter="{Binding Text}"/>
+            </Frame>
+        </Grid>
     </Grid>
 </ContentPage>
