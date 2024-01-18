@@ -7,27 +7,21 @@
     xmlns:pages="clr-namespace:NET_MAUI_BLE.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
+    <TabBar x:Name="mainTab">
     <!--  
     TODO - Comment out once Design aspect is complete
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
         </Tab>
     -->
-        <Tab Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate pages:SamplePage}" />
-        </Tab>
         <Tab Title="Setting">
             <ShellContent ContentTemplate="{DataTemplate pages:SettingPage}" />
         </Tab>
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate pages:SamplePage}" />
+        </Tab>
         <Tab Title="Records">
             <ShellContent ContentTemplate="{DataTemplate pages:RecordsPage}" />
-        </Tab>
-        <Tab Title="Audio">
-            <ShellContent ContentTemplate="{DataTemplate pages:AudioPage}" />
-        </Tab>
-        <Tab Title="GraphPage">
-            <ShellContent ContentTemplate="{DataTemplate pages:GraphPage}" />
         </Tab>
         <Tab Title="TestPage">
             <ShellContent ContentTemplate="{DataTemplate pages:TestPage}" />
