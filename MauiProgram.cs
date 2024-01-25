@@ -6,6 +6,8 @@ using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
 
+using Object.MyData;
+
 namespace NET_MAUI_BLE;
 
 public static class MauiProgram
@@ -53,5 +55,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordsViewModel>();
+		services.AddSingleton<NET_MAUI_BLE.ViewModel.TestViewModel>();
+		services.AddSingleton<Object.MyData.DatabaseManager>();
 	}
 }
