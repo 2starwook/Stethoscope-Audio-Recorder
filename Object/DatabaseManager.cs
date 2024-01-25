@@ -29,7 +29,7 @@ public class DatabaseManager {
         // TODO - Implement Later
     }
 
-    public void DeleteAssignedPatientFromRecord(string audioFilePath){
+    public void DetachAssignedPatientFromRecord(string audioFilePath){
         // TODO - Implement Later
     }
 
