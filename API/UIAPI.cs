@@ -1,3 +1,5 @@
+using NET_MAUI_BLE;
+
 namespace MYAPI;
 public static class UIAPI{
 	public static Button CreateButton(
@@ -15,4 +17,12 @@ public static class UIAPI{
 		Label label = new Label { Text = text, FontSize=fontSize };
 		return label;
 	}
+	public static void HideTab()
+	{
+        (Shell.Current as AppShell).SetTabVisibility(false);
+    }
+	public static void ShowTab()
+	{
+        (Shell.Current as AppShell).SetTabVisibility(true);
+    }
 }

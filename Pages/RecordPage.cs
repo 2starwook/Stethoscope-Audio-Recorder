@@ -1,4 +1,5 @@
 using NET_MAUI_BLE.ViewModel;
+using MyAPI;
 
 namespace NET_MAUI_BLE.Pages;
 
@@ -12,11 +13,11 @@ public partial class RecordPage : ContentPage
 
 	protected override void OnAppearing (){
 		base.OnAppearing();
-		(Shell.Current as AppShell).SetTabVisibility(false);
+		MYAPI.UIAPI.HideTab();
 	}
 
 	protected override void OnDisappearing (){
 		base.OnDisappearing();
-		(Shell.Current as AppShell).SetTabVisibility(true);
+		MYAPI.UIAPI.ShowTab();
 	}
 }
