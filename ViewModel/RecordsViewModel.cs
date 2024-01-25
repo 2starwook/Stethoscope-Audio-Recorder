@@ -26,17 +26,6 @@ public partial class RecordsViewModel : ObservableObject
     private DatabaseManager databaseManager;
 
     [RelayCommand]
-    async Task Add()
-    {
-        var path = await databaseManager.ImportAudioFile();
-        if(string.IsNullOrWhiteSpace(path))
-            return;
-        
-        Items.Add(path);
-        databaseManager.AddData(path);
-    }
-
-    [RelayCommand]
     void Delete(string path)
     {
         Items.Remove(path);
@@ -47,5 +36,11 @@ public partial class RecordsViewModel : ObservableObject
     async Task Tap(string s)
     {
         await Shell.Current.GoToAsync($"{nameof(RecordPage)}?Text={s}");
+    }
+
+    [RelayCommand]
+    async Task AddFile()
+    {
+        await Shell.Current.GoToAsync($"{nameof(AddPage)}");
     }
 }
