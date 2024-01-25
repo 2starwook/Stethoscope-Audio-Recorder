@@ -5,6 +5,7 @@ namespace Object.MyAudio;
 public class Record
 {
     private readonly string audioFilePath;
+    private string fileName; // TODO - Add fileName 
     private bool isAssigned;
     private Patient assignedPatient;
 
