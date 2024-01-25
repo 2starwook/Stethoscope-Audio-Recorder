@@ -12,9 +12,13 @@ namespace NET_MAUI_BLE.ViewModel;
 [QueryProperty("Text", "Text")]
 public partial class RecordViewModel : ObservableObject
 {
+	[ObservableProperty]
+	private string playText;
+
     public RecordViewModel(IAudioManager audioManager)
     {
         audioController = new AudioController(audioManager);
+		playText = "Play";
     }
 
     private AudioController audioController;
@@ -27,11 +31,16 @@ public partial class RecordViewModel : ObservableObject
 		audioController.OpenFile(path);
 		audioController.Play();
 		audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+		PlayText = "Stop";
+		// TODO - Add Stop / Pause Button
+
 	}
 
 	void HandlePlayEnded(object sender, EventArgs e){
-		// PlayBtn.Text = "Play";
+		PlayText = "Play";
 	}
+
+
 
     [RelayCommand]
 	async Task Share(string path)

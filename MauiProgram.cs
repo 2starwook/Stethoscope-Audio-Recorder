@@ -52,6 +52,6 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
-		services.AddSingleton<NET_MAUI_BLE.ViewModel.FileViewModel>();
+		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordsViewModel>();
 	}
 }
