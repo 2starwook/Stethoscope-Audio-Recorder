@@ -9,6 +9,7 @@ public partial class AppShell : Shell
 		InitializeComponent();
 
 		Routing.RegisterRoute(nameof(RecordPage), typeof(RecordPage));
+		Routing.RegisterRoute(nameof(AddPage), typeof(AddPage));
 		BindingContext = this;
 	}
 
