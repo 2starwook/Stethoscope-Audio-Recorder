@@ -17,9 +17,10 @@
                        FontSize="32"
                        Padding="0, 0, 10, 0"/>
                 <Button Grid.Row="0" Grid.Column="1"
-                        Text="Select a File"
+                        Text="{Binding FileButtonText}"
+                        Command="{Binding SelectFileCommand}"
                         HorizontalOptions="Start"
-                        WidthRequest="150"
+                        WidthRequest="300"
                         FontSize="20"
                         BackgroundColor="Black"
                         BorderColor="White"
@@ -34,7 +35,10 @@
                        Padding="0, 0, 10, 0"/>
                 <Entry Grid.Row="0" Grid.Column="1"
                        Text="{Binding Name}"
-                       Placeholder="Enter text"/>
+                       Placeholder="Enter text"
+                       FontSize="20"
+                       HorizontalOptions="Start"
+                       WidthRequest="300"/>
             </Grid>
             <Grid ColumnDefinitions="130, 50">
                 <Label Grid.Row="0" Grid.Column="0"
