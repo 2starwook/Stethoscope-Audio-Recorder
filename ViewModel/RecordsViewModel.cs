@@ -10,9 +10,9 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class RecordsViewModel : ObservableObject
 {
-    public RecordsViewModel()
+    public RecordsViewModel(DatabaseManager databaseManager)
     {
-        databaseManager = new DatabaseManager();
+        this.databaseManager = databaseManager;
         items = new ObservableCollection<string>();
         foreach(var each in databaseManager.GetPathList()) 
         {
