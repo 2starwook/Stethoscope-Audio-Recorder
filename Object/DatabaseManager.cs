@@ -16,6 +16,14 @@ public class DatabaseManager {
         this.recordCollection = new RecordCollection(files);
 	}
 
+    // TODO - Implement: Add/Delete Patient data
+
+    // TODO - Implement: How to handle details about data such as fileName (SQL?)
+
+    // TODO - Try MongoDB for storing patient info
+    // https://github.com/mongodb-university/atlas_starter_dotnet
+    // https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/database-sqlite?view=net-maui-8.0
+
     public void AddData(string audioFilePath){
         recordCollection.AddRecord(audioFilePath);
     }
