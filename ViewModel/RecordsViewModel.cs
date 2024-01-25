@@ -8,9 +8,9 @@ using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
-public partial class FileViewModel : ObservableObject
+public partial class RecordsViewModel : ObservableObject
 {
-    public FileViewModel()
+    public RecordsViewModel()
     {
         databaseManager = new DatabaseManager();
         items = new ObservableCollection<string>();

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NET_MAUI_BLE.Pages.RecordsPage"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
-             x:DataType="viewmodel:FileViewModel">
+             x:DataType="viewmodel:RecordsViewModel">
     <Grid RowDefinitions="100, *"
           Padding="10"
           RowSpacing="10"
@@ -24,7 +24,7 @@
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
                                            BackgroundColor="Red"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FileViewModel}}, Path=DeleteCommand}"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=DeleteCommand}"
                                            CommandParameter="{Binding .}" />
                             </SwipeItems>
                         </SwipeView.RightItems>
@@ -32,7 +32,7 @@
                             <Frame>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FileViewModel}}, Path=TapCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=TapCommand}"
                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                                 <Label Text="{Binding .}"
