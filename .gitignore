@@ -1,2 +1,4 @@
 bin/*
 obj/*
+.vs/NET-MAUI-BLE/xs/*
+Pages/TestPage.cs
