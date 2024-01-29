@@ -4,11 +4,11 @@
              x:Class="NET_MAUI_BLE.Pages.RecordPage"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
              x:DataType="viewmodel:RecordViewModel">
-    <Grid Padding="10">
-        <Label Text="{Binding Text}"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               Grid.Row="0"/>
+    <Grid RowDefinitions="20, *"
+          Padding="10">
+        <Label Grid.Row="0"
+               Text="{Binding Text}"
+               HorizontalOptions="Center"/>
         <Grid Grid.Row="1"
               ColumnDefinitions="*, *"
               VerticalOptions="End">
