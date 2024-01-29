@@ -1,15 +1,12 @@
-
-
-namespace Object.MyPatient;
-public class Patient
+namespace Object.MyDB;
+public class Patient : Item 
 {
-    public readonly string id;
-    public string Name {get; set;}
-    // TODO - Add more information
+    public string FirstName {get; set;}
+    public string LastName {get; set;}
 
-	public Patient(string id, string name) {
-        this.id = id;
-        Name = name;
+	public Patient(string FirstName, string LastName) {
+        this.FirstName = FirstName;
+        this.LastName = LastName;
 	}
 
 }

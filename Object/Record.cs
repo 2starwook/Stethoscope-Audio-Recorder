@@ -1,17 +1,16 @@
-using Object.MyPatient;
-
-
-namespace Object.MyAudio;
-public class Record
+namespace Object.MyDB;
+public class Record : Item
 {
-    private readonly string audioFilePath;
-    private string fileName; // TODO - Add fileName 
-    private bool isAssigned;
-    private Patient assignedPatient;
+    public string recordName {get; set;}
+    public byte[] binaryData {get; set;}
+    public string assignedPatientId {get; set;}
 
-	public Record(string audioFilePath) {
-        this.audioFilePath = audioFilePath;
-        this.isAssigned = false;
+    private readonly string audioFilePath;
+
+	public Record(string recordName, byte[] binaryData, string assignedPatientId) {
+        this.recordName = recordName;
+        this.binaryData = binaryData;
+        this.assignedPatientId = assignedPatientId;
 	}
 
     public string GetAudioFile() {
@@ -19,20 +18,14 @@ public class Record
     }
 
     public bool IsPatientAssigned(){
-        return this.isAssigned;
+        return this.assignedPatientId != null;
     }
 
-    public Patient getAssignedPatient() {
-        return this.assignedPatient;
-    }
-
-    public void AssignPatient(Patient patient){
-        this.assignedPatient = patient;
-        this.isAssigned = true;
+    public void AssignPatient(string patientId){
+        this.assignedPatientId = patientId;
     }
 
     public void DeleteAssignedPatient(){
-        this.assignedPatient = null;
-        this.isAssigned = false;
+        this.assignedPatientId = null;
     }
 }

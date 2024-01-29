@@ -1,6 +1,6 @@
 
 
-using Object.MyPatient;
+using Object.MyDB;
 
 namespace Object.MyAudio;
 public class RecordCollection {
@@ -29,8 +29,8 @@ public class RecordCollection {
     public bool AddRecord(string path){
         var isSuccessful = false;
         if (!IsExist(path)){
-            var record = new Record(path);
-            data.Add(path, record);
+            // var record = new Record(path);
+            // data.Add(path, record);
             isSuccessful = true;
         }
         return isSuccessful;
@@ -49,7 +49,7 @@ public class RecordCollection {
         var isSuccessful = false;
         if (IsExist(path)){
             var record = GetRecord(path);
-            record.AssignPatient(patient);
+            // record.AssignPatient(patient);
             isSuccessful = true;
         }
         return isSuccessful;

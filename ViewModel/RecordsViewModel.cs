@@ -10,26 +10,28 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class RecordsViewModel : ObservableObject
 {
-    public RecordsViewModel(DatabaseManager databaseManager)
-    {
-        this.databaseManager = databaseManager;
-        items = new ObservableCollection<string>();
-        foreach(var each in databaseManager.GetPathList()) 
-        {
-            Items.Add(each);
-        }
-    }
-
     [ObservableProperty]
     ObservableCollection<string> items;
 
     private DatabaseManager databaseManager;
 
+    public RecordsViewModel(DatabaseManager databaseManager)
+    {
+        this.databaseManager = databaseManager;
+        items = new ObservableCollection<string>();
+        // TODO - Implement: Load data when the app got started (initial stage)
+        // TODO - Implement: Add loading dynamic image
+        foreach(var record in databaseManager.GetRecords()) 
+        {
+            Items.Add(record.recordName);
+        }
+    }
+
     [RelayCommand]
     void Delete(string path)
     {
-        Items.Remove(path);
-        databaseManager.DeleteData(path);
+        //Items.Remove(path);
+        //databaseManager.DeleteData(path);
     }
 
     [RelayCommand]
