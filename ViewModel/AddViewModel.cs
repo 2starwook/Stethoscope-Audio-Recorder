@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Plugin.Maui.Audio;
 
 using Object.MyData;
 
@@ -27,7 +26,10 @@ public partial class AddViewModel : ObservableObject
     ObservableCollection<string> patients;
 
     [ObservableProperty]
-	string name;
+	string recordName;
+
+    [ObservableProperty]
+	string filePath;
 
 	[ObservableProperty]
 	string nameLabel;
@@ -38,7 +40,11 @@ public partial class AddViewModel : ObservableObject
 	[RelayCommand]
 	void Submit()
 	{
-		NameLabel = Name;
+		NameLabel = RecordName;
+        databaseManager.AddRecordData(FilePath, RecordName);
+        // TODO - Add item to the current RecordsPage
+        // TODO - Implement: Reset after clicking submit
+        // TODO - Implement: Go back to the previous page
 	}
 
     [RelayCommand]
@@ -47,6 +53,7 @@ public partial class AddViewModel : ObservableObject
         var path = await databaseManager.ImportAudioFile();
         if (string.IsNullOrWhiteSpace(path))
             return;
+        FilePath = path;
         var filename = Path.GetFileName(path);
         FileButtonText = filename;
     }

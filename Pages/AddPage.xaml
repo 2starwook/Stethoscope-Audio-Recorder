@@ -34,7 +34,7 @@
                        FontSize="32"
                        Padding="0, 0, 10, 0"/>
                 <Entry Grid.Row="0" Grid.Column="1"
-                       Text="{Binding Name}"
+                       Text="{Binding RecordName}"
                        Placeholder="Enter text"
                        FontSize="20"
                        HorizontalOptions="Start"
