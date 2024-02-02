@@ -44,7 +44,7 @@ public partial class AddViewModel : ObservableObject
 		NameLabel = RecordName;
         await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
         // TODO - Add item to the current RecordsPage
-        // TODO - Implement: Go back to the previous page
+        // TODO - Implement: Reset after clicking submit
 	}
 
     [RelayCommand]
