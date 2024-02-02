@@ -1,8 +1,3 @@
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.Specialized;
-
 using Object.MyAudio;
 using MyAPI;
 using MyConfig;
@@ -10,8 +5,7 @@ using Object.MyDB;
 
 
 namespace Object.MyData;
-public partial class DatabaseManager : ObservableObject
-{
+public class DatabaseManager {
     // Manage Database: Add/Remove/Modify data
     private RecordCollection recordCollection;
     private PatientsManager<Patient> patientsManager;
