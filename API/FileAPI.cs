@@ -43,4 +43,8 @@ public static class FileAPI
         File.Delete(path);
     }
 
+    public static string GetUniqueID(){
+        return Guid.NewGuid().ToString().ToUpper();
+    }
+
 }

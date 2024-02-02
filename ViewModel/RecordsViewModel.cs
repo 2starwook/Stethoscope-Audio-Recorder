@@ -32,9 +32,9 @@ public partial class RecordsViewModel : ObservableObject
         items = new ObservableCollection<Item>();
         // TODO - Implement: Load data when the app got started (initial stage)
         // TODO - Implement: Add loading dynamic image
-        foreach(var record in databaseManager.currentRecords) 
+        foreach(var entry in databaseManager.currentRecords) 
         {
-            Items.Add(new Item(record.recordName, record.Id.ToString()));
+            Items.Add(new Item(entry.Value.recordName, entry.Value.Id.ToString()));
         }
     }
 
