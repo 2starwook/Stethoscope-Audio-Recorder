@@ -48,15 +48,15 @@ public class MongoDB<T> where T : Item {
     {
         collection.DeleteMany(
             Builders<T>.Filter.In(
-                p => p.Id, 
-                Array.ConvertAll(ids, x => new ObjectId(x))
+                p => p.GetId(), 
+                ids
             )
         );
     }
 
     public async Task DeleteItemAsync(string id){
         await collection.DeleteOneAsync(
-            Builders<T>.Filter.Eq(p => p.Id, new ObjectId(id))
+            Builders<T>.Filter.Eq(p => p.GetId(), id)
         );
     }
 }

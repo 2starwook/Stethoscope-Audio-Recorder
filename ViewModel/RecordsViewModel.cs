@@ -34,7 +34,7 @@ public partial class RecordsViewModel : ObservableObject
         // TODO - Implement: Add loading dynamic image
         foreach(var entry in databaseManager.currentRecords) 
         {
-            Items.Add(new Item(entry.Value.recordName, entry.Value.Id.ToString()));
+            Items.Add(new Item(entry.Value.recordName, entry.Value.GetId()));
         }
     }
 

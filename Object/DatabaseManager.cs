@@ -15,9 +15,10 @@ public class DatabaseManager
 	public DatabaseManager() {
         this.patientsManager = new PatientsManager<Patient>();
         this.recordsManager = new RecordsManager<Record>();
+        currentRecords = new Dictionary<string, Record>();
         foreach (Record r in recordsManager.GetItems())
         {
-            currentRecords.Add(r.Id.ToString(), r);
+            currentRecords.Add(r.GetId(), r);
         }
 	}
 

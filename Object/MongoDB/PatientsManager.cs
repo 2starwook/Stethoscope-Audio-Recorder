@@ -15,9 +15,9 @@ public class PatientsManager<T> where T : Patient
         this._mongoDB = new MongoDB<T>(collectionName);
 	}
 
-    public async void UpdatePatientFirstName(ObjectId id, string firstName)
+    public async void UpdatePatientFirstName(string id, string firstName)
     {
-        var filter = Builders<T>.Filter.Eq(p => p.Id, id);
+        var filter = Builders<T>.Filter.Eq(p => p.GetId(), id);
         var update = Builders<T>.Update
             .Set(p => p.FirstName, firstName);
         await _mongoDB.collection.UpdateOneAsync(filter, update);
