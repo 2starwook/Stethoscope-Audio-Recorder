@@ -1,3 +1,8 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Collections.Specialized;
+
 using Object.MyAudio;
 using MyAPI;
 using MyConfig;
@@ -5,11 +10,13 @@ using Object.MyDB;
 
 
 namespace Object.MyData;
-public class DatabaseManager {
+public partial class DatabaseManager : ObservableObject
+{
     // Manage Database: Add/Remove/Modify data
     private RecordCollection recordCollection;
     private PatientsManager<Patient> patientsManager;
     private RecordsManager<Record> recordsManager;
+    public List<Record> currentRecords;
     
 	public DatabaseManager() {
         if(!File.Exists(Config.dataDirPath)){
@@ -20,23 +27,32 @@ public class DatabaseManager {
 
         this.patientsManager = new PatientsManager<Patient>();
         this.recordsManager = new RecordsManager<Record>();
+        foreach (Record r in recordsManager.GetItems())
+        {
+            currentRecords.Add(r);
+        }
 	}
 
-    // TODO - Implement: Add/Delete Patient data
-
-    // TODO - Implement: How to handle details about data such as fileName (SQL?)
 
     public async Task AddRecordDataAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
         await recordsManager.InsertItemAsync(record);
-        // recordCollection.AddRecord(audioFilePath);
+        currentRecords.Add(record);
     }
 
     public async Task DeleteRecordDataAsync(string id){
         await recordsManager.DeleteItemAsync(id);
-        // recordCollection.DeleteRecord(audioFilePath);
-        // FileAPI.DeleteFile(audioFilePath);
+        currentRecords.Remove(currentRecords.Find(i => i.Id.ToString() == id));
     }
+
+    public async Task AddPatientDataAsync(){
+        // TODO - Implement Later
+    }
+
+    public async Task DeletePatientDataAsync(string id){
+        // TODO - Implement Later
+    }
+
 
     public void AttachPatientToRecord(string audioFilePath, string patientId){
         // TODO - Implement Later
@@ -58,13 +74,13 @@ public class DatabaseManager {
         return dstPath;
     }
 
-    public List<string> GetPathList(){
-        return recordCollection.GetPathList();
-    }
+    // public List<string> GetPathList(){
+    //     return recordCollection.GetPathList();
+    // }
 
-    public List<Record> GetRecords(){
-        return recordsManager.GetItems();
-    }
+    // public List<Record> GetRecords(){
+    //     return recordsManager.GetItems();
+    // }
 
     private static string GetUniqueID(){
         return Guid.NewGuid().ToString().ToUpper();
