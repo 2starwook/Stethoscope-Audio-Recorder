@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Object.MyData;
+using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
@@ -38,12 +39,11 @@ public partial class AddViewModel : ObservableObject
     string fileButtonText;
 
 	[RelayCommand]
-	void Submit()
+	async Task Submit()
 	{
 		NameLabel = RecordName;
-        databaseManager.AddRecordData(FilePath, RecordName);
+        await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
         // TODO - Add item to the current RecordsPage
-        // TODO - Implement: Reset after clicking submit
         // TODO - Implement: Go back to the previous page
 	}
 

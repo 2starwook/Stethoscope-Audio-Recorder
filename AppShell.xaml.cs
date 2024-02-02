@@ -1,4 +1,4 @@
-﻿using NET_MAUI_BLE.Pages;
+using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE;
 
@@ -8,6 +8,7 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
+		Routing.RegisterRoute(nameof(RecordsPage), typeof(RecordsPage));
 		Routing.RegisterRoute(nameof(RecordPage), typeof(RecordPage));
 		Routing.RegisterRoute(nameof(AddPage), typeof(AddPage));
 		BindingContext = this;
