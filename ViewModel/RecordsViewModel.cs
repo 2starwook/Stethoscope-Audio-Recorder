@@ -8,30 +8,41 @@ using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
+public class Item
+{
+    public string name {get; set;}
+    public string id {get; set;}
+    public Item(string name, string id)
+    {
+        this.name = name;
+        this.id = id;
+    }
+}
+
 public partial class RecordsViewModel : ObservableObject
 {
     [ObservableProperty]
-    ObservableCollection<string> items;
+    ObservableCollection<Item> items;
 
     private DatabaseManager databaseManager;
 
     public RecordsViewModel(DatabaseManager databaseManager)
     {
         this.databaseManager = databaseManager;
-        items = new ObservableCollection<string>();
+        items = new ObservableCollection<Item>();
         // TODO - Implement: Load data when the app got started (initial stage)
         // TODO - Implement: Add loading dynamic image
-        foreach(var record in databaseManager.GetRecords()) 
+        foreach(var record in databaseManager.currentRecords) 
         {
-            Items.Add(record.recordName);
+            Items.Add(new Item(record.recordName, record.Id.ToString()));
         }
     }
 
     [RelayCommand]
-    void Delete(string path)
+    async Task Delete(string id)
     {
-        //Items.Remove(path);
-        //databaseManager.DeleteData(path);
+        await databaseManager.DeleteRecordDataAsync(id);
+        Items.Remove(Items.SingleOrDefault(i => i.id == id));
     }
 
     [RelayCommand]
