@@ -9,7 +9,7 @@ using MyAPI;
 
 namespace NET_MAUI_BLE.ViewModel;
 
-[QueryProperty("Text", "Text")]
+[QueryProperty(nameof(Text), "Text")]
 public partial class RecordViewModel : ObservableObject
 {
     public RecordViewModel(IAudioManager audioManager)
