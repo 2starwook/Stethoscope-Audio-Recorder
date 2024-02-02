@@ -29,6 +29,7 @@ public partial class RecordViewModel : ObservableObject
     [RelayCommand]
 	void Play(string path)
     {
+		// TODO - Handle parameter path
 		audioController.OpenFile(path);
 		audioController.Play();
 		audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
@@ -43,6 +44,7 @@ public partial class RecordViewModel : ObservableObject
     [RelayCommand]
 	async Task Share(string path)
     {
+		// TODO - Handle parameter path
 		await StorageAPI.ExportData("file.wav", FileAPI.ReadData(path));
 	}
 }
