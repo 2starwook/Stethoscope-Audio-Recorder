@@ -5,7 +5,8 @@ using Object.MyDB;
 
 
 namespace Object.MyData;
-public class DatabaseManager {
+public class DatabaseManager
+{
     // Manage Database: Add/Remove/Modify data
     private RecordCollection recordCollection;
     private PatientsManager<Patient> patientsManager;
