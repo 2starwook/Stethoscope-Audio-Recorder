@@ -39,6 +39,11 @@ public class MongoDB<T> where T : Item {
         return isSuccessful;
     }
 
+    public async Task InsertItemAsync(T item)
+    {
+        await collection.InsertOneAsync(item);
+    }
+
     public void DeleteItems(string [] ids)
     {
         collection.DeleteMany(
@@ -46,6 +51,12 @@ public class MongoDB<T> where T : Item {
                 p => p.Id, 
                 Array.ConvertAll(ids, x => new ObjectId(x))
             )
+        );
+    }
+
+    public async Task DeleteItemAsync(string id){
+        await collection.DeleteOneAsync(
+            Builders<T>.Filter.Eq(p => p.Id, new ObjectId(id))
         );
     }
 }

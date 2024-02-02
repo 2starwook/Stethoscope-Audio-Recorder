@@ -42,6 +42,7 @@ public partial class AddViewModel : ObservableObject
 	async Task Submit()
 	{
 		NameLabel = RecordName;
+        await databaseManager.AddRecordDataAsync(FilePath, RecordName);
         await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
         // TODO - Add item to the current RecordsPage
         // TODO - Implement: Reset after clicking submit

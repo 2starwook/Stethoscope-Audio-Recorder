@@ -33,6 +33,16 @@ public class RecordsManager<T> where T : Record
         this._mongoDB.DeleteItems(ids);
     }
 
+    public async Task InsertItemAsync(T item)
+    {
+        await _mongoDB.InsertItemAsync(item);
+    }
+
+    public async Task DeleteItemAsync(string id)
+    {
+        await _mongoDB.DeleteItemAsync(id);
+    }
+
     public async void UpdateRecordName(ObjectId id, string recordName)
     {
         var filter = Builders<T>.Filter.Eq(p => p.Id, id);

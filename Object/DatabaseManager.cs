@@ -26,14 +26,14 @@ public class DatabaseManager {
 
     // TODO - Implement: How to handle details about data such as fileName (SQL?)
 
-    public void AddRecordData(string audioFilePath, string recordName){
+    public async Task AddRecordDataAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
-        recordsManager.InsertItems(new List<Record> {record});
+        await recordsManager.InsertItemAsync(record);
         // recordCollection.AddRecord(audioFilePath);
     }
 
-    public void DeleteData(string id){
-        recordsManager.DeleteItems(new string[] {id});
+    public async Task DeleteRecordDataAsync(string id){
+        await recordsManager.DeleteItemAsync(id);
         // recordCollection.DeleteRecord(audioFilePath);
         // FileAPI.DeleteFile(audioFilePath);
     }
