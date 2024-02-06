@@ -7,6 +7,7 @@ using MyConfig;
 
 namespace NET_MAUI_BLE.Pages;
 
+// TODO - Modularize HomePage with ViewModel
 public partial class HomePage : ContentPage {
 	private readonly IBleManager _bleManager;
     private IPeripheral _connected_device;
