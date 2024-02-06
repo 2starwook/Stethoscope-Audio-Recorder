@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Shiny;
 using Shiny.BluetoothLE;
 using BluetoothCourse.Extensions;
@@ -9,6 +9,7 @@ namespace NET_MAUI_BLE.Pages;
 
 public partial class HomePage : ContentPage {
 	private readonly IBleManager _bleManager;
+    private IPeripheral _connected_device;
 	bool isScanning = true;
     // flag that shows if scanner is currently scanning or not
 
@@ -24,6 +25,11 @@ public partial class HomePage : ContentPage {
 	private void OnScanControllerClicked(object sender, EventArgs e) {
 		if (isScanning == true) { // Stop scanning
 			_bleManager.StopScan();
+            if (_connected_device != null)
+            {
+                _connected_device.CancelConnection();
+                _connected_device = null;
+            }
 			isScanning = false;
 			ScanControllerBtn.Text = $"Start Scan";
             resultData.Text = waitingString;
@@ -54,6 +60,10 @@ public partial class HomePage : ContentPage {
             System.Diagnostics.Debug.WriteLine($"Timeout Exception occured {e.ToString()}");
             return await tcs.Task;
         }
+        if (device.IsConnected())
+        {
+            _connected_device = device;
+        }
         #if DEBUG
         device.GetAllCharacteristics().Subscribe(_result => {
             // Add breakpoint and wait. Then, check characteristic UUID once breaks
@@ -82,11 +92,11 @@ public partial class HomePage : ContentPage {
     public void Scan() {
         _bleManager.Scan()
             .Subscribe(async _scanResult => {
-                // [Debugging Purpose]
-                // System.Diagnostics.Debug.WriteLine(
-                //     $@"Scanned for: {_scanResult.Peripheral.Uuid.ToString()} 
-                //     / {_scanResult.Peripheral.Name}");
-                
+                #if DEBUG
+                System.Diagnostics.Debug.WriteLine(
+                    $@"Scanned for: {_scanResult.Peripheral.Uuid.ToString()} 
+                     / {_scanResult.Peripheral.Name}");
+                #endif
                 if (_scanResult.AdvertisementData != null && 
                 _scanResult.AdvertisementData.ServiceUuids != null &&
                 _scanResult.AdvertisementData.ServiceUuids.Contains(Config.SERVICE_UUTD)){
@@ -95,7 +105,5 @@ public partial class HomePage : ContentPage {
                 }
             });
     }
-
-
 }
 
