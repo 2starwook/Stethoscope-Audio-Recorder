@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Shiny;
 using Shiny.BluetoothLE;
 using BluetoothCourse.Extensions;
@@ -54,22 +54,27 @@ public partial class HomePage : ContentPage {
             System.Diagnostics.Debug.WriteLine($"Timeout Exception occured {e.ToString()}");
             return await tcs.Task;
         }
-
-        // // [Debuggin Purpose]
-        // device.GetAllCharacteristics().Subscribe(_result => {
-        //     // Add breakpoint and check serviceUUID
-        //     var a = 1;
-        // });
-        device.GetCharacteristic(Config.serviceUUID, Config.characteristicUUID)
-        .Subscribe(characteristic => {
-            device.NotifyCharacteristic(characteristic, true)
-                .Subscribe(notification => {
-                    var data = notification.Data;
-                    if (data != null && data.Length > 0) {
-                        resultData.Text = data.DecodeHeartRate().ToString();
-                    }
-                });
+        #if DEBUG
+        device.GetAllCharacteristics().Subscribe(_result => {
+            // Add breakpoint and wait. Then, check characteristic UUID once breaks
+            foreach(var each in _result)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    $"Service UUID: {each.Service.Uuid} / " +
+                    $"Characteristic UUID: {each.Uuid}");
+            }
         });
+        #endif
+        device.GetCharacteristic(Config.SERVICE_UUTD, Config.CHARACTERISTIC_UUID)
+            .Subscribe(characteristic => {
+                device.NotifyCharacteristic(characteristic, true)
+                    .Subscribe(notification => {
+                        var data = notification.Data;
+                        if (data != null && data.Length > 0) {
+                            resultData.Text = data.DecodeHeartRate().ToString();
+                        }
+                    });
+            });
 
         return await tcs.Task;
     }
@@ -84,7 +89,7 @@ public partial class HomePage : ContentPage {
                 
                 if (_scanResult.AdvertisementData != null && 
                 _scanResult.AdvertisementData.ServiceUuids != null &&
-                _scanResult.AdvertisementData.ServiceUuids.Contains(Config.serviceUUID)){
+                _scanResult.AdvertisementData.ServiceUuids.Contains(Config.SERVICE_UUTD)){
                     _bleManager.StopScan();
                     await AnalyzeData(_scanResult.Peripheral);
                 }

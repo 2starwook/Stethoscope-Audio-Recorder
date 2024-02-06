@@ -1,24 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="NET_MAUI_BLE.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:NET_MAUI_BLE"
     xmlns:pages="clr-namespace:NET_MAUI_BLE.Pages"
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar x:Name="mainTab">
-    <!--  
-    TODO - Comment out once Design aspect is complete
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
         </Tab>
-    -->
         <Tab Title="Setting">
             <ShellContent ContentTemplate="{DataTemplate pages:SettingPage}" />
-        </Tab>
-        <Tab Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate pages:SamplePage}" />
         </Tab>
         <Tab Title="Records">
             <ShellContent ContentTemplate="{DataTemplate pages:RecordsPage}" />
