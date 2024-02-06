@@ -5,7 +5,9 @@ public class Record : Item
     public byte[] binaryData {get; set;}
     public string assignedPatientId {get; set;}
 
+    #pragma warning disable CS0649
     private readonly string audioFilePath;
+    #pragma warning restore CS0649
 
 	public Record(string recordName, byte[] binaryData, string assignedPatientId) {
         this.recordName = recordName;

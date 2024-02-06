@@ -33,13 +33,17 @@ public class DatabaseManager
         currentRecords.Remove(id);
     }
 
+    #pragma warning disable CS1998
     public async Task AddPatientDataAsync(){
         // TODO - Implement Later
     }
+    #pragma warning restore CS1998
 
+    #pragma warning disable CS1998
     public async Task DeletePatientDataAsync(string id){
         // TODO - Implement Later
     }
+    #pragma warning restore CS1998
 
 
     public void AttachPatientToRecord(string audioFilePath, string patientId){
@@ -54,13 +58,13 @@ public class DatabaseManager
     //     return recordCollection.IsExist(audioFilePath);
     // }
 
-    // public async Task<string> ImportAudioFile(){
-    //     var srcPath = await StorageAPI.GetFilePath();
-    //     var filename = GetUniqueID() + ".wav";
-    //     var dstPath = Path.Combine(Config.dataDirPath, filename);
-    //     File.Copy(srcPath.ToString(), dstPath);
-    //     return dstPath;
-    // }
+    public async Task<string> ImportAudioFile(){
+        var srcPath = await StorageAPI.GetFilePath();
+        var filename = FileAPI.GetUniqueID() + ".wav";
+        var dstPath = Path.Combine(Config.dataDirPath, filename);
+        File.Copy(srcPath.ToString(), dstPath);
+        return dstPath;
+    }
 
     // public List<string> GetPathList(){
     //     return recordCollection.GetPathList();
