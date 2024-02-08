@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -7,14 +8,28 @@ public class MongoDB<T> where T : Item {
     // Manage API with MongoDB
     // TODO - Move to Config File
     private const string dbName = "NET_MAUI_BLE";
-    private const string password = "5QFun5SXJk5b5EMx";
-    private const string mongoUri = $"mongodb+srv://2starwook:{password}@cluster0.jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
+    private const string username = "2starwook";
+    private const string password = "xvaDWsxXWiTenwn0";
+    private const string mongoUri = $"mongodb+srv://{username}:{password}@cluster0." +
+        "jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
     private IMongoClient client;
     public IMongoCollection<T> collection;
     
+    // TODO - MongoClient raises Exception on Other platform than MacOS
 	public MongoDB(string collectionName) 
     {
-        client = new MongoClient(mongoUri);
+        try
+        {
+            client = new MongoClient(mongoUri);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("There was a problem connecting to your " +
+                    "Atlas cluster. Check that the URI includes a valid " +
+                    "username and password, and that your IP address is " +
+                    $"in the Access List. Message: {e.Message}");
+            throw new Exception("Failed to connect with Mongo DB");
+        }
         collection = client.GetDatabase(dbName).GetCollection<T>(collectionName);
 	}
 
