@@ -57,6 +57,7 @@ public static class MauiProgram
 
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordsViewModel>();
+		services.AddSingleton<NET_MAUI_BLE.ViewModel.HomeViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.TestViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddViewModel>();
 

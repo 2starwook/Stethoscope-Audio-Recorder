@@ -1,26 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NET_MAUI_BLE.Pages.HomePage">
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
+             x:Class="NET_MAUI_BLE.Pages.HomePage"
+             x:DataType="viewmodel:HomeViewModel">
+ <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <!--<viewmodel:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
+ </ContentPage.Behaviors>
     <StackLayout Spacing="15">
         <Label 
-            x:Name="resultData"
+            Text="{Binding ResultText}"
             FontSize="32"
             HorizontalOptions="Center"
             VerticalOptions="Center" />
-        <Button
-            x:Name="ScanControllerBtn"
-            Text="Stop Scan"
-            Clicked="OnScanControllerClicked"
-            HorizontalOptions="Center" />
-        <ListView 
-            ItemsSource="{Binding DebuggerCollection}"
-            VerticalOptions="End" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
     </StackLayout>
 </ContentPage>
