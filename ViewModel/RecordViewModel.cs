@@ -27,6 +27,32 @@ public partial class RecordViewModel : ObservableObject
 	string playText;
 
     [RelayCommand]
+    void Appearing()
+    {
+        try
+        {
+            MYAPI.UIAPI.HideTab();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    [RelayCommand]
+    void Disappearing()
+    {
+        try
+        {
+            MYAPI.UIAPI.ShowTab();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    [RelayCommand]
 	void Play(string path)
     {
 		// TODO - Handle parameter path
