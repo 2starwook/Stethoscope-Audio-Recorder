@@ -1,7 +1,4 @@
-﻿using System;
-using Shiny;
-using Shiny.BluetoothLE;
-using BluetoothCourse.Extensions;
+﻿using Shiny.BluetoothLE;
 
 using MyConfig;
 
@@ -54,10 +51,12 @@ public partial class HomePage : ContentPage {
         TaskCompletionSource<int> tcs = new TaskCompletionSource<int>();
 
         // TODO - Need to handle when not get connected
-        try{
+        try
+        {
             await device.ConnectAsync();
         }
-        catch (TimeoutException e) {
+        catch (TimeoutException e)
+        {
             System.Diagnostics.Debug.WriteLine($"Timeout Exception occured {e.ToString()}");
             return await tcs.Task;
         }
@@ -66,24 +65,23 @@ public partial class HomePage : ContentPage {
             _connected_device = device;
         }
         #if DEBUG
-        device.GetAllCharacteristics().Subscribe(_result => {
-            // Add breakpoint and wait. Then, check characteristic UUID once breaks
-            foreach(var each in _result)
-            {
-                System.Diagnostics.Debug.WriteLine(
-                    $"Service UUID: {each.Service.Uuid} / " +
-                    $"Characteristic UUID: {each.Uuid}");
-            }
-        });
+        device.GetAllCharacteristics()
+            .Subscribe(_result => {
+                // Add breakpoint and wait. Then, check characteristic UUID once breaks
+                foreach(var each in _result)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        $"Service UUID: {each.Service.Uuid} / " +
+                        $"Characteristic UUID: {each.Uuid}");
+                }
+            });
         #endif
         device.GetCharacteristic(Config.SERVICE_UUTD, Config.CHARACTERISTIC_UUID)
             .Subscribe(characteristic => {
-                device.NotifyCharacteristic(characteristic, true)
-                    .Subscribe(notification => {
-                        var data = notification.Data;
-                        if (data != null && data.Length > 0) {
-                            resultData.Text = data.DecodeHeartRate().ToString();
-                        }
+                device.ReadCharacteristic(characteristic)
+                    .Subscribe(result => {
+                        var data = result.Data;
+                        System.Diagnostics.Debug.WriteLine($"Received Data: {data}");
                     });
             });
 
