@@ -26,7 +26,20 @@ public partial class AddPatientViewModel : ObservableObject
     [ObservableProperty]
     DateTime dateOfBirth = DateTime.Now;
 
-	[RelayCommand]
+    [RelayCommand]
+    void Appearing()
+    {
+        try
+        {
+            MYAPI.UIAPI.HideTab();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    [RelayCommand]
 	async Task Submit()
 	{
         //await databaseManager.AddRecordDataAsync(FilePath, RecordName);
