@@ -12,7 +12,7 @@
                 Text="Add Record"
                 Command="{Binding AddFileCommand}"
                 HorizontalOptions="Start"
-                MaximumWidthRequest="100"
+                MaximumWidthRequest="150"
                 MaximumHeightRequest="50"
                 CornerRadius="20"/>
         <CollectionView Grid.Row="1"  Grid.Column="1"
