@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NET_MAUI_BLE.Pages.AddRecordPage">
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
-            Padding="30,0">
-            <Label Text="{Binding NameLabel}"
-                   FontSize="20"
-                   HorizontalOptions="Center"/>
+            Padding="30, 20">
 
             <Grid ColumnDefinitions="130, 50">
                 <Label Grid.Row="0" Grid.Column="0"
