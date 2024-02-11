@@ -7,9 +7,9 @@ using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
-public partial class AddViewModel : ObservableObject
+public partial class AddRecordViewModel : ObservableObject
 {
-	public AddViewModel(DatabaseManager databaseManager)
+	public AddRecordViewModel(DatabaseManager databaseManager)
 	{
         this.databaseManager = databaseManager;
 		patients = new ObservableCollection<string>();

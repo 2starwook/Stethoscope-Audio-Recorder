@@ -54,6 +54,6 @@ public partial class RecordsViewModel : ObservableObject
     [RelayCommand]
     async Task AddFile()
     {
-        await Shell.Current.GoToAsync($"{nameof(AddPage)}");
+        await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
     }
 }

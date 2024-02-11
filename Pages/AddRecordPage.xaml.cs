@@ -3,9 +3,9 @@ using NET_MAUI_BLE.ViewModel;
 
 namespace NET_MAUI_BLE.Pages;
 
-public partial class AddPage : ContentPage {
+public partial class AddRecordPage : ContentPage {
 	// Controller settings for stethoscope device
-	public AddPage(AddViewModel vm)
+	public AddRecordPage(AddRecordViewModel vm)
 	{
 		InitializeComponent();
         BindingContext = vm;
