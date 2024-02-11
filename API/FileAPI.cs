@@ -31,6 +31,11 @@ public static class FileAPI
         return null;
     }
 
+    public static string GetCachePath(string filename)
+    {
+        return Path.Combine(Config.rootCachePath, filename);
+    }
+
     public static void CreateDirectory(string path){
         Directory.CreateDirectory(path);
     }
