@@ -9,7 +9,7 @@
           RowSpacing="10"
           ColumnSpacing="10">
         <Button Grid.Row="0" Grid.Column="0"
-                Text="Import"
+                Text="Add Record"
                 Command="{Binding AddFileCommand}"
                 HorizontalOptions="Start"
                 MaximumWidthRequest="100"
