@@ -11,21 +11,18 @@
 </ContentPage.Behaviors>
     <Grid RowDefinitions="20, *"
           Padding="10">
-        <Label Grid.Row="0"
-               Text="{Binding Text}"
-               HorizontalOptions="Center"/>
         <Grid Grid.Row="1"
               ColumnDefinitions="*, *"
               VerticalOptions="End">
             <Frame Grid.Column="0">
                 <Button Text="Share"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=ShareCommand}"
-                        CommandParameter="{Binding Text}"/>
+                        CommandParameter="{Binding RecordId}"/>
             </Frame>
             <Frame Grid.Column="1">
                 <Button Text="{Binding PlayText}"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
-                        CommandParameter="{Binding Text}"/>
+                        CommandParameter="{Binding RecordId}"/>
             </Frame>
         </Grid>
     </Grid>

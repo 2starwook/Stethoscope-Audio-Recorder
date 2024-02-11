@@ -5,23 +5,27 @@ using Plugin.Maui.Audio;
 
 using Object.MyAudio;
 using MyAPI;
+using Object.MyData;
 
 
 namespace NET_MAUI_BLE.ViewModel;
 
-[QueryProperty(nameof(Text), "Text")]
+[QueryProperty("RecordId", "RecordId")]
 public partial class RecordViewModel : ObservableObject
 {
-    public RecordViewModel(IAudioManager audioManager)
+    public RecordViewModel(IAudioManager audioManager, DatabaseManager databaseManager)
     {
         audioController = new AudioController(audioManager);
+        _databaseManager = databaseManager;
 		playText = "Play";
+        // TODO - Install Cache data using Async once the page loaded
     }
 
     private AudioController audioController;
+    private DatabaseManager _databaseManager;
 
-	[ObservableProperty]
-	string text;
+    [ObservableProperty]
+	string recordId;
 
 	[ObservableProperty]
 	string playText;
@@ -53,24 +57,27 @@ public partial class RecordViewModel : ObservableObject
     }
 
     [RelayCommand]
-	void Play(string path)
+	async Task Play(string recordId)
     {
-		// TODO - Handle parameter path
-		audioController.OpenFile(path);
+        var fileName = $"{recordId}.wav";
+        var binaryData = _databaseManager.currentRecords[recordId].binaryData;
+        FileAPI.WriteCacheData(fileName, binaryData);
+        await audioController.OpenFile(FileAPI.GetCachePath(fileName));
 		audioController.Play();
-		audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
-		PlayText = "Stop";
+		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+		//PlayText = "Stop";
 		// TODO - Add Stop / Pause Button
 	}
 
-	void HandlePlayEnded(object sender, EventArgs e){
-		PlayText = "Play";
-	}
+	//void HandlePlayEnded(object sender, EventArgs e){
+	//	PlayText = "Play";
+	//}
 
     [RelayCommand]
-	async Task Share(string path)
+	async Task Share(string recordId)
     {
-		// TODO - Handle parameter path
-		await StorageAPI.ExportData("file.wav", FileAPI.ReadData(path));
-	}
+        var tempName = "file.wav";
+        var binaryData = _databaseManager.currentRecords[recordId].binaryData;
+        await StorageAPI.ExportData(tempName, binaryData);
+    }
 }

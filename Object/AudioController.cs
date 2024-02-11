@@ -11,7 +11,7 @@ public class AudioController
 		this.audioManager = audioManager;
 	}
 
-    public async void OpenFile(string filePath){
+    public async Task OpenFile(string filePath){
 		try {
 			if (_currentAudioPlayer == null || !_currentAudioPlayer.IsSameFilePath(filePath)){
 				this._currentAudioPlayer = new AudioPlayer(

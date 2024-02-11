@@ -48,7 +48,11 @@ public partial class RecordsViewModel : ObservableObject
     [RelayCommand]
     async Task Tap(string s)
     {
-        await Shell.Current.GoToAsync($"{nameof(RecordPage)}?Text={s}");
+        await Shell.Current.GoToAsync($"{nameof(RecordPage)}?",
+            new Dictionary<string, object>
+            {
+                ["RecordId"] = s,
+            });
     }
 
     [RelayCommand]

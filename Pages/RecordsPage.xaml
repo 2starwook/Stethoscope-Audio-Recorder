@@ -33,7 +33,7 @@
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=TapCommand}"
-                                        CommandParameter="{Binding name}"/>
+                                        CommandParameter="{Binding id}"/>
                                 </Frame.GestureRecognizers>
                                 <Label Text="{Binding name}"
                                         FontSize="24" />
