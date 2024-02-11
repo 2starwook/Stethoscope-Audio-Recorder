@@ -38,7 +38,33 @@ public partial class AddRecordViewModel : ObservableObject
     [ObservableProperty]
     string fileButtonText;
 
-	[RelayCommand]
+    [RelayCommand]
+    void Appearing()
+    {
+        try
+        {
+            MYAPI.UIAPI.HideTab();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    [RelayCommand]
+    void Disappearing()
+    {
+        try
+        {
+            MYAPI.UIAPI.ShowTab();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    [RelayCommand]
 	async Task Submit()
 	{
 		NameLabel = RecordName;
