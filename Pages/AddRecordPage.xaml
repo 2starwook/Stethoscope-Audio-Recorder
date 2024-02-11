@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NET_MAUI_BLE.Pages.AddRecordPage">
@@ -40,7 +40,7 @@
                        HorizontalOptions="Start"
                        WidthRequest="300"/>
             </Grid>
-            <Grid ColumnDefinitions="130, 50">
+            <Grid ColumnDefinitions="130, 300, 100">
                 <Label Grid.Row="0" Grid.Column="0"
                        Text="Patient: "
                        SemanticProperties.HeadingLevel="Level1"
@@ -52,6 +52,15 @@
                         FontSize="20"
                         HorizontalOptions="Start"
                         WidthRequest="300"/>
+                <Button Grid.Row="0" Grid.Column="2"
+                        Text="Add Patient"
+                        Command="{Binding AddPatientCommand}"
+                        WidthRequest="105"
+                        Margin="30, 0, 0, 0"
+                        BackgroundColor="Black"
+                        TextColor="White"
+                        BorderColor="White"
+                        BorderWidth="2"/>
             </Grid>
 
             <Button Text="Submit"

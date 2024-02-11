@@ -52,6 +52,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.Pages.AudioPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordsPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.AddRecordPage>();
+		services.AddSingleton<NET_MAUI_BLE.Pages.AddPatientPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
 
@@ -60,6 +61,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.HomeViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.TestViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddRecordViewModel>();
+		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddPatientViewModel>();
 
 		services.AddSingleton<Object.MyData.DatabaseManager>();
 	}

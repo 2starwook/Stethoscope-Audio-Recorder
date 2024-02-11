@@ -58,4 +58,10 @@ public partial class AddRecordViewModel : ObservableObject
         var filename = Path.GetFileName(path);
         FileButtonText = filename;
     }
+
+    [RelayCommand]
+    async Task AddPatient()
+    {
+        await Shell.Current.GoToAsync($"{nameof(AddPatientPage)}");
+    }
 }
