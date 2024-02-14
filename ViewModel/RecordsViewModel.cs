@@ -27,7 +27,7 @@ public partial class RecordsViewModel : ObservableObject
         this.records = new ObservableCollection<RecordInfo>();
         // TODO - Implement: Load data when the app got started (initial stage)
         // TODO - Implement: Add loading dynamic image
-        foreach(var record in databaseManager.currentRecords.Values()) 
+        foreach(var record in databaseManager.currentRecords.Values) 
         {
             this.records.Add(new RecordInfo(record.RecordName, record.GetId()));
         }
