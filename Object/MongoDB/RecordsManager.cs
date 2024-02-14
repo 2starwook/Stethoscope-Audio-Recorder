@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MyConfig;
 
 
 namespace Object.MyDB;
@@ -8,11 +9,9 @@ public class RecordsManager<T> where T : Record
     // Manage API with MongoDB
 	public RecordsManager() 
     {
-        this._mongoDB = new MongoDB<T>(collectionName);
+        this._mongoDB = new MongoDB<T>(Config.COLLECTION_RECORDS);
 	}
 
-    // TODO - Move to Config File
-    private const string collectionName = "records";
     private MongoDB<T> _mongoDB;
 
     public List<T> GetRecords()

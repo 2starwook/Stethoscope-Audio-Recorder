@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MyConfig;
 
 
 namespace Object.MyDB;
@@ -8,11 +9,9 @@ public class PatientsManager<T> where T : Patient
     // Manage API with MongoDB
 	public PatientsManager() 
     {
-        this._mongoDB = new MongoDB<T>(collectionName);
+        this._mongoDB = new MongoDB<T>(Config.COLLECTION_PATIENTS);
 	}
 
-    // TODO - Move to Config File
-    private const string collectionName = "patients";
     private MongoDB<T> _mongoDB;
 
     public List<T> GetPatients()

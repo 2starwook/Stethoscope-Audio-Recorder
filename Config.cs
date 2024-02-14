@@ -16,4 +16,22 @@ public class Config
 
     public static string dataDirPath = Path.Combine(rootPath, dataDir);
 
+    public static string DB_NAME = "NET_MAUI_BLE";
+    // Name of database on MongoDB
+
+    public static string USERNAME = "2starwook";
+    // Username for MongoDB
+
+    public static string PASSWORD = "xvaDWsxXWiTenwn0";
+    // Password for MongoDB
+
+    public static string MONGO_URI = $"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0." +
+        "jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
+    // URI for MongoDB
+
+    public static string COLLECTION_PATIENTS = "patients";
+    // Name of collection for patients
+
+    public static string COLLECTION_RECORDS = "records";
+    // Name of collection for records
 }

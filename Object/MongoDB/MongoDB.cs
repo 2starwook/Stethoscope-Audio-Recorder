@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MyConfig;
 
 
 namespace Object.MyDB;
@@ -11,7 +12,7 @@ public class MongoDB<T> where T : Item {
     {
         try
         {
-            _client = new MongoClient(mongoUri);
+            _client = new MongoClient(Config.MONGO_URI);
         }
         catch (Exception e)
         {
@@ -21,15 +22,9 @@ public class MongoDB<T> where T : Item {
                     $"in the Access List. Message: {e.Message}");
             throw new Exception("Failed to connect with Mongo DB");
         }
-        collection = _client.GetDatabase(dbName).GetCollection<T>(collectionName);
+        collection = _client.GetDatabase(Config.DB_NAME).GetCollection<T>(collectionName);
 	}
 
-    // TODO - Move to Config File
-    private const string dbName = "NET_MAUI_BLE";
-    private const string username = "2starwook";
-    private const string password = "xvaDWsxXWiTenwn0";
-    private const string mongoUri = $"mongodb+srv://{username}:{password}@cluster0." +
-        "jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
     private IMongoClient _client;
     public IMongoCollection<T> collection;
 
