@@ -15,27 +15,27 @@ public class RecordsManager<T> where T : Record
         this._mongoDB = new MongoDB<T>(collectionName);
 	}
 
-    public List<T> GetItems()
+    public List<T> GetRecords()
     {
         return _mongoDB.GetItems();
     }
 
-    public bool InsertItems(List<T> items)
+    public bool InsertRecords(List<T> items)
     {
         return this._mongoDB.InsertItems(items);
     }
 
-    public void DeleteItems(string [] ids)
+    public void DeleteRecords(string [] ids)
     {
         this._mongoDB.DeleteItems(ids);
     }
 
-    public async Task InsertItemAsync(T item)
+    public async Task InsertRecordAsync(T item)
     {
         await _mongoDB.InsertItemAsync(item);
     }
 
-    public async Task DeleteItemAsync(string id)
+    public async Task DeleteRecordAsync(string id)
     {
         await _mongoDB.DeleteItemAsync(id);
     }
