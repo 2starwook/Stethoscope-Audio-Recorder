@@ -34,7 +34,7 @@ public class RecordsManager<T> where T : Record
     {
         var filter = Builders<T>.Filter.Eq(p => p.GetId(), id);
         var update = Builders<T>.Update
-            .Set(p => p.recordName, recordName);
+            .Set(p => p.RecordName, recordName);
         await _mongoDB.collection.UpdateOneAsync(filter, update);
     }
 
