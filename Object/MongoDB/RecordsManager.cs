@@ -20,9 +20,6 @@ public class RecordsManager<T> where T : Record
         return _mongoDB.GetItems();
     }
 
-    // TODO - Implement InsertItem(T item)
-    // TODO - Implement DeleteItem(T item)
-
     public bool InsertItems(List<T> items)
     {
         return this._mongoDB.InsertItems(items);
