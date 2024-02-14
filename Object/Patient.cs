@@ -9,4 +9,8 @@ public class Patient : Item
         this.LastName = LastName;
 	}
 
+    public string GetFullName()
+    {
+        return $"{FirstName} {LastName}";
+    }
 }
