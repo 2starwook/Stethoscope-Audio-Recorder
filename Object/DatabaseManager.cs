@@ -1,4 +1,3 @@
-using Object.MyAudio;
 using MyAPI;
 using MyConfig;
 using Object.MyDB;
@@ -9,46 +8,45 @@ public class DatabaseManager
 {
     // Manage Database: Add/Remove/Modify data
 	public DatabaseManager() {
-        this.patientsManager = new PatientsManager<Patient>();
-        this.recordsManager = new RecordsManager<Record>();
-        currentRecords = new Dictionary<string, Record>();
-        foreach (Record r in recordsManager.GetRecords())
+        this._patientsManager = new PatientsManager<Patient>();
+        this._recordsManager = new RecordsManager<Record>();
+        this.currentRecords = new Dictionary<string, Record>();
+        foreach (Record r in _recordsManager.GetRecords())
         {
-            currentRecords.Add(r.GetId(), r);
+            this.currentRecords.Add(r.GetId(), r);
         }
-        currentPatients = new Dictionary<string, Patient>();
-        foreach (Patient p in patientsManager.GetPatients())
+        this.currentPatients = new Dictionary<string, Patient>();
+        foreach (Patient p in this._patientsManager.GetPatients())
         {
-            currentPatients.Add(p.GetId(), p);
+            this.currentPatients.Add(p.GetId(), p);
         }
 	}
 
-    private PatientsManager<Patient> patientsManager;
-    private RecordsManager<Record> recordsManager;
+    private PatientsManager<Patient> _patientsManager;
+    private RecordsManager<Record> _recordsManager;
 
     public Dictionary<string, Record> currentRecords;
     public Dictionary<string, Patient> currentPatients;
 
-
     public async Task AddRecordAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
-        await recordsManager.InsertRecordAsync(record);
+        await _recordsManager.InsertRecordAsync(record);
         currentRecords.Add(FileAPI.GetUniqueID(), record);
     }
 
     public async Task DeleteRecordAsync(string id){
-        await recordsManager.DeleteRecordAsync(id);
+        await _recordsManager.DeleteRecordAsync(id);
         currentRecords.Remove(id);
     }
 
     public async Task AddPatientAsync(string firstName, string lastName){
         var patient = new Patient(firstName, lastName);
-        await patientsManager.InsertPatientAsync(patient);
+        await _patientsManager.InsertPatientAsync(patient);
         currentPatients.Add(FileAPI.GetUniqueID(), patient);
     }
 
     public async Task DeletePatientAsync(string id){
-        await patientsManager.DeletePatientAsync(id);
+        await _patientsManager.DeletePatientAsync(id);
         currentPatients.Remove(id);
     }
 

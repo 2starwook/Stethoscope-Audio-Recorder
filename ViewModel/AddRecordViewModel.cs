@@ -23,7 +23,7 @@ public partial class AddRecordViewModel : ObservableObject
 {
 	public AddRecordViewModel(DatabaseManager databaseManager)
 	{
-        this.databaseManager = databaseManager;
+        this._databaseManager = databaseManager;
 		patients = new ObservableCollection<PatientInfo>();
         foreach (var each in databaseManager.currentPatients.Values)
         {
@@ -31,23 +31,17 @@ public partial class AddRecordViewModel : ObservableObject
         }
     }
 
-    private DatabaseManager databaseManager;
-
+    private DatabaseManager _databaseManager;
     [ObservableProperty]
     private ObservableCollection<PatientInfo> patients;
-
     [ObservableProperty]
 	private string recordName;
-
     [ObservableProperty]
 	private string filePath;
-
     [ObservableProperty]
     private string fileButtonText = "Select a File";
-
     [ObservableProperty]
     private PatientInfo selectedPatient;
-
 
     void Refresh()
     {
@@ -87,7 +81,7 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        await databaseManager.AddRecordAsync(FilePath, RecordName);
+        await _databaseManager.AddRecordAsync(FilePath, RecordName);
         await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
         // TODO - Implement: Reset after clicking submit
 	}
@@ -95,7 +89,7 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
     async Task SelectFile()
     {
-        var path = await databaseManager.ImportAudioFile();
+        var path = await _databaseManager.ImportAudioFile();
         if (string.IsNullOrWhiteSpace(path))
             return;
         FilePath = FileButtonText = path;

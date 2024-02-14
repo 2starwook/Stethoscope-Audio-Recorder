@@ -15,21 +15,18 @@ public partial class RecordViewModel : ObservableObject
 {
     public RecordViewModel(IAudioManager audioManager, DatabaseManager databaseManager)
     {
-        audioController = new AudioController(audioManager);
+        _audioController = new AudioController(audioManager);
         _databaseManager = databaseManager;
 		playText = "Play";
         // TODO - Install Cache data using Async once the page loaded
     }
 
-    private AudioController audioController;
+    private AudioController _audioController;
     private DatabaseManager _databaseManager;
-
     [ObservableProperty]
 	private string recordId;
-
 	[ObservableProperty]
 	private string playText;
-
 
     [RelayCommand]
     void Appearing()
@@ -61,10 +58,10 @@ public partial class RecordViewModel : ObservableObject
 	async Task Play(string recordId)
     {
         var fileName = $"{recordId}.wav";
-        var binaryData = _databaseManager.currentRecords[recordId].binaryData;
+        var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
         FileAPI.WriteCacheData(fileName, binaryData);
-        await audioController.OpenFile(FileAPI.GetCachePath(fileName));
-		audioController.Play();
+        await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
+		_audioController.Play();
 		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
 		//PlayText = "Stop";
 		// TODO - Add Stop / Pause Button
@@ -78,7 +75,7 @@ public partial class RecordViewModel : ObservableObject
 	async Task Share(string recordId)
     {
         var tempName = "file.wav";
-        var binaryData = _databaseManager.currentRecords[recordId].binaryData;
+        var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
         await StorageAPI.ExportData(tempName, binaryData);
     }
 }

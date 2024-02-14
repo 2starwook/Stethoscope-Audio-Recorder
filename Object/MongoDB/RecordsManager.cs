@@ -15,7 +15,6 @@ public class RecordsManager<T> where T : Record
     private const string collectionName = "records";
     private MongoDB<T> _mongoDB;
 
-
     public List<T> GetRecords()
     {
         return _mongoDB.GetItems();

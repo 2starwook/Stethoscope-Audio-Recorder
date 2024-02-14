@@ -5,18 +5,17 @@ namespace Object.MyAudio;
 public class AudioController
 {
 	public AudioController(IAudioManager audioManager) {
-		this.audioManager = audioManager;
+		this._audioManager = audioManager;
 	}
 
-	private readonly IAudioManager audioManager;
+	private readonly IAudioManager _audioManager;
 	private AudioPlayer _currentAudioPlayer;
-
 
     public async Task OpenFile(string filePath){
 		try {
 			if (_currentAudioPlayer == null || !_currentAudioPlayer.IsSameFilePath(filePath)){
 				this._currentAudioPlayer = new AudioPlayer(
-					audioManager.CreatePlayer(
+					_audioManager.CreatePlayer(
 						await FileSystem.OpenAppPackageFileAsync(filePath)), filePath);
 			}
 		}

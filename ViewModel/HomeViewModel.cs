@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Shiny.BluetoothLE;
@@ -17,7 +17,6 @@ public partial class HomeViewModel : ObservableObject
 
     private readonly IBleManager _bleManager;
     private IPeripheral _connected_device;
-
     [ObservableProperty]
     string resultText;
 

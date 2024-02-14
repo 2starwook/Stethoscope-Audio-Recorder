@@ -29,15 +29,13 @@ public partial class RecordsViewModel : ObservableObject
         // TODO - Implement: Add loading dynamic image
         foreach(var entry in databaseManager.currentRecords) 
         {
-            records.Add(new RecordInfo(entry.Value.recordName, entry.Value.GetId()));
+            records.Add(new RecordInfo(entry.Value.RecordName, entry.Value.GetId()));
         }
     }
 
+    private DatabaseManager databaseManager;
     [ObservableProperty]
     private ObservableCollection<RecordInfo> records;
-
-    private DatabaseManager databaseManager;
-
 
     [RelayCommand]
     async Task Delete(string id)

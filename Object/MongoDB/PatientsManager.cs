@@ -15,7 +15,6 @@ public class PatientsManager<T> where T : Patient
     private const string collectionName = "patients";
     private MongoDB<T> _mongoDB;
 
-
     public List<T> GetPatients()
     {
         return _mongoDB.GetItems();

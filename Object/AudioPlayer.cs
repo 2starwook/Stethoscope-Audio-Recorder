@@ -6,15 +6,14 @@ public class AudioPlayer
 {
 	public AudioPlayer(IAudioPlayer audioPlayer, string filePath) {
 		this._audioPlayer = audioPlayer;
-		this.filePath = filePath;
+		this._filePath = filePath;
 	}
 
 	private readonly IAudioPlayer _audioPlayer;
-	private readonly string filePath;
-
+	private readonly string _filePath;
 
 	public bool IsSameFilePath(string filePath){
-		return this.filePath == filePath;
+		return this._filePath == filePath;
 	}
 
 	public void Play(){

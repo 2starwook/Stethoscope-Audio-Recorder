@@ -11,20 +11,16 @@ public partial class AddPatientViewModel : ObservableObject
 {
 	public AddPatientViewModel(DatabaseManager databaseManager)
 	{
-        this.databaseManager = databaseManager;
+        this._databaseManager = databaseManager;
     }
 
-    private DatabaseManager databaseManager;
-
+    private DatabaseManager _databaseManager;
     [ObservableProperty]
 	private string patientFirstName;
-
     [ObservableProperty]
 	private string patientLastName;
-
     [ObservableProperty]
     private DateTime dateOfBirth = DateTime.Now;
-
 
     [RelayCommand]
     void Appearing()
@@ -42,7 +38,7 @@ public partial class AddPatientViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        await databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
+        await _databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
         await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
 
         // TODO - Implement: Reset after clicking submit

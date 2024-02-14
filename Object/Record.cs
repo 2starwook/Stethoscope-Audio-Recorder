@@ -2,33 +2,32 @@ namespace Object.MyDB;
 public class Record : Item
 {
 	public Record(string recordName, byte[] binaryData, string assignedPatientId) {
-        this.recordName = recordName;
-        this.binaryData = binaryData;
-        this.assignedPatientId = assignedPatientId;
+        this.RecordName = recordName;
+        this.BinaryData = binaryData;
+        this.AssignedPatientId = assignedPatientId;
 	}
 
-    public string recordName {get; set;}
-    public byte[] binaryData {get; set;}
-    public string assignedPatientId {get; set;}
+    public string RecordName {get; set;}
+    public byte[] BinaryData {get; set;}
+    public string AssignedPatientId {get; set;}
 
     #pragma warning disable CS0649
     private readonly string audioFilePath;
     #pragma warning restore CS0649
-
 
     public string GetAudioFile() {
         return this.audioFilePath;
     }
 
     public bool IsPatientAssigned(){
-        return this.assignedPatientId != null;
+        return this.AssignedPatientId != null;
     }
 
     public void AssignPatient(string patientId){
-        this.assignedPatientId = patientId;
+        this.AssignedPatientId = patientId;
     }
 
     public void DeleteAssignedPatient(){
-        this.assignedPatientId = null;
+        this.AssignedPatientId = null;
     }
 }
