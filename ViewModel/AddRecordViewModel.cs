@@ -7,24 +7,33 @@ using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
+public class PatientInfo
+{
+    public string name { get; set; }
+    public string id { get; set; }
+    public PatientInfo(string name, string id)
+    {
+        this.name = name;
+        this.id = id;
+    }
+}
+
 public partial class AddRecordViewModel : ObservableObject
 {
 	public AddRecordViewModel(DatabaseManager databaseManager)
 	{
         this.databaseManager = databaseManager;
-		patients = new ObservableCollection<string>();
-        fileButtonText = "Select a File";
-        // TODO - Once patients data is ready, add here
-        //foreach (var each in databaseManager.GetPathList())
-        //{
-        //    Patients.Add(each);
-        //}
+		patients = new ObservableCollection<PatientInfo>();
+        foreach (var each in databaseManager.currentPatients.Values)
+        {
+            patients.Add(new PatientInfo(each.GetFullName(), each.GetId()));
+        }
     }
 
     private DatabaseManager databaseManager;
 
     [ObservableProperty]
-    ObservableCollection<string> patients;
+    private ObservableCollection<PatientInfo> patients;
 
     [ObservableProperty]
 	string recordName;
@@ -32,11 +41,19 @@ public partial class AddRecordViewModel : ObservableObject
     [ObservableProperty]
 	string filePath;
 
-	[ObservableProperty]
-	string nameLabel;
+    [ObservableProperty]
+    string fileButtonText = "Select a File";
 
     [ObservableProperty]
-    string fileButtonText;
+    PatientInfo selectedPatient;
+
+    void Refresh()
+    {
+        FileButtonText = "Select a File";
+        RecordName = "";
+        FilePath = "";
+        SelectedPatient = null;
+    }
 
     [RelayCommand]
     void Appearing()
@@ -44,6 +61,7 @@ public partial class AddRecordViewModel : ObservableObject
         try
         {
             MYAPI.UIAPI.HideTab();
+            Refresh();
         }
         catch (Exception e)
         {
@@ -67,10 +85,8 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-		NameLabel = RecordName;
-        await databaseManager.AddRecordDataAsync(FilePath, RecordName);
+        await databaseManager.AddRecordAsync(FilePath, RecordName);
         await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
-        // TODO - Add item to the current RecordsPage
         // TODO - Implement: Reset after clicking submit
 	}
 
@@ -80,9 +96,7 @@ public partial class AddRecordViewModel : ObservableObject
         var path = await databaseManager.ImportAudioFile();
         if (string.IsNullOrWhiteSpace(path))
             return;
-        FilePath = path;
-        var filename = Path.GetFileName(path);
-        FileButtonText = filename;
+        FilePath = FileButtonText = path;
     }
 
     [RelayCommand]

@@ -51,6 +51,8 @@
                 <Picker Grid.Row="0" Grid.Column="1"
                         Title="Select a patient to be assigned"
                         ItemsSource="{Binding Patients}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding SelectedPatient}"
                         FontSize="20"
                         HorizontalOptions="Start"
                         WidthRequest="300"/>
