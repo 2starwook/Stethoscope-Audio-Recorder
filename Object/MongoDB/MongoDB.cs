@@ -15,7 +15,7 @@ public class MongoDB<T> where T : Item {
     private IMongoClient client;
     public IMongoCollection<T> collection;
     
-    // TODO - MongoClient raises Exception on Other platform than MacOS
+    // FIX - MongoClient raises Exception on Other platform than MacOS
 	public MongoDB(string collectionName) 
     {
         try
