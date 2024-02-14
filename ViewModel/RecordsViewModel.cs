@@ -8,33 +8,33 @@ using NET_MAUI_BLE.Pages;
 
 namespace NET_MAUI_BLE.ViewModel;
 
-public class Item
+public class RecordInfo
 {
-    public string name {get; set;}
-    public string id {get; set;}
-    public Item(string name, string id)
+    public string Name {get; set;}
+    public string Id {get; set;}
+    public RecordInfo(string name, string id)
     {
-        this.name = name;
-        this.id = id;
+        this.Name = name;
+        this.Id = id;
     }
 }
 
 public partial class RecordsViewModel : ObservableObject
 {
     [ObservableProperty]
-    ObservableCollection<Item> items;
+    ObservableCollection<RecordInfo> records;
 
     private DatabaseManager databaseManager;
 
     public RecordsViewModel(DatabaseManager databaseManager)
     {
         this.databaseManager = databaseManager;
-        items = new ObservableCollection<Item>();
+        records = new ObservableCollection<RecordInfo>();
         // TODO - Implement: Load data when the app got started (initial stage)
         // TODO - Implement: Add loading dynamic image
         foreach(var entry in databaseManager.currentRecords) 
         {
-            Items.Add(new Item(entry.Value.recordName, entry.Value.GetId()));
+            records.Add(new RecordInfo(entry.Value.recordName, entry.Value.GetId()));
         }
     }
 
@@ -42,7 +42,7 @@ public partial class RecordsViewModel : ObservableObject
     async Task Delete(string id)
     {
         await databaseManager.DeleteRecordAsync(id);
-        Items.Remove(Items.SingleOrDefault(i => i.id == id));
+        Records.Remove(Records.SingleOrDefault(i => i.Id == id));
     }
 
     [RelayCommand]

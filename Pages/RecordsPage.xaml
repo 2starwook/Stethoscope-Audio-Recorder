@@ -16,16 +16,16 @@
                 MaximumHeightRequest="50"
                 CornerRadius="20"/>
         <CollectionView Grid.Row="1"  Grid.Column="1"
-                        ItemsSource="{Binding Items}">
+                        ItemsSource="{Binding Records}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type viewmodel:Item}">
+                <DataTemplate x:DataType="{x:Type viewmodel:RecordInfo}">
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
                                            BackgroundColor="Red"
                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=DeleteCommand}"
-                                           CommandParameter="{Binding id}" />
+                                           CommandParameter="{Binding Id}" />
                             </SwipeItems>
                         </SwipeView.RightItems>
                         <Grid Padding="0,5">
@@ -33,9 +33,9 @@
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=TapCommand}"
-                                        CommandParameter="{Binding id}"/>
+                                        CommandParameter="{Binding Id}"/>
                                 </Frame.GestureRecognizers>
-                                <Label Text="{Binding name}"
+                                <Label Text="{Binding Name}"
                                         FontSize="24" />
                             </Frame>
                         </Grid>
