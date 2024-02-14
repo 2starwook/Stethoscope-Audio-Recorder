@@ -22,7 +22,16 @@ public class DatabaseManager
         }
 	}
 
-    public async Task AddRecordDataAsync(string audioFilePath, string recordName){
+    public async Task AddRecordAsync(string audioFilePath, string recordName){
+        var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
+        await recordsManager.InsertRecordAsync(record);
+        currentRecords.Add(FileAPI.GetUniqueID(), record);
+    }
+
+    public async Task DeleteRecordAsync(string id){
+        await recordsManager.DeleteRecordAsync(id);
+        currentRecords.Remove(id);
+    }
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
         await recordsManager.InsertItemAsync(record);
         currentRecords.Add(FileAPI.GetUniqueID(), record);
