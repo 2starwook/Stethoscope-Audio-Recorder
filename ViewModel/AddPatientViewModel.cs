@@ -42,9 +42,9 @@ public partial class AddPatientViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        //await databaseManager.AddRecordDataAsync(FilePath, RecordName);
-        //await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
-        // TODO - Add item to the current RecordsPage
+        await databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
+        await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
+
         // TODO - Implement: Reset after clicking submit
 	}
 }
