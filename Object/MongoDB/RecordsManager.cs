@@ -20,15 +20,15 @@ public class RecordsManager<T> where T : Record
         return _mongoDB.GetItems();
     }
 
-    public bool InsertRecords(List<T> items)
-    {
-        return this._mongoDB.InsertItems(items);
-    }
+    // public bool InsertRecords(List<T> items)
+    // {
+    //     return this._mongoDB.InsertItems(items);
+    // }
 
-    public void DeleteRecords(string [] ids)
-    {
-        this._mongoDB.DeleteItems(ids);
-    }
+    // public void DeleteRecords(string [] ids)
+    // {
+    //     this._mongoDB.DeleteItems(ids);
+    // }
 
     public async Task InsertRecordAsync(T item)
     {
