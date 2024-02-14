@@ -6,7 +6,7 @@ public class Record : Item
         this.BinaryData = binaryData;
         this.AssignedPatientId = assignedPatientId;
 	}
-
+    // NOTE: Names should match with MongoDB
     public string RecordName {get; set;}
     public byte[] BinaryData {get; set;}
     public string AssignedPatientId {get; set;}

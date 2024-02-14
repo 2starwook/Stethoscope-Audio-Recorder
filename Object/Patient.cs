@@ -5,7 +5,7 @@ public class Patient : Item
         this.FirstName = firstName;
         this.LastName = lastName;
 	}
-
+    // NOTE: Names should match with MongoDB
     public string FirstName {get; set;}
     public string LastName {get; set;}
 
