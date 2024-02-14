@@ -41,7 +41,7 @@ public partial class RecordsViewModel : ObservableObject
     [RelayCommand]
     async Task Delete(string id)
     {
-        await databaseManager.DeleteRecordDataAsync(id);
+        await databaseManager.DeleteRecordAsync(id);
         Items.Remove(Items.SingleOrDefault(i => i.id == id));
     }
 
