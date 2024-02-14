@@ -21,11 +21,6 @@ public class RecordInfo
 
 public partial class RecordsViewModel : ObservableObject
 {
-    [ObservableProperty]
-    ObservableCollection<RecordInfo> records;
-
-    private DatabaseManager databaseManager;
-
     public RecordsViewModel(DatabaseManager databaseManager)
     {
         this.databaseManager = databaseManager;
@@ -37,6 +32,12 @@ public partial class RecordsViewModel : ObservableObject
             records.Add(new RecordInfo(entry.Value.recordName, entry.Value.GetId()));
         }
     }
+
+    [ObservableProperty]
+    private ObservableCollection<RecordInfo> records;
+
+    private DatabaseManager databaseManager;
+
 
     [RelayCommand]
     async Task Delete(string id)

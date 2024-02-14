@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Object.MyData;
 using NET_MAUI_BLE.Pages;
 
+
 namespace NET_MAUI_BLE.ViewModel;
 
 public class PatientInfo
@@ -36,16 +37,17 @@ public partial class AddRecordViewModel : ObservableObject
     private ObservableCollection<PatientInfo> patients;
 
     [ObservableProperty]
-	string recordName;
+	private string recordName;
 
     [ObservableProperty]
-	string filePath;
+	private string filePath;
 
     [ObservableProperty]
-    string fileButtonText = "Select a File";
+    private string fileButtonText = "Select a File";
 
     [ObservableProperty]
-    PatientInfo selectedPatient;
+    private PatientInfo selectedPatient;
+
 
     void Refresh()
     {

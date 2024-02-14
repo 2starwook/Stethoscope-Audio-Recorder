@@ -16,15 +16,15 @@ public partial class AddPatientViewModel : ObservableObject
 
     private DatabaseManager databaseManager;
 
+    [ObservableProperty]
+	private string patientFirstName;
 
     [ObservableProperty]
-	string patientFirstName;
+	private string patientLastName;
 
     [ObservableProperty]
-	string patientLastName;
+    private DateTime dateOfBirth = DateTime.Now;
 
-    [ObservableProperty]
-    DateTime dateOfBirth = DateTime.Now;
 
     [RelayCommand]
     void Appearing()

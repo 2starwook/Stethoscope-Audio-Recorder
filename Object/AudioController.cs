@@ -4,12 +4,13 @@ using Plugin.Maui.Audio;
 namespace Object.MyAudio;
 public class AudioController
 {
-	private readonly IAudioManager audioManager;
-	private AudioPlayer _currentAudioPlayer;
-
 	public AudioController(IAudioManager audioManager) {
 		this.audioManager = audioManager;
 	}
+
+	private readonly IAudioManager audioManager;
+	private AudioPlayer _currentAudioPlayer;
+
 
     public async Task OpenFile(string filePath){
 		try {
@@ -47,5 +48,4 @@ public class AudioController
 	public bool IsPlaying(){
 		return this._currentAudioPlayer.IsPlaying();
 	}
-
 }

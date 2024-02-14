@@ -8,11 +8,6 @@ namespace Object.MyData;
 public class DatabaseManager
 {
     // Manage Database: Add/Remove/Modify data
-    private PatientsManager<Patient> patientsManager;
-    private RecordsManager<Record> recordsManager;
-    public Dictionary<string, Record> currentRecords;
-    public Dictionary<string, Patient> currentPatients;
-    
 	public DatabaseManager() {
         this.patientsManager = new PatientsManager<Patient>();
         this.recordsManager = new RecordsManager<Record>();
@@ -27,6 +22,13 @@ public class DatabaseManager
             currentPatients.Add(p.GetId(), p);
         }
 	}
+
+    private PatientsManager<Patient> patientsManager;
+    private RecordsManager<Record> recordsManager;
+
+    public Dictionary<string, Record> currentRecords;
+    public Dictionary<string, Patient> currentPatients;
+
 
     public async Task AddRecordAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);

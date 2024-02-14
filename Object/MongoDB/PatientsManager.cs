@@ -6,14 +6,15 @@ namespace Object.MyDB;
 public class PatientsManager<T> where T : Patient 
 {
     // Manage API with MongoDB
-    // TODO - Move to Config File
-    private const string collectionName = "patients";
-    private MongoDB<T> _mongoDB;
-
 	public PatientsManager() 
     {
         this._mongoDB = new MongoDB<T>(collectionName);
 	}
+
+    // TODO - Move to Config File
+    private const string collectionName = "patients";
+    private MongoDB<T> _mongoDB;
+
 
     public List<T> GetPatients()
     {
@@ -44,6 +45,4 @@ public class PatientsManager<T> where T : Patient
     {
         await _mongoDB.DeleteItemAsync(id);
     }
-
-
 }

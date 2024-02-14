@@ -5,6 +5,7 @@ using Plugin.Maui.Audio;
 
 using Object.MyData;
 
+
 namespace NET_MAUI_BLE.ViewModel;
 
 public partial class TestViewModel : ObservableObject
@@ -23,13 +24,14 @@ public partial class TestViewModel : ObservableObject
     private DatabaseManager databaseManager;
 
     [ObservableProperty]
-    ObservableCollection<string> patients;
+    private ObservableCollection<string> patients;
 
     [ObservableProperty]
-	string name;
+	private string name;
 
 	[ObservableProperty]
-	string nameLabel;
+	private string nameLabel;
+
 
 	[RelayCommand]
 	void Submit()

@@ -6,16 +6,7 @@ using MongoDB.Driver;
 namespace Object.MyDB;
 public class MongoDB<T> where T : Item {
     // Manage API with MongoDB
-    // TODO - Move to Config File
-    private const string dbName = "NET_MAUI_BLE";
-    private const string username = "2starwook";
-    private const string password = "xvaDWsxXWiTenwn0";
-    private const string mongoUri = $"mongodb+srv://{username}:{password}@cluster0." +
-        "jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
-    private IMongoClient client;
-    public IMongoCollection<T> collection;
-    
-    // FIX - MongoClient raises Exception on Other platform than MacOS
+    // FIXME - MongoClient raises Exception on Other platform than MacOS
 	public MongoDB(string collectionName) 
     {
         try
@@ -32,6 +23,16 @@ public class MongoDB<T> where T : Item {
         }
         collection = client.GetDatabase(dbName).GetCollection<T>(collectionName);
 	}
+
+    // TODO - Move to Config File
+    private const string dbName = "NET_MAUI_BLE";
+    private const string username = "2starwook";
+    private const string password = "xvaDWsxXWiTenwn0";
+    private const string mongoUri = $"mongodb+srv://{username}:{password}@cluster0." +
+        "jdq7pvv.mongodb.net/?retryWrites=true&w=majority";
+    private IMongoClient client;
+    public IMongoCollection<T> collection;
+
 
     public List<T> GetItems()
     {

@@ -25,10 +25,11 @@ public partial class RecordViewModel : ObservableObject
     private DatabaseManager _databaseManager;
 
     [ObservableProperty]
-	string recordId;
+	private string recordId;
 
 	[ObservableProperty]
-	string playText;
+	private string playText;
+
 
     [RelayCommand]
     void Appearing()

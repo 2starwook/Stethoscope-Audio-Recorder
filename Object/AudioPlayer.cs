@@ -4,13 +4,14 @@ using Plugin.Maui.Audio;
 namespace Object.MyAudio;
 public class AudioPlayer
 {
-	private readonly IAudioPlayer _audioPlayer;
-	private readonly string filePath;
-
 	public AudioPlayer(IAudioPlayer audioPlayer, string filePath) {
 		this._audioPlayer = audioPlayer;
 		this.filePath = filePath;
 	}
+
+	private readonly IAudioPlayer _audioPlayer;
+	private readonly string filePath;
+
 
 	public bool IsSameFilePath(string filePath){
 		return this.filePath == filePath;
@@ -35,5 +36,4 @@ public class AudioPlayer
 	public void AddEventHandler(EventHandler e){
 		_audioPlayer.PlaybackEnded += e;
 	}
-
 }
