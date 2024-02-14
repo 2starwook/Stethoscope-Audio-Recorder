@@ -65,14 +65,4 @@ public class DatabaseManager
         File.Copy(srcPath.ToString(), dstPath);
         return dstPath;
     }
-
-    // public List<string> GetPathList(){
-    //     return recordCollection.GetPathList();
-    // }
-
-    // public List<Record> GetRecords(){
-    //     return recordsManager.GetItems();
-    // }
-
-
 }
