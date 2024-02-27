@@ -1,64 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
-             x:Class="NET_MAUI_BLE.Pages.TestPage">
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0">
-            <Label Text="{Binding NameLabel}"
-                   FontSize="20"
-                   HorizontalOptions="Center"/>
-
-            <Grid ColumnDefinitions="130, 50">
-                <Label Grid.Row="0" Grid.Column="0"
-                       Text="File: "
-                       SemanticProperties.HeadingLevel="Level1"
-                       FontSize="32"
-                       Padding="0, 0, 10, 0"/>
-                <Button Grid.Row="0" Grid.Column="1"
-                        Text="Select a File"
-                        HorizontalOptions="Start"
-                        WidthRequest="150"
-                        FontSize="20"
-                        BackgroundColor="Black"
-                        BorderColor="White"
-                        BorderWidth="2"
-                        TextColor="White"/>
-            </Grid>
-            <Grid ColumnDefinitions="130, 50">
-                <Label Grid.Row="0" Grid.Column="0"
-                       Text="Name: "
-                       SemanticProperties.HeadingLevel="Level1"
-                       FontSize="32"
-                       Padding="0, 0, 10, 0"/>
-                <Entry Grid.Row="0" Grid.Column="1"
-                       Text="{Binding Name}"
-                       Placeholder="Enter text"/>
-            </Grid>
-            <Grid ColumnDefinitions="130, 50">
-                <Label Grid.Row="0" Grid.Column="0"
-                       Text="Patient: "
-                       SemanticProperties.HeadingLevel="Level1"
-                       FontSize="32"
-                       Padding="0, 0, 10, 0"/>
-                <Picker Grid.Row="0" Grid.Column="1"
-                        Title="Select a patient to be assigned"
-                        ItemsSource="{Binding Patients}"
-                        FontSize="20"
-                        HorizontalOptions="Start"
-                        WidthRequest="300"/>
-            </Grid>
-
-            <Button Text="Submit"
-                    Command="{Binding SubmitCommand}"
-                    HorizontalOptions="Start"
-                    WidthRequest="100"/>
-
-
-
-        </VerticalStackLayout>
-    </ScrollView>
+             xmlns:pages="clr-namespace:NET_MAUI_BLE.Pages"
+             x:Class="NET_MAUI_BLE.Pages.TestPage"
+             x:DataType="viewmodel:TestViewModel">
+ <ContentPage.Behaviors>
+        <!--<mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />-->
+        <!--<viewmodel:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
+ </ContentPage.Behaviors>
 
 </ContentPage>
