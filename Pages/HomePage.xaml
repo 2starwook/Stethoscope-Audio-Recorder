@@ -9,11 +9,64 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <!--<viewmodel:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
  </ContentPage.Behaviors>
-    <StackLayout Spacing="15">
-        <Label 
-            Text="{Binding ResultText}"
-            FontSize="32"
-            HorizontalOptions="Center"
-            VerticalOptions="Center" />
-    </StackLayout>
+<ContentPage.Resources>
+    <ResourceDictionary>
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ResourceDictionary>
+</ContentPage.Resources>
+    <Grid RowDefinitions="0, *, *">
+        <HorizontalStackLayout Grid.Row="1"
+                               Grid.Column="1"
+                               VerticalOptions="Start"
+                               HorizontalOptions="Center"
+                               Margin="0, 20, 0, 0">
+            <Button Text="Scan"
+                    Command="{Binding ScanBLECommand}"
+                    IsVisible="{Binding ScanButtonView}"
+                    WidthRequest="100"
+                    Margin="0, 0, 20, 0"
+                    VerticalOptions="Center"/>
+            <Button Text="Stop"
+                    Command="{Binding StopBLECommand}"
+                    IsVisible="{Binding ScanButtonView, Converter={StaticResource InvertedBoolConverter}}"
+                    WidthRequest="100"
+                    VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+        <Label Grid.Row="1"
+               Grid.Column="2"
+               Text="{Binding BleStatusText}"
+               FontSize="20"
+               HorizontalOptions="End"/>
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Text="{Binding ResultText}"
+               FontSize="20"
+               HorizontalOptions="Center"/>
+        <HorizontalStackLayout Grid.Row="3"
+                               IsVisible="{Binding RecordView}"
+                               VerticalOptions="End"
+                               HorizontalOptions="Center"
+                               Margin="0, 20, 0, 0">
+            <Button Text="Record"
+                    Command="{Binding RecordCommand}"
+                    IsVisible="{Binding RecordButtonView}"
+                    WidthRequest="100"
+                    Margin="0, 0, 20, 0"/>
+            <Button Text="Stop"
+                    Command="{Binding StopCommand}"
+                    IsVisible="{Binding RecordButtonView, Converter={StaticResource InvertedBoolConverter}}"
+                    WidthRequest="100"
+                    Margin="0, 0, 20, 0"/>
+            <Button Text="Pause"
+                    Command="{Binding PauseCommand}"
+                    IsVisible="{Binding PauseButtonView}"
+                    WidthRequest="100"
+                    Margin="0, 0, 20, 0"/>
+            <Button Text="Resume"
+                    Command="{Binding RecordCommand}"
+                    IsVisible="{Binding ResumeButtonView}"
+                    WidthRequest="100"
+                    Margin="0, 0, 20, 0"/>
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

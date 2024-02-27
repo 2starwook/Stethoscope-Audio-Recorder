@@ -1,31 +1,65 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Shiny.BluetoothLE;
 
+using Object.MyMessage;
+using Object.MyBLE;
 using MyConfig;
+using MyEnum;
 
 namespace NET_MAUI_BLE.ViewModel;
-
-public partial class HomeViewModel : ObservableObject
+// TODO - Implement receive audio file from BLE
+public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage>, IRecipient<BleStatusMessage>
 {
 	public HomeViewModel(IBleManager bleManager)
 	{
-        _bleManager = bleManager;
+        _bleController = new BleController(bleManager);
+        WeakReferenceMessenger.Default.Register<BleDataMessage>(this);
+        WeakReferenceMessenger.Default.Register<BleStatusMessage>(this);
         ResultText = "Waiting to be connected...";
+        CurrentBleStatus = BleStatus.NotConnected;
+        ScanView = true;
+        ScanButtonView = true;
+
+        CurrentRecordStatus = RecordStatus.Off;
+        RecordView = false;
+        RecordButtonView = true;
+        PauseButtonView = false;
+        ResumeButtonView = false;
     }
 
-    private readonly IBleManager _bleManager;
-    private IPeripheral _connected_device;
+    private BleController _bleController;
     [ObservableProperty]
-    string resultText;
+    private string resultText;
+    [ObservableProperty]
+    private string bleStatusText;
+
+    [ObservableProperty]
+    private bool scanView;
+    [ObservableProperty]
+    BleStatus currentBleStatus;
+    [ObservableProperty]
+    private bool scanButtonView;
+
+    [ObservableProperty]
+    private bool recordView;
+    [ObservableProperty]
+    RecordStatus currentRecordStatus;
+    [ObservableProperty]
+    private bool recordButtonView;
+    [ObservableProperty]
+    private bool pauseButtonView;
+    [ObservableProperty]
+    private bool resumeButtonView;
 
     [RelayCommand]
     void Appearing()
     {
         try
         {
-            Scan();
+            //ScanBLE();
         }
         catch (Exception e)
         {
@@ -33,64 +67,108 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
-    private async Task<int> AnalyzeData(IPeripheral device)
+    [RelayCommand]
+    void ScanBLE()
     {
-        TaskCompletionSource<int> tcs = new TaskCompletionSource<int>();
-
-        // TODO - Need to handle when not get connected
-        try
-        {
-            await device.ConnectAsync();
-        }
-        catch (TimeoutException e)
-        {
-            System.Diagnostics.Debug.WriteLine($"Timeout Exception occured {e.ToString()}");
-            return await tcs.Task;
-        }
-        if (device.IsConnected())
-        {
-            _connected_device = device;
-        }
-#if DEBUG
-        device.GetAllCharacteristics()
-            .Subscribe(_result => {
-                // Add breakpoint and wait. Then, check characteristic UUID once breaks
-                foreach (var each in _result)
-                {
-                    System.Diagnostics.Debug.WriteLine(
-                        $"Service UUID: {each.Service.Uuid} / " +
-                        $"Characteristic UUID: {each.Uuid}");
-                }
-            });
-#endif
-        device.GetCharacteristic(Config.SERVICE_UUTD, Config.CHARACTERISTIC_UUID)
-            .Subscribe(characteristic => {
-                device.ReadCharacteristic(characteristic)
-                    .Subscribe(result => {
-                        var data = result.Data;
-                        System.Diagnostics.Debug.WriteLine($"Received Data: {data}");
-                    });
-            });
-
-        return await tcs.Task;
+        _bleController.Scan();
+        CurrentBleStatus = BleStatus.Scanning;
     }
 
-    public void Scan()
+    [RelayCommand]
+    void StopBLE()
     {
-        _bleManager.Scan()
-            .Subscribe(async _scanResult => {
-#if DEBUG
-                System.Diagnostics.Debug.WriteLine(
-                    $@"Scanned for: {_scanResult.Peripheral.Uuid.ToString()} 
-                     / {_scanResult.Peripheral.Name}");
-#endif
-                if (_scanResult.AdvertisementData != null &&
-                _scanResult.AdvertisementData.ServiceUuids != null &&
-                _scanResult.AdvertisementData.ServiceUuids.Contains(Config.SERVICE_UUTD))
-                {
-                    _bleManager.StopScan();
-                    await AnalyzeData(_scanResult.Peripheral);
-                }
-            });
+        _bleController.StopScan();
+        CurrentBleStatus = BleStatus.NotConnected;
+    }
+
+    partial void OnCurrentBleStatusChanged(BleStatus value)
+    {
+        if (value == BleStatus.Connected)
+        {
+            BleStatusText = "Connected";
+            RecordView = true;
+            ScanView = false;
+        }
+        else if (value == BleStatus.NotConnected)
+        {
+            BleStatusText = "Not Connected";
+            ScanButtonView = true;
+            RecordView = false;
+            ScanView = true;
+        }
+        else if (value == BleStatus.Scanning)
+        {
+            BleStatusText = "Scanning";
+            ScanButtonView = false;
+        }
+    }
+
+    [RelayCommand]
+    void Record()
+    {
+        if (CurrentRecordStatus == RecordStatus.Paused)
+        {
+            // Resume
+        }
+        CurrentRecordStatus = RecordStatus.Recording;
+    }
+
+    [RelayCommand]
+    void Stop()
+    {
+        CurrentRecordStatus = RecordStatus.NotRecording;
+    }
+
+    [RelayCommand]
+    void Pause()
+    {
+        CurrentRecordStatus = RecordStatus.Paused;
+    }
+
+    partial void OnCurrentRecordStatusChanged(RecordStatus value)
+    {
+        if (value == RecordStatus.Off)
+        {
+            RecordView = false;
+        }
+        else if (value == RecordStatus.Recording)
+        {
+            RecordButtonView = false;
+            PauseButtonView = true;
+            ResumeButtonView = false;
+        }
+        else if (value == RecordStatus.NotRecording)
+        {
+            RecordButtonView = true;
+            PauseButtonView = false;
+            ResumeButtonView = false;
+        }
+        else if (value == RecordStatus.Paused)
+        {
+            RecordButtonView = false;
+            PauseButtonView = false;
+            ResumeButtonView = true;
+        }
+    }
+
+    public void Receive(BleDataMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            ResultText = "";
+            foreach (var value in message.Value)
+            {
+                ResultText += $"{value.ToString()}\n";
+            }
+        });
+    }
+
+    public void Receive(BleStatusMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            BleStatusText = message.Value.ToString();
+            CurrentBleStatus = message.Value;
+        });
     }
 }
