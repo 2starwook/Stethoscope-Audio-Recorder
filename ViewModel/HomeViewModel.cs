@@ -19,9 +19,9 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         WeakReferenceMessenger.Default.Register<BleDataMessage>(this);
         WeakReferenceMessenger.Default.Register<BleStatusMessage>(this);
         ResultText = "Waiting to be connected...";
-        CurrentBleStatus = BleStatus.NotConnected;
-        ScanView = true;
-        ScanButtonView = true;
+        BleStatusText = "Scanning";
+
+        CurrentBleStatus = BleStatus.Scanning;
 
         CurrentRecordStatus = RecordStatus.Off;
         RecordView = false;
@@ -29,6 +29,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         PauseButtonView = false;
         ResumeButtonView = false;
     }
+    public byte[] receivedFile = new byte[] {};
 
     private BleController _bleController;
     [ObservableProperty]
@@ -37,16 +38,11 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     private string bleStatusText;
 
     [ObservableProperty]
-    private bool scanView;
-    [ObservableProperty]
     BleStatus currentBleStatus;
     [ObservableProperty]
-    private bool scanButtonView;
-
+    RecordStatus currentRecordStatus;
     [ObservableProperty]
     private bool recordView;
-    [ObservableProperty]
-    RecordStatus currentRecordStatus;
     [ObservableProperty]
     private bool recordButtonView;
     [ObservableProperty]
@@ -59,7 +55,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     {
         try
         {
-            //ScanBLE();
+            ScanAndConnect();
         }
         catch (Exception e)
         {
@@ -67,39 +63,31 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         }
     }
 
-    [RelayCommand]
-    void ScanBLE()
+    void ScanAndConnect()
     {
-        _bleController.Scan();
-        CurrentBleStatus = BleStatus.Scanning;
-    }
-
-    [RelayCommand]
-    void StopBLE()
-    {
-        _bleController.StopScan();
-        CurrentBleStatus = BleStatus.NotConnected;
+        _bleController.ScanAndConnect();
     }
 
     partial void OnCurrentBleStatusChanged(BleStatus value)
     {
-        if (value == BleStatus.Connected)
+        if (value == BleStatus.Scanning)
+        {
+            BleStatusText = "Scanning";
+        }
+        else if (value == BleStatus.Connecting)
+        {
+            BleStatusText = "Connecting";
+        }
+        else if (value == BleStatus.Connected)
         {
             BleStatusText = "Connected";
             RecordView = true;
-            ScanView = false;
         }
-        else if (value == BleStatus.NotConnected)
+        else if (value == BleStatus.Disconnected)
         {
-            BleStatusText = "Not Connected";
-            ScanButtonView = true;
+            BleStatusText = "Disconnected";
             RecordView = false;
-            ScanView = true;
-        }
-        else if (value == BleStatus.Scanning)
-        {
-            BleStatusText = "Scanning";
-            ScanButtonView = false;
+            ScanAndConnect();
         }
     }
 
@@ -155,11 +143,13 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            ResultText = "";
+            receivedFile = MYAPI.DataConvertAPI.Combine(receivedFile, message.Value);
             foreach (var value in message.Value)
             {
-                ResultText += $"{value.ToString()}\n";
+                System.Diagnostics.Debug.Write($"{value.ToString()} ");
             }
+            System.Diagnostics.Debug.Write("\n");
+            System.Diagnostics.Debug.Write($"Received size: {receivedFile.Length}\n");
         });
     }
 
@@ -167,7 +157,6 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            BleStatusText = message.Value.ToString();
             CurrentBleStatus = message.Value;
         });
     }

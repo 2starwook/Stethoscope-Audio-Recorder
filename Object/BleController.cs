@@ -1,8 +1,10 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Shiny.BluetoothLE;
+using 
 using Object.MyMessage;
 using MyConfig;
 using MyEnum;
+
 
 namespace Object.MyBLE;
 public class BleController
@@ -12,17 +14,17 @@ public class BleController
         _bleManager = bleManager;
         _service_uuid = Config.SERVICE_UUTD;
     }
-
     private readonly IBleManager _bleManager;
-    private IPeripheral _connected_device;
+    private IPeripheral targetDevice;
     private string _service_uuid;
+    private int notifySubscriptionCount;
 
 
-    public void Scan()
+    public void ScanAndConnect()
     {
-        if (HasDevice())
+        if (IsConnected())
         {
-            Disconnect();
+            return;
         }
         WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Scanning));
         _bleManager.Scan()
@@ -30,17 +32,16 @@ public class BleController
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine(
                     $@"Scanned for: {_scanResult.Peripheral.Uuid.ToString()} 
-                     / {_scanResult.Peripheral.Name}");
+                        / {_scanResult.Peripheral.Name}");
 #endif
                 if (_scanResult.AdvertisementData != null &&
                     _scanResult.AdvertisementData.ServiceUuids != null &&
                     _scanResult.AdvertisementData.ServiceUuids.Contains(_service_uuid))
                 {
+                    System.Diagnostics.Debug.WriteLine($"Matching device found");
                     StopScan();
-                    await Connect(_scanResult.Peripheral);
-                    PrintAllCharacteristics();
-                    // NOTE - Add needed handlers
-                    HandleNotifyData(_service_uuid, Config.CHARACTERISTIC_UUID);
+                    targetDevice = _scanResult.Peripheral;
+                    await Connect();
                 }
             });
     }
@@ -48,41 +49,44 @@ public class BleController
     public void StopScan()
     {
         _bleManager.StopScan();
-        if (_connected_device == null)
-        {
-            WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.NotConnected));
-        }
     }
 
-    public async Task Connect(IPeripheral device)
+    private async Task Connect()
 	{
-        _connected_device = device;
-        try
+        WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Connecting));
+        System.Diagnostics.Debug.WriteLine($"Attempt to connect BLE");
+        notifySubscriptionCount = 0;
+        await Task.Run(async () =>
         {
-            await _connected_device.ConnectAsync();
-        }
-        catch (TimeoutException e)
+            try
+            {
+                await targetDevice.ConnectAsync();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+                WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Disconnected));
+            }
+        }).ContinueWith((result) =>
         {
-            System.Diagnostics.Debug.WriteLine($"Timeout Exception occured {e.ToString()}");
-        }
-        WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Connected));
+            if (IsConnected())
+            {
+                SubscribeToMessenger();
+                // NOTE - Add needed handlers
+                System.Diagnostics.Debug.WriteLine($"Handle notify data");
+                HandleNotifyData(_service_uuid, Config.CHARACTERISTIC_UUID);
+            }
+        });
     }
 
-    public void Disconnect()
+    private bool IsConnected()
     {
-        _connected_device.CancelConnection();
-        _connected_device = null;
-        WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.NotConnected));
+        return targetDevice != null && targetDevice.IsConnected();
     }
 
-    public bool HasDevice()
+    private void PrintAllCharacteristics()
     {
-        return _connected_device != null;
-    }
-
-    public void PrintAllCharacteristics()
-    {
-        _connected_device.GetAllCharacteristics()
+        targetDevice.GetAllCharacteristics()
             .Subscribe(_result => {
                 foreach (var each in _result)
                 {
@@ -93,11 +97,11 @@ public class BleController
             });
     }
 
-    public void HandleReadData(string service_uuid, string characteristic_uuid)
+    private void HandleReadData(string service_uuid, string characteristic_uuid)
     {
-        _connected_device.GetCharacteristic(service_uuid, characteristic_uuid)
+        targetDevice.GetCharacteristic(service_uuid, characteristic_uuid)
             .Subscribe(characteristic => {
-                _connected_device.ReadCharacteristic(characteristic)
+                targetDevice.ReadCharacteristic(characteristic)
                     .Subscribe(result => {
                         var data = result.Data;
                         WeakReferenceMessenger.Default.Send(new BleDataMessage(data));
@@ -106,11 +110,19 @@ public class BleController
             });
     }
 
-    public void HandleNotifyData(string service_uuid, string characteristic_uuid)
+    private void HandleNotifyData(string service_uuid, string characteristic_uuid)
     {
-        _connected_device.GetCharacteristic(service_uuid, characteristic_uuid)
+        if (notifySubscriptionCount != 0)
+        {
+            return;
+        }
+        notifySubscriptionCount += 1;
+        Thread.Sleep(5000); // Wait till ready
+        targetDevice.GetCharacteristic(service_uuid, characteristic_uuid)
             .Subscribe(characteristic => {
-                _connected_device.NotifyCharacteristic(characteristic)
+                //System.Diagnostics.Debug.WriteLine($"Delay 3s");
+                //Thread.Sleep(3000);
+                targetDevice.NotifyCharacteristic(characteristic)
                     .Subscribe(result => {
                         var data = result.Data;
                         WeakReferenceMessenger.Default.Send(new BleDataMessage(data));
@@ -119,10 +131,34 @@ public class BleController
             });
     }
 
-    public void HandleWriteData(string service_uuid, string characteristic_uuid, byte[] data)
+    private void HandleWriteData(string service_uuid, string characteristic_uuid, byte[] data)
     {
         // NOTE - Need testing
-        _connected_device.WriteCharacteristic(service_uuid, characteristic_uuid, data);
+        targetDevice.WriteCharacteristic(service_uuid, characteristic_uuid, data);
         System.Diagnostics.Debug.WriteLine($"Write Data: {data}");
+    }
+
+    private void SubscribeToMessenger()
+    {
+        targetDevice.WhenConnectionFailed()
+            .Subscribe(_ =>
+            {
+                targetDevice = null;
+                WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Disconnected));
+            }
+        );
+        targetDevice.WhenConnected()
+            .Subscribe(peripheral =>
+            {
+                WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Connected));
+            }
+        );
+        targetDevice.WhenDisconnected()
+            .Subscribe(peripheral =>
+            {
+                targetDevice = null;
+                WeakReferenceMessenger.Default.Send(new BleStatusMessage(BleStatus.Disconnected));
+            }
+        );
     }
 }
