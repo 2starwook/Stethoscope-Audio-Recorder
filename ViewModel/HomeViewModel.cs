@@ -54,7 +54,8 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     {
         try
         {
-            await InitiateBle();
+            //TODO - Remove comments if Ble needed
+            //await InitiateBle();
         }
         catch (Exception e)
         {
