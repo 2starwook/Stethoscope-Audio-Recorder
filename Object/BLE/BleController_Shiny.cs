@@ -1,15 +1,14 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Shiny.BluetoothLE;
-using 
 using Object.MyMessage;
 using MyConfig;
 using MyEnum;
 
 
 namespace Object.MyBLE;
-public class BleController
+public class BleControllerShiny
 {
-	public BleController(IBleManager bleManager)
+	public BleControllerShiny(IBleManager bleManager)
     {
         _bleManager = bleManager;
         _service_uuid = Config.SERVICE_UUTD;
