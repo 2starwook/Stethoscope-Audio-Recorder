@@ -4,21 +4,9 @@ using CommunityToolkit.Mvvm.Input;
 
 using Object.MyData;
 using NET_MAUI_BLE.Pages;
-
+using Object.MyRecords;
 
 namespace NET_MAUI_BLE.ViewModel;
-
-public class RecordInfo
-{
-    public string Name {get; set;}
-    public string Id {get; set;}
-    public RecordInfo(string name, string id)
-    {
-        this.Name = name;
-        this.Id = id;
-    }
-}
-
 public partial class RecordsViewModel : ObservableObject
 {
     public RecordsViewModel(DatabaseManager databaseManager)
