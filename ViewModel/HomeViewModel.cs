@@ -89,9 +89,15 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
             RecordView = false;
             if (receivedFile.Length != 0)
             {
-                File.WriteAllBytes("/Users/2star/Downloads/sample.wav", receivedFile);
+                // NOTE - Change in the future (Testing purpose)
+                WriteFile("/Users/2star/Downloads/sample.wav");
             }
         }
+    }
+
+    private void WriteFile(string path)
+    {
+        File.WriteAllBytes(path, receivedFile);
     }
 
     [RelayCommand]
