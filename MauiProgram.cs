@@ -1,15 +1,12 @@
 ﻿using Microcharts.Maui;
 using Microsoft.Extensions.Logging;
-using Shiny;
-using Shiny.Infrastructure;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
+using Plugin.BLE;
 
-using Object.MyData;
 
 namespace NET_MAUI_BLE;
-
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
@@ -26,7 +23,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddShiny();
+		builder.Services.AddSingleton(CrossBluetoothLE.Current);
 		builder.Services.AddSingleton(AudioManager.Current);
 		builder.Services.AddSingleton(FileSaver.Default);
 		builder.Services.AddSingleton(FolderPicker.Default);
@@ -38,12 +35,6 @@ public static class MauiProgram
 #endif
 
 		return builder.Build();
-	}
-
-	private static void AddShiny(this IServiceCollection services)
-	{
-		services.AddShinyCoreServices();
-		services.AddBluetoothLE();
 	}
 
 	private static void AddDependencies(this IServiceCollection services)

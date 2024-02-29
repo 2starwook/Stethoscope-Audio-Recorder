@@ -2,20 +2,19 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Shiny.BluetoothLE;
 
 using Object.MyMessage;
 using Object.MyBLE;
 using MyConfig;
 using MyEnum;
 
+
 namespace NET_MAUI_BLE.ViewModel;
-// TODO - Implement receive audio file from BLE
 public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage>, IRecipient<BleStatusMessage>
 {
-	public HomeViewModel(IBleManager bleManager)
+	public HomeViewModel()
 	{
-        _bleController = new BleController(bleManager);
+        _bleController = new BleController();
         WeakReferenceMessenger.Default.Register<BleDataMessage>(this);
         WeakReferenceMessenger.Default.Register<BleStatusMessage>(this);
         ResultText = "Waiting to be connected...";
@@ -51,11 +50,11 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     private bool resumeButtonView;
 
     [RelayCommand]
-    void Appearing()
+    async Task Appearing()
     {
         try
         {
-            ScanAndConnect();
+            await InitiateBle();
         }
         catch (Exception e)
         {
@@ -63,9 +62,10 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         }
     }
 
-    void ScanAndConnect()
+    [RelayCommand]
+    async Task InitiateBle()
     {
-        _bleController.ScanAndConnect();
+        await _bleController.InitiateAsync();
     }
 
     partial void OnCurrentBleStatusChanged(BleStatus value)
@@ -87,7 +87,10 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         {
             BleStatusText = "Disconnected";
             RecordView = false;
-            ScanAndConnect();
+            if (receivedFile.Length != 0)
+            {
+                File.WriteAllBytes("/Users/2star/Downloads/sample.wav", receivedFile);
+            }
         }
     }
 
@@ -139,11 +142,16 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
         }
     }
 
+    private void StoreData(byte[] data)
+    {
+        receivedFile = MYAPI.DataConvertAPI.Combine(receivedFile, data);
+    }
+
     public void Receive(BleDataMessage message)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            receivedFile = MYAPI.DataConvertAPI.Combine(receivedFile, message.Value);
+            StoreData(message.Value);
             foreach (var value in message.Value)
             {
                 System.Diagnostics.Debug.Write($"{value.ToString()} ");
