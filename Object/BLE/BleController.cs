@@ -3,9 +3,7 @@ using Object.MyMessage;
 using MyConfig;
 using MyEnum;
 using Plugin.BLE;
-using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.Exceptions;
 
 
 namespace Object.MyBLE;
