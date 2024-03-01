@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MyConfig;
 
@@ -28,25 +27,9 @@ public class MongoDB<T> where T : Item {
     private IMongoClient _client;
     public IMongoCollection<T> collection;
 
-    public List<T> GetItems()
+    public async Task<List<T>> GetItemsAsync()
     {
-        return collection.Find(Builders<T>.Filter.Empty).ToList();
-    }
-
-    public bool InsertItems(List<T> items)
-    {
-        var isSuccessful = true;
-        try
-        {
-            collection.InsertMany(items);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Something went wrong trying to insert the new data." +
-                    $" Message: {e.Message}");
-            isSuccessful = false;
-        }
-        return isSuccessful;
+        return (await collection.FindAsync(Builders<T>.Filter.Empty)).ToList();
     }
 
     public async Task InsertItemAsync(T item)
@@ -54,17 +37,8 @@ public class MongoDB<T> where T : Item {
         await collection.InsertOneAsync(item);
     }
 
-    public void DeleteItems(string [] ids)
+    public async Task DeleteItemAsync(string id)
     {
-        collection.DeleteMany(
-            Builders<T>.Filter.In(
-                p => p.GetId(), 
-                ids
-            )
-        );
-    }
-
-    public async Task DeleteItemAsync(string id){
         await collection.DeleteOneAsync(
             Builders<T>.Filter.Eq(p => p.GetId(), id)
         );

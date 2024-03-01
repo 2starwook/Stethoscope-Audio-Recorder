@@ -11,15 +11,6 @@ public class DatabaseManager
         this._patientsManager = new PatientsManager<Patient>();
         this._recordsManager = new RecordsManager<Record>();
         this.currentRecords = new Dictionary<string, Record>();
-        foreach (Record r in _recordsManager.GetRecords())
-        {
-            this.currentRecords.Add(r.GetId(), r);
-        }
-        this.currentPatients = new Dictionary<string, Patient>();
-        foreach (Patient p in this._patientsManager.GetPatients())
-        {
-            this.currentPatients.Add(p.GetId(), p);
-        }
 	}
 
     private PatientsManager<Patient> _patientsManager;
@@ -27,6 +18,19 @@ public class DatabaseManager
 
     public Dictionary<string, Record> currentRecords;
     public Dictionary<string, Patient> currentPatients;
+
+    public async Task LoadDataAsync()
+    {
+        foreach (Record r in await _recordsManager.GetRecordsAsync())
+        {
+            this.currentRecords.Add(r.GetId(), r);
+        }
+        this.currentPatients = new Dictionary<string, Patient>();
+        foreach (Patient p in await _patientsManager.GetPatientsAsync())
+        {
+            this.currentPatients.Add(p.GetId(), p);
+        }
+    }
 
     public async Task AddRecordAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);

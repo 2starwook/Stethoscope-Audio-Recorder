@@ -14,9 +14,9 @@ public class RecordsManager<T> where T : Record
 
     private MongoDB<T> _mongoDB;
 
-    public List<T> GetRecords()
+    public async Task<List<T>> GetRecordsAsync()
     {
-        return _mongoDB.GetItems();
+        return await _mongoDB.GetItemsAsync();
     }
 
     public async Task InsertRecordAsync(T item)
@@ -29,7 +29,7 @@ public class RecordsManager<T> where T : Record
         await _mongoDB.DeleteItemAsync(id);
     }
 
-    public async void UpdateRecordName(string id, string recordName)
+    public async void UpdateRecordNameAsync(string id, string recordName)
     {
         var filter = Builders<T>.Filter.Eq(p => p.GetId(), id);
         var update = Builders<T>.Update
@@ -37,13 +37,4 @@ public class RecordsManager<T> where T : Record
         await _mongoDB.collection.UpdateOneAsync(filter, update);
     }
 
-    // public bool InsertRecords(List<T> items)
-    // {
-    //     return this._mongoDB.InsertItems(items);
-    // }
-
-    // public void DeleteRecords(string [] ids)
-    // {
-    //     this._mongoDB.DeleteItems(ids);
-    // }
 }

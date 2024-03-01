@@ -14,19 +14,19 @@ public class PatientsManager<T> where T : Patient
 
     private MongoDB<T> _mongoDB;
 
-    public List<T> GetPatients()
+    public async Task<List<T>> GetPatientsAsync()
     {
-        return _mongoDB.GetItems();
+        return await _mongoDB.GetItemsAsync();
     }
 
-    public async void UpdatePatientFirstName(string id, string firstName)
+    public async void UpdatePatientFirstNameAsync(string id, string firstName)
     {
         var filter = Builders<T>.Filter.Eq(p => p.GetId(), id);
         var update = Builders<T>.Update
             .Set(p => p.FirstName, firstName);
         await _mongoDB.collection.UpdateOneAsync(filter, update);
     }
-    public async void UpdatePatientLastName(string id, string lastName)
+    public async void UpdatePatientLastNameAsync(string id, string lastName)
     {
         var filter = Builders<T>.Filter.Eq(p => p.GetId(), id);
         var update = Builders<T>.Update

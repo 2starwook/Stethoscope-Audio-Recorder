@@ -12,18 +12,30 @@ public partial class RecordsViewModel : ObservableObject
     public RecordsViewModel(DatabaseManager databaseManager)
     {
         this.databaseManager = databaseManager;
-        this.records = new ObservableCollection<RecordInfo>();
-        // TODO - Implement: Load data when the app got started (initial stage)
-        // TODO - Implement: Add loading dynamic image
-        foreach(var record in databaseManager.currentRecords.Values) 
-        {
-            this.records.Add(new RecordInfo(record.RecordName, record.GetId()));
-        }
     }
 
     private DatabaseManager databaseManager;
     [ObservableProperty]
     private ObservableCollection<RecordInfo> records;
+
+    [RelayCommand]
+    async Task Appearing()
+    {
+        // TODO: Implement(Show Loading Image)
+        await databaseManager.LoadDataAsync();
+        Records = new ObservableCollection<RecordInfo>();
+        try
+        {
+            foreach (var record in databaseManager.currentRecords.Values)
+            {
+                Records.Add(new RecordInfo(record.RecordName, record.GetId()));
+            }
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
 
     [RelayCommand]
     async Task Delete(string id)
