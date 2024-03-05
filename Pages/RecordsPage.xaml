@@ -21,6 +21,9 @@
                 MaximumWidthRequest="150"
                 MaximumHeightRequest="50"
                 CornerRadius="20"/>
+        <ActivityIndicator Grid.Row="0"
+                           Grid.Column= "1"
+                           IsRunning="{Binding IsLoading}"/>
         <CollectionView Grid.Row="1"  Grid.Column="1"
                         ItemsSource="{Binding Records}">
             <CollectionView.ItemTemplate>

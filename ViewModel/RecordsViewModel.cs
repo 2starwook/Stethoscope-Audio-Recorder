@@ -12,16 +12,27 @@ public partial class RecordsViewModel : ObservableObject
     public RecordsViewModel(DatabaseManager databaseManager)
     {
         this.databaseManager = databaseManager;
+        IsLoading = false;
     }
 
     private DatabaseManager databaseManager;
     [ObservableProperty]
     private ObservableCollection<RecordInfo> records;
+    [ObservableProperty]
+    private bool isLoading;
 
     [RelayCommand]
     async Task Appearing()
     {
-        // TODO: Implement(Show Loading Image)
+        if (Records == null)
+        {
+            await LoadDataAsync();
+        }
+    }
+
+    private async Task LoadDataAsync()
+    {
+        IsLoading = true;
         await databaseManager.LoadDataAsync();
         Records = new ObservableCollection<RecordInfo>();
         try
@@ -35,6 +46,7 @@ public partial class RecordsViewModel : ObservableObject
         {
             System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
         }
+        IsLoading = false;
     }
 
     [RelayCommand]
