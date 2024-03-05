@@ -21,6 +21,7 @@ public class DatabaseManager
 
     public async Task LoadDataAsync()
     {
+        this.currentRecords = new Dictionary<string, Record>();
         foreach (Record r in await _recordsManager.GetRecordsAsync())
         {
             this.currentRecords.Add(r.GetId(), r);
