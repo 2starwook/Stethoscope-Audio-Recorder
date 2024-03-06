@@ -18,7 +18,6 @@ public partial class RecordViewModel : ObservableObject
         _audioController = new AudioController(audioManager);
         _databaseManager = databaseManager;
 		playText = "Play";
-        // TODO - Install Cache data using Async once the page loaded
     }
 
     private AudioController _audioController;
