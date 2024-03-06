@@ -10,9 +10,9 @@ using NET_MAUI_BLE.Pages;
 namespace NET_MAUI_BLE.ViewModel;
 public partial class AddRecordViewModel : ObservableObject
 {
-	public AddRecordViewModel(DatabaseManager databaseManager)
+	public AddRecordViewModel()
 	{
-        this._databaseManager = databaseManager;
+        this._databaseManager = DependencyService.Get<DatabaseManager>();
 		patients = new ObservableCollection<PatientInfo>();
         foreach (var each in databaseManager.currentPatients.Values)
         {

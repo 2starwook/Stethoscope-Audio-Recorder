@@ -9,9 +9,9 @@ using Object.MyRecords;
 namespace NET_MAUI_BLE.ViewModel;
 public partial class RecordsViewModel : ObservableObject
 {
-    public RecordsViewModel(DatabaseManager databaseManager)
+    public RecordsViewModel()
     {
-        this.databaseManager = databaseManager;
+        this.databaseManager = DependencyService.Get<DatabaseManager>();
         IsLoading = false;
     }
 
