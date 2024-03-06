@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 using Object.MyData;
 using Object.Frontend;
+using Object.MyMessage;
 using NET_MAUI_BLE.Pages;
 
 
@@ -70,10 +72,10 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        await _databaseManager.AddRecordAsync(FilePath, RecordName);
-        await Shell.Current.GoToAsync($"{nameof(RecordsPage)}");
-        // TODO - Implement: Reset after clicking submit
-	}
+        var recordId = await _databaseManager.AddRecordAsync(FilePath, RecordName);
+        WeakReferenceMessenger.Default.Send(new AddRecordMessage(recordId));
+        await Shell.Current.GoToAsync($"..");
+    }
 
     [RelayCommand]
     async Task SelectFile()

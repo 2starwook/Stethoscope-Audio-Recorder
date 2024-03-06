@@ -1,17 +1,21 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
+using Object.MyMessage;
 using Object.MyData;
+using Object.MyDB;
 using NET_MAUI_BLE.Pages;
 using Object.MyRecords;
 
 namespace NET_MAUI_BLE.ViewModel;
-public partial class RecordsViewModel : ObservableObject
+public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMessage>
 {
     public RecordsViewModel()
     {
         this.databaseManager = DependencyService.Get<DatabaseManager>();
+        WeakReferenceMessenger.Default.Register<AddRecordMessage>(this);
         IsLoading = false;
     }
 
@@ -74,6 +78,16 @@ public partial class RecordsViewModel : ObservableObject
     [RelayCommand]
     async Task AddFile()
     {
-        await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
+        await Shell.Current.GoToAsync($"/{nameof(AddRecordPage)}");
+    }
+
+    public void Receive(AddRecordMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            Record addedRecord;
+            var res = databaseManager.currentRecords.TryGetValue(message.Value, out addedRecord);
+            AddRecord(addedRecord);
+        });
     }
 }

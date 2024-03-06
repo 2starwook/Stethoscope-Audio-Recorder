@@ -33,10 +33,11 @@ public class DatabaseManager
         }
     }
 
-    public async Task AddRecordAsync(string audioFilePath, string recordName){
+    public async Task<string> AddRecordAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
         await _recordsManager.InsertRecordAsync(record);
         currentRecords.Add(record.GetId(), record);
+        return record.GetId();
     }
 
     public async Task DeleteRecordAsync(string id){
