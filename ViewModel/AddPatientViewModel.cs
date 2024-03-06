@@ -40,7 +40,5 @@ public partial class AddPatientViewModel : ObservableObject
 	{
         await _databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
         await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
-
-        // TODO - Implement: Reset after clicking submit
 	}
 }
