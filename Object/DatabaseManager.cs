@@ -36,7 +36,7 @@ public class DatabaseManager
     public async Task AddRecordAsync(string audioFilePath, string recordName){
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
         await _recordsManager.InsertRecordAsync(record);
-        currentRecords.Add(FileAPI.GetUniqueID(), record);
+        currentRecords.Add(record.GetId(), record);
     }
 
     public async Task DeleteRecordAsync(string id){
