@@ -16,7 +16,7 @@ public partial class AddRecordViewModel : ObservableObject
 	{
         this._databaseManager = DependencyService.Get<DatabaseManager>();
 		patients = new ObservableCollection<PatientInfo>();
-        foreach (var each in databaseManager.currentPatients.Values)
+        foreach (var each in _databaseManager.currentPatients.Values)
         {
             patients.Add(new PatientInfo(each.GetFullName(), each.GetId()));
         }
