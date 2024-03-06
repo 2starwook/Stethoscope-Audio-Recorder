@@ -13,10 +13,10 @@ namespace NET_MAUI_BLE.ViewModel;
 [QueryProperty("RecordId", "RecordId")]
 public partial class RecordViewModel : ObservableObject
 {
-    public RecordViewModel(IAudioManager audioManager, DatabaseManager databaseManager)
+    public RecordViewModel(IAudioManager audioManager)
     {
         _audioController = new AudioController(audioManager);
-        _databaseManager = databaseManager;
+        _databaseManager = DependencyService.Get<DatabaseManager>();
 		playText = "Play";
     }
 
