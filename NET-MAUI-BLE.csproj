@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -69,8 +69,10 @@
 
 	<ItemGroup>
 	  <None Remove="Enum\" />
+	  <None Remove="Object\Message\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Enum\" />
+	  <Folder Include="Object\Message\" />
 	</ItemGroup>
 </Project>
