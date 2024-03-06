@@ -30,6 +30,11 @@ public partial class RecordsViewModel : ObservableObject
         }
     }
 
+    private void AddRecord(Record record)
+    {
+        Records.Add(new RecordInfo(record.RecordName, record.GetId()));
+    }
+
     private async Task LoadDataAsync()
     {
         IsLoading = true;
@@ -39,7 +44,7 @@ public partial class RecordsViewModel : ObservableObject
         {
             foreach (var record in databaseManager.currentRecords.Values)
             {
-                Records.Add(new RecordInfo(record.RecordName, record.GetId()));
+                AddRecord(record);
             }
         }
         catch (Exception e)
