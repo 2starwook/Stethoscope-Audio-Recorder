@@ -17,15 +17,15 @@ public partial class RecordViewModel : ObservableObject
     {
         _audioController = new AudioController(audioManager);
         _databaseManager = DependencyService.Get<DatabaseManager>();
-		playText = "Play";
+        PlayingView = false;
     }
 
     private AudioController _audioController;
     private DatabaseManager _databaseManager;
     [ObservableProperty]
 	private string recordId;
-	[ObservableProperty]
-	private string playText;
+    [ObservableProperty]
+    private bool playingView;
 
     [RelayCommand]
     void Appearing()
@@ -54,27 +54,41 @@ public partial class RecordViewModel : ObservableObject
     }
 
     [RelayCommand]
-	async Task Play(string recordId)
-    {
-        var fileName = $"{recordId}.wav";
-        var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
-        FileAPI.WriteCacheData(fileName, binaryData);
-        await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
-		_audioController.Play();
-		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
-		//PlayText = "Stop";
-		// TODO - Add Stop / Pause Button
-	}
-
-	//void HandlePlayEnded(object sender, EventArgs e){
-	//	PlayText = "Play";
-	//}
-
-    [RelayCommand]
-	async Task Share(string recordId)
+    async Task Share(string recordId)
     {
         var tempName = "file.wav";
         var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
         await StorageAPI.ExportData(tempName, binaryData);
     }
+
+    [RelayCommand]
+	async Task Play(string recordId)
+    {
+        PlayingView = true;
+  //      var fileName = $"{recordId}.wav";
+  //      var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
+  //      FileAPI.WriteCacheData(fileName, binaryData);
+  //      await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
+		//_audioController.Play();
+		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+        // TODO - Add Stop / Pause Button
+    }
+
+    void HandlePlayEnded(object sender, EventArgs e)
+    {
+        PlayingView = false;
+    }
+
+    [RelayCommand]
+    async Task Pause()
+    {
+
+    }
+
+    [RelayCommand]
+    async Task Stop()
+    {
+        PlayingView = false;
+    }
+
 }

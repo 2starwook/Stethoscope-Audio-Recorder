@@ -9,21 +9,47 @@
     <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
 </ContentPage.Behaviors>
+<ContentPage.Resources>
+    <ResourceDictionary>
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ResourceDictionary>
+</ContentPage.Resources>
     <Grid RowDefinitions="20, *"
           Padding="10">
         <Grid Grid.Row="1"
-              ColumnDefinitions="*, *"
-              VerticalOptions="End">
-            <Frame Grid.Column="0">
-                <Button Text="Share"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=ShareCommand}"
-                        CommandParameter="{Binding RecordId}"/>
-            </Frame>
-            <Frame Grid.Column="1">
-                <Button Text="{Binding PlayText}"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
-                        CommandParameter="{Binding RecordId}"/>
-            </Frame>
+              ColumnDefinitions="*, *, *"
+              Margin="0, 0, 0, 0"
+              VerticalOptions="End"
+              ColumnSpacing="10">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid"
+                            Binding="{Binding PlayingView}" Value="True">
+                    <Setter Property="ColumnDefinitions" Value="*,0,*,*" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid"
+                            Binding="{Binding PlayingView}" Value="False">
+                    <Setter Property="ColumnDefinitions" Value="*,*" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Button Grid.Column="0"
+                    Text="Share"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=ShareCommand}"
+                    CommandParameter="{Binding RecordId}"/>
+            <Button Grid.Column="1"
+                    Text="Play"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
+                    CommandParameter="{Binding RecordId}"
+                    IsVisible="{Binding PlayingView, Converter={StaticResource InvertedBoolConverter}}"/>
+            <Button Grid.Column="2"
+                    Text="Pause"
+                    Command="{Binding PauseCommand}"
+                    IsVisible="{Binding PlayingView}"
+                    Margin="0, 0, 5, 0"/>
+            <Button Grid.Column="3"
+                    Text="Stop"
+                    Command="{Binding StopCommand}"
+                    IsVisible="{Binding PlayingView}"
+                    Margin="5, 0, 0, 0"/>
         </Grid>
     </Grid>
 </ContentPage>
