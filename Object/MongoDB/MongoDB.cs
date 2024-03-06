@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MongoDB.Driver;
+using MongoDB.Bson;
 using MyConfig;
 
 
@@ -40,7 +41,7 @@ public class MongoDB<T> where T : Item {
     public async Task DeleteItemAsync(string id)
     {
         await collection.DeleteOneAsync(
-            Builders<T>.Filter.Eq(p => p.GetId(), id)
+            Builders<T>.Filter.Eq(p => p.Id, new ObjectId(id))
         );
     }
 }
