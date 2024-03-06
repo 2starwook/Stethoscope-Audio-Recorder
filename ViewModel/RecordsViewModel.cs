@@ -9,7 +9,9 @@ using Object.MyDB;
 using NET_MAUI_BLE.Pages;
 using Object.MyRecords;
 
+
 namespace NET_MAUI_BLE.ViewModel;
+
 public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMessage>
 {
     public RecordsViewModel()
