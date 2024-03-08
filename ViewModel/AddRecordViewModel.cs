@@ -10,11 +10,12 @@ using NET_MAUI_BLE.Pages;
 
 
 namespace NET_MAUI_BLE.ViewModel;
-public partial class AddRecordViewModel : ObservableObject
+public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatientMessage>
 {
 	public AddRecordViewModel()
 	{
         this._databaseManager = DependencyService.Get<DatabaseManager>();
+        WeakReferenceMessenger.Default.Register<AddPatientMessage>(this);
         FileButtonText = "Select a File";
     }
 
@@ -86,5 +87,15 @@ public partial class AddRecordViewModel : ObservableObject
     async Task AddPatient()
     {
         await Shell.Current.GoToAsync($"{nameof(AddPatientPage)}");
+    }
+
+    public void Receive(AddPatientMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            Patient addedPatient;
+            var res = _databaseManager.currentPatients.TryGetValue(message.Value, out addedPatient);
+            AddPatient(addedPatient);
+        });
     }
 }
