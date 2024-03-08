@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using MyEnum;
 
 
 namespace Object.MyMessage;
