@@ -10,3 +10,11 @@ public class AddRecordMessage : ValueChangedMessage<string>
 
     }
 }
+
+public class AddPatientMessage : ValueChangedMessage<string>
+{
+    public AddPatientMessage(string value) : base(value)
+    {
+
+    }
+}
