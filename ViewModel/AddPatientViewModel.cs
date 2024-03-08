@@ -40,5 +40,6 @@ public partial class AddPatientViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
+        var patientId = await _databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
         WeakReferenceMessenger.Default.Send(new AddPatientMessage(patientId));
 }

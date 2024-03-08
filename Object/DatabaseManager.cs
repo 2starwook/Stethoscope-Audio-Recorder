@@ -49,10 +49,11 @@ public class DatabaseManager
         currentRecords.Remove(id);
     }
 
-    public async Task AddPatientAsync(string firstName, string lastName){
+    public async Task<string> AddPatientAsync(string firstName, string lastName){
         var patient = new Patient(firstName, lastName);
         await _patientsManager.InsertPatientAsync(patient);
-        currentPatients.Add(FileAPI.GetUniqueID(), patient);
+        currentPatients.Add(patient.GetId(), patient);
+        return patient.GetId();
     }
 
     public async Task DeletePatientAsync(string id){
