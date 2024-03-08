@@ -19,13 +19,17 @@ public class DatabaseManager
     public Dictionary<string, Record> currentRecords;
     public Dictionary<string, Patient> currentPatients;
 
-    public async Task LoadDataAsync()
+    public async Task LoadRecordDataAsync()
     {
         this.currentRecords = new Dictionary<string, Record>();
         foreach (Record r in await _recordsManager.GetRecordsAsync())
         {
             this.currentRecords.Add(r.GetId(), r);
         }
+    }
+
+    public async Task LoadPatientDataAsync()
+    {
         this.currentPatients = new Dictionary<string, Patient>();
         foreach (Patient p in await _patientsManager.GetPatientsAsync())
         {

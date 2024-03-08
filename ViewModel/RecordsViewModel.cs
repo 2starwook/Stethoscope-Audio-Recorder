@@ -44,7 +44,7 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
     private async Task LoadDataAsync()
     {
         IsLoading = true;
-        await databaseManager.LoadDataAsync();
+        await databaseManager.LoadRecordDataAsync();
         Records = new ObservableCollection<RecordInfo>();
         try
         {
