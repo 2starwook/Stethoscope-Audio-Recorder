@@ -71,7 +71,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
 	{
         var recordId = await _databaseManager.AddRecordAsync(FilePath, RecordName);
         WeakReferenceMessenger.Default.Send(new AddRecordMessage(recordId));
-        await Shell.Current.GoToAsync($"..");
+        await Shell.Current.GoToAsync("..");
     }
 
     [RelayCommand]
