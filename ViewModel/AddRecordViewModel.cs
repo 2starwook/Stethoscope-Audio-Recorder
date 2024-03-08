@@ -62,12 +62,16 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
     }
 
     [RelayCommand]
-    void Appearing()
+    async Task Appearing()
     {
         try
         {
             MYAPI.UIAPI.HideTab();
             Refresh();
+            if (Patients == null)
+            {
+                await LoadDataAsync();
+            }
         }
         catch (Exception e)
         {
