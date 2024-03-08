@@ -15,11 +15,7 @@ public partial class AddRecordViewModel : ObservableObject
 	public AddRecordViewModel()
 	{
         this._databaseManager = DependencyService.Get<DatabaseManager>();
-		patients = new ObservableCollection<PatientInfo>();
-        foreach (var each in _databaseManager.currentPatients.Values)
-        {
-            patients.Add(new PatientInfo(each.GetFullName(), each.GetId()));
-        }
+        FileButtonText = "Select a File";
     }
 
     private DatabaseManager _databaseManager;
@@ -30,7 +26,7 @@ public partial class AddRecordViewModel : ObservableObject
     [ObservableProperty]
 	private string filePath;
     [ObservableProperty]
-    private string fileButtonText = "Select a File";
+    private string fileButtonText;
     [ObservableProperty]
     private PatientInfo selectedPatient;
 
