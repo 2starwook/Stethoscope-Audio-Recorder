@@ -39,6 +39,28 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
         SelectedPatient = null;
     }
 
+    private async Task LoadDataAsync()
+    {
+        await _databaseManager.LoadPatientDataAsync();
+        Patients = new ObservableCollection<PatientInfo>();
+        try
+        {
+            foreach (var patient in _databaseManager.currentPatients.Values)
+            {
+                AddPatient(patient);
+            }
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+        }
+    }
+
+    private void AddPatient(Patient patient)
+    {
+        Patients.Add(new PatientInfo(patient.GetFullName(), patient.GetId()));
+    }
+
     [RelayCommand]
     void Appearing()
     {
