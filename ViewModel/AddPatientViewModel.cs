@@ -9,9 +9,9 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class AddPatientViewModel : ObservableObject
 {
-	public AddPatientViewModel(DatabaseManager databaseManager)
+	public AddPatientViewModel()
 	{
-        this._databaseManager = databaseManager;
+        this._databaseManager = DependencyService.Get<DatabaseManager>();
     }
 
     private DatabaseManager _databaseManager;
