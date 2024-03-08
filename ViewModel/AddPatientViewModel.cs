@@ -3,7 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Object.MyData;
+using Object.MyMessage;
 using NET_MAUI_BLE.Pages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace NET_MAUI_BLE.ViewModel;
 
@@ -38,7 +40,5 @@ public partial class AddPatientViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        await _databaseManager.AddPatientAsync(PatientFirstName, PatientLastName);
-        await Shell.Current.GoToAsync($"{nameof(AddRecordPage)}");
-	}
+        WeakReferenceMessenger.Default.Send(new AddPatientMessage(patientId));
 }
