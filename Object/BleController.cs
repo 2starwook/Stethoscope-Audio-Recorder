@@ -48,18 +48,18 @@ public class BleController
         }
     }
 
-    private async Task<IDevice> ConnectAsync()
-	{
-        SendBleStatusMessage(BleStatus.Scanning);
-        return await _adapter.ConnectToKnownDeviceAsync(new Guid(_device_guid));
-    }
-
-    private async Task ScanAsync()
+    public async Task ScanAsync()
     {
         _adapter.DeviceDiscovered += (s, device) => {
             System.Diagnostics.Debug.WriteLine($"{device.Device.Name} / {device.Device.Id}");
         };
         await _adapter.StartScanningForDevicesAsync();
+    }
+
+    private async Task<IDevice> ConnectAsync()
+	{
+        SendBleStatusMessage(BleStatus.Scanning);
+        return await _adapter.ConnectToKnownDeviceAsync(new Guid(_device_guid));
     }
 
     private async Task<ICharacteristic> GetCharacteristicAsync(IDevice target_device,
