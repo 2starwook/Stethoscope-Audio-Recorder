@@ -93,7 +93,6 @@ public class BleController
     private void SubscribeToMessenger()
     {
         _adapter.DeviceConnected += (s, device) => {
-            //Needs to get service/characteristics
             SendBleStatusMessage(BleStatus.Connecting);
         };
         _adapter.DeviceDisconnected += (s,e) => {
