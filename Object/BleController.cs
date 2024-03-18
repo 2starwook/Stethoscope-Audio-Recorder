@@ -29,6 +29,7 @@ public class BleController
         try
         {
             System.Diagnostics.Debug.WriteLine($"Attempt to connect BLE");
+            await ScanAsync();
             IDevice targetDevice = await ConnectAsync(_device_guid);
             System.Diagnostics.Debug.WriteLine($"BLE Connected");
             if (targetDevice != null)
