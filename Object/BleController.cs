@@ -16,6 +16,7 @@ public class BleController
         _service_uuid = Config.SERVICE_UUTD;
         _characteristic_uuid = Config.CHARACTERISTIC_UUID;
         SubscribeToMessenger();
+        SubscribeForScan(_device_guid);
     }
     private string _device_guid;
     private string _service_uuid;
