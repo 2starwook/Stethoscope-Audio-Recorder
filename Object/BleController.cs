@@ -29,7 +29,7 @@ public class BleController
         try
         {
             System.Diagnostics.Debug.WriteLine($"Attempt to connect BLE");
-            IDevice targetDevice = await ConnectAsync();
+            IDevice targetDevice = await ConnectAsync(_device_guid);
             System.Diagnostics.Debug.WriteLine($"BLE Connected");
             if (targetDevice != null)
             {
@@ -54,10 +54,10 @@ public class BleController
         await _adapter.StartScanningForDevicesAsync();
     }
 
-    private async Task<IDevice> ConnectAsync()
+    private async Task<IDevice> ConnectAsync(string device_guid)
 	{
         SendBleStatusMessage(BleStatus.Scanning);
-        return await _adapter.ConnectToKnownDeviceAsync(new Guid(_device_guid));
+        return await _adapter.ConnectToKnownDeviceAsync(new Guid(device_guid));
     }
 
     private async Task<ICharacteristic> GetCharacteristicAsync(IDevice target_device,
