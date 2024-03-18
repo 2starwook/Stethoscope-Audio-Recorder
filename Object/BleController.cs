@@ -39,7 +39,10 @@ public class BleController
                 ICharacteristic characteristic = await GetCharacteristicAsync(
                     targetDevice, _service_uuid, _characteristic_uuid);
                 System.Diagnostics.Debug.WriteLine($"Attempt to handle notify data");
-                await HandleNotifyDataAsync(characteristic);
+                if (characteristic.CanUpdate)
+                {
+                    await HandleNotifyDataAsync(characteristic);
+                }
                 SendBleStatusMessage(BleStatus.Connected);
             }
         }
