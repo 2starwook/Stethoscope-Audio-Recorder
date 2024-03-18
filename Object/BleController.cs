@@ -15,12 +15,14 @@ public class BleController
         _device_guid = "756d6f74-9a74-29ca-41a3-d5e5ef0acf84";
         _service_uuid = Config.SERVICE_UUTD;
         _characteristic_notify_uuid = Config.CHARACTERISTIC_UUID;
+        _characteristic_setup_uuid = "8e632a60-ff9d-4f75-8899-ca76b3b3dfec";
         SubscribeToMessenger();
         SubscribeForScan(_device_guid);
     }
     private string _device_guid;
     private string _service_uuid;
     private string _characteristic_notify_uuid;
+    private string _characteristic_setup_uuid;
     private IAdapter _adapter;
 
 
@@ -39,6 +41,14 @@ public class BleController
                 System.Diagnostics.Debug.WriteLine($"Attempt to get characteristic");
                 ICharacteristic characteristic_notify = await GetCharacteristicAsync(
                     targetDevice, _service_uuid, _characteristic_notify_uuid);
+                ICharacteristic characteristic_setup = await GetCharacteristicAsync(
+                    targetDevice, _service_uuid, _characteristic_setup_uuid);
+
+                System.Diagnostics.Debug.WriteLine($"Attempt to handle data");
+                if (characteristic_setup.CanWrite)
+                {
+                    await HandleWriteData(characteristic_setup, new byte[] { 0x1 });
+                }
                 {
                     await HandleNotifyDataAsync(characteristic_notify);
                 }
