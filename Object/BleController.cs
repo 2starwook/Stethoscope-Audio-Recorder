@@ -49,6 +49,7 @@ public class BleController
                 {
                     await HandleWriteData(characteristic_setup, new byte[] { 0x1 });
                 }
+                if (characteristic_notify.CanUpdate)
                 {
                     await HandleNotifyDataAsync(characteristic_notify);
                 }
