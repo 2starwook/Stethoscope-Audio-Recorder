@@ -104,6 +104,18 @@ public class BleController
         };
     }
 
+    private void SubscribeForScan(string device_guid)
+    {
+        _adapter.DeviceDiscovered += async (s, device) => {
+            System.Diagnostics.Debug.WriteLine($"{device.Device.Name} / {device.Device.Id}");
+            if (device.Device.Id.ToString() == device_guid)
+            {
+                await _adapter.StopScanningForDevicesAsync();
+                System.Diagnostics.Debug.WriteLine($"Device Found");
+            }
+        };
+    }
+
     private void SendBleStatusMessage(BleStatus value){
         WeakReferenceMessenger.Default.Send(new BleStatusMessage(value));
     }
