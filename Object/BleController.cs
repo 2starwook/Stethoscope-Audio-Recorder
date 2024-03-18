@@ -48,11 +48,8 @@ public class BleController
         }
     }
 
-    public async Task ScanAsync()
+    private async Task ScanAsync()
     {
-        _adapter.DeviceDiscovered += (s, device) => {
-            System.Diagnostics.Debug.WriteLine($"{device.Device.Name} / {device.Device.Id}");
-        };
         await _adapter.StartScanningForDevicesAsync();
     }
 
