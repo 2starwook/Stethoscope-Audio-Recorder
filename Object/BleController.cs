@@ -65,8 +65,12 @@ public class BleController
     private async Task<ICharacteristic> GetCharacteristicAsync(IDevice target_device,
         string service_uuid, string characteristic_uuid)
     {
+        ICharacteristic characteristic = null;
         var service = await target_device.GetServiceAsync(new Guid(service_uuid));
-        return await service.GetCharacteristicAsync(new Guid(characteristic_uuid));
+        await MainThread.InvokeOnMainThreadAsync(async () => {
+            characteristic = await service.GetCharacteristicAsync(new Guid(characteristic_uuid));
+        });
+        return characteristic;
     }
 
     private async Task HandleNotifyDataAsync(ICharacteristic characteristic)
