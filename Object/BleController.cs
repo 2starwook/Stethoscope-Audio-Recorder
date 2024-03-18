@@ -14,13 +14,13 @@ public class BleController
         _adapter = CrossBluetoothLE.Current.Adapter;
         _device_guid = "756d6f74-9a74-29ca-41a3-d5e5ef0acf84";
         _service_uuid = Config.SERVICE_UUTD;
-        _characteristic_uuid = Config.CHARACTERISTIC_UUID;
+        _characteristic_notify_uuid = Config.CHARACTERISTIC_UUID;
         SubscribeToMessenger();
         SubscribeForScan(_device_guid);
     }
     private string _device_guid;
     private string _service_uuid;
-    private string _characteristic_uuid;
+    private string _characteristic_notify_uuid;
     private IAdapter _adapter;
 
 
@@ -37,12 +37,10 @@ public class BleController
                 //await PrintAllServicesAsync(targetDevice);
                 //await PrintAllCharacteristicsAsync(targetDevice, _service_uuid);
                 System.Diagnostics.Debug.WriteLine($"Attempt to get characteristic");
-                ICharacteristic characteristic = await GetCharacteristicAsync(
-                    targetDevice, _service_uuid, _characteristic_uuid);
-                System.Diagnostics.Debug.WriteLine($"Attempt to handle notify data");
-                if (characteristic.CanUpdate)
+                ICharacteristic characteristic_notify = await GetCharacteristicAsync(
+                    targetDevice, _service_uuid, _characteristic_notify_uuid);
                 {
-                    await HandleNotifyDataAsync(characteristic);
+                    await HandleNotifyDataAsync(characteristic_notify);
                 }
                 SendBleStatusMessage(BleStatus.Connected);
             }
