@@ -80,14 +80,14 @@ public class BleController
         await characteristic.StartUpdatesAsync();
     }
 
-    private void HandleReadData(ICharacteristic characteristic)
+    private async Task<(byte[], int)> HandleReadData(ICharacteristic characteristic)
     {
-
+        return await characteristic.ReadAsync();
     }
 
-    private void HandleWriteData(ICharacteristic characteristic, byte[] data)
+    private async Task HandleWriteData(ICharacteristic characteristic, byte[] data)
     {
-
+        await characteristic.WriteAsync(data);
     }
 
     private void SubscribeToMessenger()
