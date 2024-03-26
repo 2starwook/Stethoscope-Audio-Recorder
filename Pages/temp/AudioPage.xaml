@@ -9,11 +9,11 @@
             Padding="30,0"
             VerticalOptions="Center">
 
-            <Button
+            <!--<Button
                 x:Name="PlayBtn"
                 Text="Play"
                 Clicked="PlayBtnClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
 
         </VerticalStackLayout>
     </ScrollView>

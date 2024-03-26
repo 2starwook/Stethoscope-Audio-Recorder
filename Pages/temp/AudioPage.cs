@@ -17,26 +17,26 @@ public partial class AudioPage : ContentPage {
 		this.audioController = new AudioController(audioManager);
 	}
 
-	private void PlayBtnClicked(object sender, EventArgs e)
-	{
-		if (!this.audioController.HasAudioPlayer()){
-			this.audioController.OpenFile(filename);
-			this.audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
-		}
+	//private async Task PlayBtnClicked(object sender, EventArgs e)
+	//{
+	//	if (!this.audioController.HasAudioPlayer()){
+	//		await this.audioController.OpenFile(filename);
+	//		this.audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+	//	}
 
-		if (this.audioController.IsPlaying()){
-			audioController.Stop();
-			PlayBtn.Text = "Play";
-		}
-		else {
-			audioController.Play();
-			PlayBtn.Text = "Stop";
-		}
-    }
+	//	if (this.audioController.IsPlaying()){
+	//		audioController.Stop();
+	//		PlayBtn.Text = "Play";
+	//	}
+	//	else {
+	//		audioController.Play();
+	//		PlayBtn.Text = "Stop";
+	//	}
+ //   }
 
-	void HandlePlayEnded(object sender, EventArgs e){
-		PlayBtn.Text = "Play";
-	}
+	//void HandlePlayEnded(object sender, EventArgs e){
+	//	PlayBtn.Text = "Play";
+	//}
 
 }
 
