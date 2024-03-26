@@ -7,7 +7,7 @@ using MyConfig;
 
 
 namespace NET_MAUI_BLE.Pages;
-
+#pragma warning disable CS0414
 public partial class AudioPage : ContentPage {
 	private AudioController audioController;
 	string filename = "mysound.wav";
@@ -39,4 +39,5 @@ public partial class AudioPage : ContentPage {
 	//}
 
 }
+#pragma warning restore CS0414
 

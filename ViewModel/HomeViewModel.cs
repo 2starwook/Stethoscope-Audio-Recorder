@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -47,6 +47,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     [ObservableProperty]
     private bool resumeButtonView;
 
+#pragma warning disable CS1998
     [RelayCommand]
     async Task Appearing()
     {
@@ -60,6 +61,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
             System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
         }
     }
+#pragma warning restore CS1998
 
     [RelayCommand]
     async Task InitiateBle()

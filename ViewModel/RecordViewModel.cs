@@ -61,6 +61,7 @@ public partial class RecordViewModel : ObservableObject
         await StorageAPI.ExportData(tempName, binaryData);
     }
 
+#pragma warning disable CS1998
     [RelayCommand]
 	async Task Play(string recordId)
     {
@@ -73,22 +74,26 @@ public partial class RecordViewModel : ObservableObject
 		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
         // TODO - Add Stop / Pause Button
     }
+    #pragma warning restore CS1998
 
     void HandlePlayEnded(object sender, EventArgs e)
     {
         PlayingView = false;
     }
 
+    #pragma warning disable CS1998
     [RelayCommand]
     async Task Pause()
     {
 
     }
+    #pragma warning restore CS1998
 
+    #pragma warning disable CS1998
     [RelayCommand]
     async Task Stop()
     {
         PlayingView = false;
     }
-
+    #pragma warning restore CS1998
 }

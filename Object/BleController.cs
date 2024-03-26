@@ -23,6 +23,8 @@ public class BleController
     private string _service_uuid;
     private string _characteristic_notify_uuid;
     private string _characteristic_setup_uuid;
+    #pragma warning disable CS0414
+    #pragma warning restore CS0414
     private IAdapter _adapter;
 
 
