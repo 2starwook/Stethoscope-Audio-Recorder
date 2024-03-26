@@ -1,5 +1,4 @@
-﻿using Microcharts.Maui;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
@@ -15,7 +14,6 @@ public static class MauiProgram
 
 		builder
 			.UseMauiApp<App>()
-			.UseMicrocharts()
 			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
