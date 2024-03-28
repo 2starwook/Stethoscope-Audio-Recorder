@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using MyEnum;
 
 
-namespace Object.MyMessage;
+namespace NET_MAUI_BLE.Message.BleMessage;
 public class BleDataMessage : ValueChangedMessage<byte[]>
 {
 	public BleDataMessage(byte[] value) : base(value)

@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Object.MyMessage;
+using NET_MAUI_BLE.Message.BleMessage;
 using Object.MyBLE;
 using MyEnum;
 
