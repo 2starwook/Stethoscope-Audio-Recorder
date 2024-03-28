@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 using NET_MAUI_BLE.Message.DbMessage;
-using Object.MyData;
 using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Pages;
 using Object.MyRecords;

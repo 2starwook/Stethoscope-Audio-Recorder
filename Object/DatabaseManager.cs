@@ -1,9 +1,8 @@
 using MyAPI;
 using MyConfig;
-using NET_MAUI_BLE.Object.DB;
 
 
-namespace Object.MyData;
+namespace NET_MAUI_BLE.Object.DB;
 public class DatabaseManager
 {
     // Manage Database: Add/Remove/Modify data
