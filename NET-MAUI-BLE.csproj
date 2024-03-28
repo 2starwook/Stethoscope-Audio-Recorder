@@ -67,9 +67,11 @@
 	<ItemGroup>
 	  <None Remove="Enum\" />
 	  <None Remove="Object\Message\" />
+	  <None Remove="Object\View\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Enum\" />
 	  <Folder Include="Object\Message\" />
+	  <Folder Include="Object\View\" />
 	</ItemGroup>
 </Project>
