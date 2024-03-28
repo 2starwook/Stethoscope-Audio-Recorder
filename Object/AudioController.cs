@@ -2,7 +2,6 @@ using Plugin.Maui.Audio;
 
 namespace NET_MAUI_BLE.Object.Audio;
 
-namespace Object.MyAudio;
 public class AudioController
 {
 	public AudioController(IAudioManager audioManager) {
