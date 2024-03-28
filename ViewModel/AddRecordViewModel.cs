@@ -32,7 +32,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
     [ObservableProperty]
     private PatientInfo selectedPatient;
 
-    void Refresh()
+    public void Refresh()
     {
         FileButtonText = "Select a File";
         RecordName = "";
