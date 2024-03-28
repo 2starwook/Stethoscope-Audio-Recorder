@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using NET_MAUI_BLE.Message.BleMessage;
 using MyConfig;
-using MyEnum;
+using NET_MAUI_BLE.Enum;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 

@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using MyEnum;
+using NET_MAUI_BLE.Enum;
 
 
 namespace NET_MAUI_BLE.Message.BleMessage;

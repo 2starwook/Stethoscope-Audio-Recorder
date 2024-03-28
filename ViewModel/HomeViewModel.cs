@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using NET_MAUI_BLE.Message.BleMessage;
 using NET_MAUI_BLE.Object.BLE;
-using MyEnum;
+using NET_MAUI_BLE.Enum;
 
 
 namespace NET_MAUI_BLE.ViewModel;
