@@ -16,7 +16,7 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
     public RecordsViewModel()
     {
         this.databaseManager = DependencyService.Get<DBManager>();
-        WeakReferenceMessenger.Default.Register<AddRecordMessage>(this);
+        WeakReferenceMessenger.Default.Register(this);
         IsLoading = false;
     }
 
@@ -54,7 +54,7 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
         IsLoading = false;
     }
@@ -87,7 +87,8 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
         MainThread.BeginInvokeOnMainThread(() =>
         {
             Record addedRecord;
-            var res = databaseManager.currentRecords.TryGetValue(message.Value, out addedRecord);
+            var res = databaseManager.currentRecords
+                        .TryGetValue(message.Value, out addedRecord);
             AddRecord(addedRecord);
         });
     }

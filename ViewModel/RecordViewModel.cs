@@ -35,7 +35,7 @@ public partial class RecordViewModel : ObservableObject
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
     }
 
@@ -48,7 +48,7 @@ public partial class RecordViewModel : ObservableObject
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
     }
 
@@ -60,7 +60,7 @@ public partial class RecordViewModel : ObservableObject
         await StorageAPI.ExportData(tempName, binaryData);
     }
 
-#pragma warning disable CS1998
+    #pragma warning disable CS1998
     [RelayCommand]
 	async Task Play(string recordId)
     {

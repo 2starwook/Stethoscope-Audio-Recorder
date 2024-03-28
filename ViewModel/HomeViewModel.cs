@@ -49,7 +49,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
     [ObservableProperty]
     private bool resumeButtonView;
 
-#pragma warning disable CS1998
+    #pragma warning disable CS1998
     [RelayCommand]
     async Task Appearing()
     {
@@ -63,7 +63,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
             System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
         }
     }
-#pragma warning restore CS1998
+    #pragma warning restore CS1998
 
     [RelayCommand]
     async Task InitiateBle()
@@ -163,7 +163,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
             StoreData(message.Value);
             foreach (var value in message.Value)
             {
-                System.Diagnostics.Debug.Write($"{value.ToString()} ");
+                System.Diagnostics.Debug.Write($"{value} ");
             }
             System.Diagnostics.Debug.Write("\n");
             System.Diagnostics.Debug.Write($"Received size: {receivedFile.Length}\n");

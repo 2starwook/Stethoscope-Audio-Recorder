@@ -17,7 +17,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
 	public AddRecordViewModel()
 	{
         this._databaseManager = DependencyService.Get<DBManager>();
-        WeakReferenceMessenger.Default.Register<AddPatientMessage>(this);
+        WeakReferenceMessenger.Default.Register(this);
         FileButtonText = "Select a File";
     }
 
@@ -54,7 +54,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
     }
 
@@ -77,7 +77,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
     }
 
@@ -90,7 +90,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            System.Diagnostics.Debug.WriteLine($"{e}");
         }
     }
 
@@ -122,7 +122,8 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
         MainThread.BeginInvokeOnMainThread(() =>
         {
             Patient addedPatient;
-            var res = _databaseManager.currentPatients.TryGetValue(message.Value, out addedPatient);
+            var res = _databaseManager.currentPatients
+                        .TryGetValue(message.Value, out addedPatient);
             AddPatient(addedPatient);
         });
     }
