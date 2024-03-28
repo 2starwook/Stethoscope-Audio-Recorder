@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
@@ -44,6 +44,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.Pages.AddPatientPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
+        services.AddSingleton<NET_MAUI_BLE.Pages.WifiPage>();
 
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordsViewModel>();
@@ -51,6 +52,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.TestViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddRecordViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddPatientViewModel>();
+        services.AddSingleton<NET_MAUI_BLE.ViewModel.WifiViewModel>();
 
 		services.AddSingleton<Object.MyData.DatabaseManager>();
 	}

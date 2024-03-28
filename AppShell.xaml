@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="NET_MAUI_BLE.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -15,6 +15,9 @@
         </Tab>
         <Tab Title="Records">
             <ShellContent ContentTemplate="{DataTemplate pages:RecordsPage}" />
+        </Tab>
+        <Tab Title="Wifi">
+            <ShellContent ContentTemplate="{DataTemplate pages:WifiPage}" />
         </Tab>
         <Tab Title="TestPage">
             <ShellContent ContentTemplate="{DataTemplate pages:TestPage}" />
