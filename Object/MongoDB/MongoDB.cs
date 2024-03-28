@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using MyConfig;
+using NET_MAUI_BLE.AppConfig;
 
 
 namespace NET_MAUI_BLE.Object.DB;

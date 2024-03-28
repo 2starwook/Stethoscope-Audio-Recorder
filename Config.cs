@@ -1,5 +1,5 @@
+namespace NET_MAUI_BLE.AppConfig;
 
-namespace MyConfig;
 public class Config
 {
     public static string SERVICE_UUTD = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";

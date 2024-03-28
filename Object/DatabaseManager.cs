@@ -1,5 +1,5 @@
 using NET_MAUI_BLE.API;
-using MyConfig;
+using NET_MAUI_BLE.AppConfig;
 
 
 namespace NET_MAUI_BLE.Object.DB;

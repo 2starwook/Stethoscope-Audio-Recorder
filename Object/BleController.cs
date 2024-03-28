@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using NET_MAUI_BLE.Message.BleMessage;
-using MyConfig;
+using NET_MAUI_BLE.AppConfig;
 using NET_MAUI_BLE.Enum;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
