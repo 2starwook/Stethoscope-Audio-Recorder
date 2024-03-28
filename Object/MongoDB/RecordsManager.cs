@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using MyConfig;
 
 
-namespace Object.MyDB;
+namespace NET_MAUI_BLE.Object.DB;
 public class RecordsManager<T> where T : Record
 {
     // Manage API with MongoDB
