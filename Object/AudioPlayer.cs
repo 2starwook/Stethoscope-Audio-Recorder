@@ -2,6 +2,7 @@ using Plugin.Maui.Audio;
 
 
 namespace NET_MAUI_BLE.Object.Audio;
+
 public class AudioPlayer
 {
 	public AudioPlayer(IAudioPlayer audioPlayer, string filePath) {

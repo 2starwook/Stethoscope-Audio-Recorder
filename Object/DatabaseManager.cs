@@ -3,6 +3,7 @@ using MyConfig;
 
 
 namespace NET_MAUI_BLE.Object.DB;
+
 public class DatabaseManager
 {
     // Manage Database: Add/Remove/Modify data
