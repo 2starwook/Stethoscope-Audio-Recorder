@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
-using Object.MyMessage;
+using NET_MAUI_BLE.Message.DbMessage;
 using Object.MyData;
 using Object.MyDB;
 using NET_MAUI_BLE.Pages;
