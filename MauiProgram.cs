@@ -46,7 +46,7 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.Pages.TestPage>();
         services.AddSingleton<NET_MAUI_BLE.Pages.WifiPage>();
 
-		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
+        services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.RecordsViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.HomeViewModel>();
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.TestViewModel>();
@@ -54,6 +54,6 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddPatientViewModel>();
         services.AddSingleton<NET_MAUI_BLE.ViewModel.WifiViewModel>();
 
-		services.AddSingleton<Object.MyData.DatabaseManager>();
+        services.AddSingleton<Object.MyData.DatabaseManager>();
 	}
 }
