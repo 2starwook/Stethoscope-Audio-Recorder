@@ -5,8 +5,7 @@ using MyEnum;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 
-
-namespace Object.MyBLE;
+namespace NET_MAUI_BLE.Object.BLE;
 
 public class BleController
 {

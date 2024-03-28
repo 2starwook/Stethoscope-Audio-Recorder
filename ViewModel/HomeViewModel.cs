@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using NET_MAUI_BLE.Message.BleMessage;
-using Object.MyBLE;
+using NET_MAUI_BLE.Object.BLE;
 using MyEnum;
 
 
