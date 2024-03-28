@@ -7,6 +7,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 
 namespace Object.MyBLE;
+
 public class BleController
 {
 	public BleController()

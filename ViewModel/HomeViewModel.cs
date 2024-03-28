@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -8,6 +8,7 @@ using MyEnum;
 
 
 namespace NET_MAUI_BLE.ViewModel;
+
 public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage>, IRecipient<BleStatusMessage>
 {
 	public HomeViewModel()
