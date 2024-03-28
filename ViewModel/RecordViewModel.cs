@@ -15,12 +15,12 @@ public partial class RecordViewModel : ObservableObject
     public RecordViewModel(IAudioManager audioManager)
     {
         _audioController = new AudioController(audioManager);
-        _databaseManager = DependencyService.Get<DatabaseManager>();
+        _databaseManager = DependencyService.Get<DBManager>();
         PlayingView = false;
     }
 
     private AudioController _audioController;
-    private DatabaseManager _databaseManager;
+    private DBManager _databaseManager;
     [ObservableProperty]
 	private string recordId;
     [ObservableProperty]

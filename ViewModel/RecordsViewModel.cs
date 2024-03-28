@@ -15,12 +15,12 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
 {
     public RecordsViewModel()
     {
-        this.databaseManager = DependencyService.Get<DatabaseManager>();
+        this.databaseManager = DependencyService.Get<DBManager>();
         WeakReferenceMessenger.Default.Register<AddRecordMessage>(this);
         IsLoading = false;
     }
 
-    private DatabaseManager databaseManager;
+    private DBManager databaseManager;
     [ObservableProperty]
     private ObservableCollection<RecordInfo> records;
     [ObservableProperty]

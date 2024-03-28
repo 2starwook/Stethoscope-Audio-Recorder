@@ -1,4 +1,4 @@
-﻿using Object.MyData;
+﻿using NET_MAUI_BLE.Object.DB;
 
 
 namespace NET_MAUI_BLE;
@@ -10,7 +10,7 @@ public partial class App : Application
 		InitializeComponent();
 
 		//Craete a singleton DB manager
-		DependencyService.Register<DatabaseManager>();
+		DependencyService.Register<DBManager>();
 
 		MainPage = new AppShell();
 	}

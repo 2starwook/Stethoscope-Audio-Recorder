@@ -11,4 +11,3 @@ public partial class TestPage : ContentPage
         BindingContext = vm;
     }
 }
-

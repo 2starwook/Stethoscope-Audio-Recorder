@@ -16,12 +16,12 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
 {
 	public AddRecordViewModel()
 	{
-        this._databaseManager = DependencyService.Get<DatabaseManager>();
+        this._databaseManager = DependencyService.Get<DBManager>();
         WeakReferenceMessenger.Default.Register<AddPatientMessage>(this);
         FileButtonText = "Select a File";
     }
 
-    private DatabaseManager _databaseManager;
+    private DBManager _databaseManager;
     [ObservableProperty]
     private ObservableCollection<PatientInfo> patients;
     [ObservableProperty]

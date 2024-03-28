@@ -4,10 +4,10 @@ using NET_MAUI_BLE.AppConfig;
 
 namespace NET_MAUI_BLE.Object.DB;
 
-public class DatabaseManager
+public class DBManager
 {
     // Manage Database: Add/Remove/Modify data
-	public DatabaseManager()
+	public DBManager()
     {
         this._patientsManager = new PatientsManager<Patient>();
         this._recordsManager = new RecordsManager<Record>();

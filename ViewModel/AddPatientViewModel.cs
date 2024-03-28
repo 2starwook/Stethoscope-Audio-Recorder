@@ -13,10 +13,10 @@ public partial class AddPatientViewModel : ObservableObject
 {
 	public AddPatientViewModel()
 	{
-        this._databaseManager = DependencyService.Get<DatabaseManager>();
+        this._databaseManager = DependencyService.Get<DBManager>();
     }
 
-    private DatabaseManager _databaseManager;
+    private DBManager _databaseManager;
     [ObservableProperty]
 	private string patientFirstName;
     [ObservableProperty]
