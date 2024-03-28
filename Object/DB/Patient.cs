@@ -2,7 +2,8 @@ namespace NET_MAUI_BLE.Object.DB;
 
 public class Patient : Item 
 {
-	public Patient(string firstName, string lastName) {
+	public Patient(string firstName, string lastName)
+    {
         this.FirstName = firstName;
         this.LastName = lastName;
 	}

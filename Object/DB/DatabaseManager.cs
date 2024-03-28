@@ -7,7 +7,8 @@ namespace NET_MAUI_BLE.Object.DB;
 public class DatabaseManager
 {
     // Manage Database: Add/Remove/Modify data
-	public DatabaseManager() {
+	public DatabaseManager()
+    {
         this._patientsManager = new PatientsManager<Patient>();
         this._recordsManager = new RecordsManager<Record>();
         this.currentRecords = new Dictionary<string, Record>();
@@ -37,39 +38,47 @@ public class DatabaseManager
         }
     }
 
-    public async Task<string> AddRecordAsync(string audioFilePath, string recordName){
+    public async Task<string> AddRecordAsync(string audioFilePath,
+                                             string recordName)
+    {
         var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
         await _recordsManager.InsertRecordAsync(record);
         currentRecords.Add(record.GetId(), record);
         return record.GetId();
     }
 
-    public async Task DeleteRecordAsync(string id){
+    public async Task DeleteRecordAsync(string id)
+    {
         await _recordsManager.DeleteRecordAsync(id);
         currentRecords.Remove(id);
     }
 
-    public async Task<string> AddPatientAsync(string firstName, string lastName){
+    public async Task<string> AddPatientAsync(string firstName, string lastName)
+    {
         var patient = new Patient(firstName, lastName);
         await _patientsManager.InsertPatientAsync(patient);
         currentPatients.Add(patient.GetId(), patient);
         return patient.GetId();
     }
 
-    public async Task DeletePatientAsync(string id){
+    public async Task DeletePatientAsync(string id)
+    {
         await _patientsManager.DeletePatientAsync(id);
         currentPatients.Remove(id);
     }
 
-    public void AttachPatientToRecord(string audioFilePath, string patientId){
+    public void AttachPatientToRecord(string audioFilePath, string patientId)
+    {
         // TODO - Implement Later
     }
 
-    public void DetachAssignedPatientFromRecord(string audioFilePath){
+    public void DetachAssignedPatientFromRecord(string audioFilePath)
+    {
         // TODO - Implement Later
     }
 
-    public async Task<string> ImportAudioFile(){
+    public async Task<string> ImportAudioFile()
+    {
         var srcPath = await StorageAPI.GetFilePath();
         var filename = FileAPI.GetUniqueID() + ".wav";
         var dstPath = Path.Combine(Config.dataDirPath, filename);

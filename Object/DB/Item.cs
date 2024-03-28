@@ -7,7 +7,8 @@ public class Item
 {
     public ObjectId Id { get; set; }
 
-    public string GetId(){
+    public string GetId()
+    {
         return Id.ToString();
     }
 

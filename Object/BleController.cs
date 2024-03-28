@@ -1,9 +1,10 @@
 using CommunityToolkit.Mvvm.Messaging;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
+
 using NET_MAUI_BLE.Message.BleMessage;
 using NET_MAUI_BLE.AppConfig;
 using NET_MAUI_BLE.Enum;
-using Plugin.BLE;
-using Plugin.BLE.Abstractions.Contracts;
 
 
 namespace NET_MAUI_BLE.Object.BLE;

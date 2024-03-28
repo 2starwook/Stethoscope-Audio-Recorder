@@ -5,7 +5,8 @@ namespace NET_MAUI_BLE.API;
 
 static public class DataConvertAPI
 {
-    static public byte[] ConvertString2Byte(string data){
+    static public byte[] ConvertString2Byte(string data)
+    {
         return Encoding.Default.GetBytes(data);
     }
 

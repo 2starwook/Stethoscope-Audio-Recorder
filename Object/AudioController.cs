@@ -5,47 +5,59 @@ namespace NET_MAUI_BLE.Object.Audio;
 
 public class AudioController
 {
-	public AudioController(IAudioManager audioManager) {
+	public AudioController(IAudioManager audioManager)
+	{
 		this._audioManager = audioManager;
 	}
 
 	private readonly IAudioManager _audioManager;
 	private AudioPlayer _currentAudioPlayer;
 
-    public async Task OpenFile(string filePath){
-		try {
-			if (_currentAudioPlayer == null || !_currentAudioPlayer.IsSameFilePath(filePath)){
+    public async Task OpenFile(string filePath)
+	{
+		try
+		{
+			if (_currentAudioPlayer == null
+				|| !_currentAudioPlayer.IsSameFilePath(filePath))
+			{
 				this._currentAudioPlayer = new AudioPlayer(
 					_audioManager.CreatePlayer(
 						await FileSystem.OpenAppPackageFileAsync(filePath)), filePath);
 			}
 		}
-		catch {
+		catch
+		{
 			// File doesn't exist
 		}
     }
 
-	public void AddEventHandler(EventHandler e){
+	public void AddEventHandler(EventHandler e)
+	{
 		this._currentAudioPlayer.AddEventHandler(e);
 	}
 
-	public bool HasAudioPlayer(){
+	public bool HasAudioPlayer()
+	{
 		return this._currentAudioPlayer != null;
 	}
 
-	public void Play(){
+	public void Play()
+	{
 		this._currentAudioPlayer.Play();
 	}
 
-	public void Stop(){
+	public void Stop()
+	{
 		this._currentAudioPlayer.Stop();
 	}
 
-	public void Pause(){
+	public void Pause()
+	{
 		this._currentAudioPlayer.Pause();
 	}
 
-	public bool IsPlaying(){
+	public bool IsPlaying()
+	{
 		return this._currentAudioPlayer.IsPlaying();
 	}
 }

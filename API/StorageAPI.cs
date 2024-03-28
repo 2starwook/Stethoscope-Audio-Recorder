@@ -5,7 +5,8 @@ namespace NET_MAUI_BLE.API;
 
 public static class StorageAPI
 {
-    public static async Task<string> ExportData(string filename, byte[] data){
+    public static async Task<string> ExportData(string filename, byte[] data)
+    {
         // Export Data with given name to the selected path on device
         using var stream = new MemoryStream(data);
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -16,7 +17,8 @@ public static class StorageAPI
         return path.FilePath;
     }
 
-    public static async Task<string> GetFolderPath(){
+    public static async Task<string> GetFolderPath()
+    {
         // Select Folder Path from the device
         CancellationToken cancellationToken = new CancellationToken();
 		#pragma warning disable CA1416 // Validate platform compatibility
@@ -25,7 +27,8 @@ public static class StorageAPI
         return pickedFolder.Folder.Path;
     }
 
-    public static async Task<string> GetFilePath(){
+    public static async Task<string> GetFilePath()
+    {
         // Select File Path from the device
 		#pragma warning disable CA1416 // Validate platform compatibility
         var pickedFile = await FilePicker.Default.PickAsync();

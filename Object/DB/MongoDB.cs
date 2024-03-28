@@ -6,7 +6,8 @@ using NET_MAUI_BLE.AppConfig;
 
 namespace NET_MAUI_BLE.Object.DB;
 
-public class MongoDB<T> where T : Item {
+public class MongoDB<T> where T : Item
+{
     // Manage API with MongoDB
     // FIXME - MongoClient raises Exception on Other platform than MacOS
 	public MongoDB(string collectionName) 

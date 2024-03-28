@@ -2,7 +2,8 @@ namespace NET_MAUI_BLE.Object.DB;
 
 public class Record : Item
 {
-	public Record(string recordName, byte[] binaryData, string assignedPatientId) {
+	public Record(string recordName, byte[] binaryData, string assignedPatientId)
+    {
         this.RecordName = recordName;
         this.BinaryData = binaryData;
         this.AssignedPatientId = assignedPatientId;
@@ -16,19 +17,23 @@ public class Record : Item
     private readonly string audioFilePath;
     #pragma warning restore CS0649
 
-    public string GetAudioFile() {
+    public string GetAudioFile()
+    {
         return this.audioFilePath;
     }
 
-    public bool IsPatientAssigned(){
+    public bool IsPatientAssigned()
+    {
         return this.AssignedPatientId != null;
     }
 
-    public void AssignPatient(string patientId){
+    public void AssignPatient(string patientId)
+    {
         this.AssignedPatientId = patientId;
     }
 
-    public void DeleteAssignedPatient(){
+    public void DeleteAssignedPatient()
+    {
         this.AssignedPatientId = null;
     }
 }
