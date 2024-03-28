@@ -1,4 +1,4 @@
-namespace Object.MyDB;
+namespace NET_MAUI_BLE.Object.DB;
 public class Record : Item
 {
 	public Record(string recordName, byte[] binaryData, string assignedPatientId) {
