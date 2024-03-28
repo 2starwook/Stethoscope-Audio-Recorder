@@ -38,7 +38,6 @@ public static class MauiProgram
 	private static void AddDependencies(this IServiceCollection services)
 	{
 		services.AddSingleton<NET_MAUI_BLE.Pages.HomePage>();
-		services.AddSingleton<NET_MAUI_BLE.Pages.AudioPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.RecordsPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.AddRecordPage>();
 		services.AddSingleton<NET_MAUI_BLE.Pages.AddPatientPage>();
