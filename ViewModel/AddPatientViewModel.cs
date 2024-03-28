@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Object.MyData;
 using NET_MAUI_BLE.Message.DbMessage;
-using NET_MAUI_BLE.Pages;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace NET_MAUI_BLE.ViewModel;
