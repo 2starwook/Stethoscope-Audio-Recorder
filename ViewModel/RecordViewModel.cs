@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Plugin.Maui.Audio;
 
-using Object.MyAudio;
+using NET_MAUI_BLE.Object.Audio;
 using MyAPI;
 using Object.MyData;
 
