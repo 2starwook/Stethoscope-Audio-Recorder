@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using NET_MAUI_BLE.Message.BleMessage;
 using NET_MAUI_BLE.Object.BLE;
 using NET_MAUI_BLE.Enum;
+using NET_MAUI_BLE.API;
 
 
 namespace NET_MAUI_BLE.ViewModel;
@@ -152,7 +153,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<BleDataMessage
 
     private void StoreData(byte[] data)
     {
-        receivedFile = MYAPI.DataConvertAPI.Combine(receivedFile, data);
+        receivedFile = DataConvertAPI.Combine(receivedFile, data);
     }
 
     public void Receive(BleDataMessage message)

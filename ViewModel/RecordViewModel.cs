@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Plugin.Maui.Audio;
 
 using NET_MAUI_BLE.Object.Audio;
-using MyAPI;
+using NET_MAUI_BLE.API;
 using NET_MAUI_BLE.Object.DB;
 
 
@@ -31,7 +31,7 @@ public partial class RecordViewModel : ObservableObject
     {
         try
         {
-            MYAPI.UIAPI.HideTab();
+            UIAPI.HideTab();
         }
         catch (Exception e)
         {
@@ -44,7 +44,7 @@ public partial class RecordViewModel : ObservableObject
     {
         try
         {
-            MYAPI.UIAPI.ShowTab();
+            UIAPI.ShowTab();
         }
         catch (Exception e)
         {

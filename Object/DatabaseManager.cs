@@ -1,4 +1,4 @@
-using MyAPI;
+using NET_MAUI_BLE.API;
 using MyConfig;
 
 

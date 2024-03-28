@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Message.DbMessage;
 using CommunityToolkit.Mvvm.Messaging;
+using NET_MAUI_BLE.API;
 
 namespace NET_MAUI_BLE.ViewModel;
 
@@ -27,7 +28,7 @@ public partial class AddPatientViewModel : ObservableObject
     {
         try
         {
-            MYAPI.UIAPI.HideTab();
+            UIAPI.HideTab();
         }
         catch (Exception e)
         {

@@ -1,6 +1,5 @@
-using NET_MAUI_BLE;
+namespace NET_MAUI_BLE.API;
 
-namespace MYAPI;
 public static class UIAPI{
 	public static Button CreateButton(
 		string text, EventHandler e=null, string styleId=null) {

@@ -1,7 +1,7 @@
 using System.Text;
 
 
-namespace MYAPI;
+namespace NET_MAUI_BLE.API;
 static public class DataConvertAPI
 {
     static public byte[] ConvertString2Byte(string data){

@@ -1,7 +1,7 @@
 using MyConfig;
 
 
-namespace MyAPI;
+namespace NET_MAUI_BLE.API;
 public static class FileAPI
 {
 

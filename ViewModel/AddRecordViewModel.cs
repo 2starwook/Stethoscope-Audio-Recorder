@@ -8,6 +8,7 @@ using Object.MyData;
 using NET_MAUI_BLE.Object.View;
 using NET_MAUI_BLE.Message.DbMessage;
 using NET_MAUI_BLE.Pages;
+using NET_MAUI_BLE.API;
 
 
 namespace NET_MAUI_BLE.ViewModel;
@@ -68,7 +69,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
     {
         try
         {
-            MYAPI.UIAPI.HideTab();
+            UIAPI.HideTab();
             Refresh();
             if (Patients == null)
             {
@@ -86,7 +87,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
     {
         try
         {
-            MYAPI.UIAPI.ShowTab();
+            UIAPI.ShowTab();
         }
         catch (Exception e)
         {
