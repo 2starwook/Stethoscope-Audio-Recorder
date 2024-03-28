@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using NET_MAUI_BLE.Message.DbMessage;
 using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Pages;
-using Object.MyRecords;
+using NET_MAUI_BLE.Object.View;
 
 
 namespace NET_MAUI_BLE.ViewModel;
