@@ -1,4 +1,4 @@
-namespace Object.Frontend;
+namespace NET_MAUI_BLE.Object.View;
 
 public class PatientInfo
 {

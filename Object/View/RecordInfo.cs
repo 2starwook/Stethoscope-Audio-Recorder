@@ -1,4 +1,4 @@
-namespace Object.MyRecords;
+namespace NET_MAUI_BLE.Object.View;
 
 public class RecordInfo
 {
