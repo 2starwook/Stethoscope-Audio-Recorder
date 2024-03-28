@@ -1,4 +1,5 @@
 namespace Object.MyRecords;
+
 public class RecordInfo
 {
     public string Name { get; set; }

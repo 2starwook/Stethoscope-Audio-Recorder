@@ -1,4 +1,5 @@
 namespace Object.Frontend;
+
 public class PatientInfo
 {
     public string name { get; set; }
