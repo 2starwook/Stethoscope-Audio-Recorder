@@ -5,6 +5,7 @@ using MyConfig;
 
 
 namespace NET_MAUI_BLE.Object.DB;
+
 public class MongoDB<T> where T : Item {
     // Manage API with MongoDB
     // FIXME - MongoClient raises Exception on Other platform than MacOS
