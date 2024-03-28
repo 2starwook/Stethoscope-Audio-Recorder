@@ -4,6 +4,7 @@ using MyConfig;
 
 
 namespace NET_MAUI_BLE.Object.DB;
+
 public class RecordsManager<T> where T : Record
 {
     // Manage API with MongoDB
