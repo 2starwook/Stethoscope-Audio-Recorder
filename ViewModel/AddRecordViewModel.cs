@@ -11,6 +11,7 @@ using NET_MAUI_BLE.Pages;
 
 
 namespace NET_MAUI_BLE.ViewModel;
+
 public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatientMessage>
 {
 	public AddRecordViewModel()
