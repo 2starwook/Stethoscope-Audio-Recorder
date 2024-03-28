@@ -6,6 +6,7 @@ using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Message.DbMessage;
 using NET_MAUI_BLE.API;
 
+
 namespace NET_MAUI_BLE.ViewModel;
 
 public partial class AddPatientViewModel : ObservableObject
