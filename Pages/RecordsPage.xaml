@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
-             xmlns:records="clr-namespace:Object.MyRecords"
+             xmlns:records="clr-namespace:NET_MAUI_BLE.Object.View"
              x:Class="NET_MAUI_BLE.Pages.RecordsPage"
              x:DataType="viewmodel:RecordsViewModel">
  <ContentPage.Behaviors>
