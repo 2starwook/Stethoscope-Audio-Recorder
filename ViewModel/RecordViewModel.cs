@@ -17,6 +17,7 @@ public partial class RecordViewModel : ObservableObject
         _audioController = new AudioController(audioManager);
         _databaseManager = DependencyService.Get<DBManager>();
         PlayingView = false;
+        PauseResumeText = "Pause";
     }
 
     private AudioController _audioController;
@@ -25,6 +26,8 @@ public partial class RecordViewModel : ObservableObject
 	private string recordId;
     [ObservableProperty]
     private bool playingView;
+    [ObservableProperty]
+    private string pauseResumeText;
 
     [RelayCommand]
     void Appearing()
@@ -60,20 +63,18 @@ public partial class RecordViewModel : ObservableObject
         await StorageAPI.ExportData(tempName, binaryData);
     }
 
-    #pragma warning disable CS1998
     [RelayCommand]
 	async Task Play(string recordId)
     {
         PlayingView = true;
-  //      var fileName = $"{recordId}.wav";
-  //      var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
-  //      FileAPI.WriteCacheData(fileName, binaryData);
-  //      await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
-		//_audioController.Play();
-		//audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
+        var fileName = $"{recordId}.wav";
+        var binaryData = _databaseManager.currentRecords[recordId].BinaryData;
+        FileAPI.WriteCacheData(fileName, binaryData);
+        await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
+        _audioController.Play();
+        _audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
         // TODO - Add Stop / Pause Button
     }
-    #pragma warning restore CS1998
 
     void HandlePlayEnded(object sender, EventArgs e)
     {
@@ -82,9 +83,18 @@ public partial class RecordViewModel : ObservableObject
 
     #pragma warning disable CS1998
     [RelayCommand]
-    async Task Pause()
+    async Task PauseResume()
     {
-
+        if (_audioController.IsPlaying())
+        {
+            _audioController.Pause();
+            PauseResumeText = "Resume";
+        }
+        else
+        {
+            _audioController.Play();
+            PauseResumeText = "Pause";
+        }
     }
     #pragma warning restore CS1998
 
@@ -93,6 +103,7 @@ public partial class RecordViewModel : ObservableObject
     async Task Stop()
     {
         PlayingView = false;
+        _audioController.Stop();
     }
     #pragma warning restore CS1998
 }

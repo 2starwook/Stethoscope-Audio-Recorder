@@ -41,8 +41,8 @@
                     CommandParameter="{Binding RecordId}"
                     IsVisible="{Binding PlayingView, Converter={StaticResource InvertedBoolConverter}}"/>
             <Button Grid.Column="2"
-                    Text="Pause"
-                    Command="{Binding PauseCommand}"
+                    Text="{Binding PauseResumeText}"
+                    Command="{Binding PauseResumeCommand}"
                     IsVisible="{Binding PlayingView}"
                     Margin="0, 0, 5, 0"/>
             <Button Grid.Column="3"
