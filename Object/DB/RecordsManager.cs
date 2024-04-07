@@ -37,5 +37,4 @@ public class RecordsManager<T> where T : Record
             .Set(p => p.RecordName, recordName);
         await _mongoDB.collection.UpdateOneAsync(filter, update);
     }
-
 }
