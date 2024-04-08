@@ -80,9 +80,8 @@ public partial class RecordViewModel : ObservableObject
         PlayingView = false;
     }
 
-    #pragma warning disable CS1998
     [RelayCommand]
-    async Task PauseResume()
+    void PauseResume()
     {
         if (_audioController.IsPlaying())
         {
@@ -95,14 +94,11 @@ public partial class RecordViewModel : ObservableObject
             PauseResumeText = "Pause";
         }
     }
-    #pragma warning restore CS1998
 
-    #pragma warning disable CS1998
     [RelayCommand]
-    async Task Stop()
+    void Stop()
     {
         PlayingView = false;
         _audioController.Stop();
     }
-    #pragma warning restore CS1998
 }
