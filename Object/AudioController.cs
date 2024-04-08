@@ -32,6 +32,19 @@ public class AudioController
 		}
     }
 
+    public void OpenWithStream(Stream audioStream)
+    {
+        try
+        {
+
+            this._currentAudioPlayer = new AudioPlayer(
+				_audioManager.CreatePlayer(audioStream));
+        }
+        catch
+        {
+            // File doesn't exist
+        }
+    }
 
     public void AddEventHandler(EventHandler e)
 	{
