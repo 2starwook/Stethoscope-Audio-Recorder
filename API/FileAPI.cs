@@ -61,4 +61,9 @@ public static class FileAPI
         return Guid.NewGuid().ToString().ToUpper();
     }
 
+    public static bool isExist(string path)
+    {
+        return Path.Exists(path);
+    }
+
 }
