@@ -32,7 +32,8 @@ public class AudioController
 		}
     }
 
-	public void AddEventHandler(EventHandler e)
+
+    public void AddEventHandler(EventHandler e)
 	{
 		this._currentAudioPlayer.AddEventHandler(e);
 	}
