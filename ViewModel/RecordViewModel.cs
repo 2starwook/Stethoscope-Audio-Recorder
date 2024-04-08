@@ -73,7 +73,6 @@ public partial class RecordViewModel : ObservableObject
         await _audioController.OpenFile(FileAPI.GetCachePath(fileName));
         _audioController.Play();
         _audioController.AddEventHandler(new EventHandler(HandlePlayEnded));
-        // TODO - Add Stop / Pause Button
     }
 
     void HandlePlayEnded(object sender, EventArgs e)
