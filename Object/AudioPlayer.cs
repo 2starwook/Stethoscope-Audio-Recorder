@@ -5,7 +5,7 @@ namespace NET_MAUI_BLE.Object.Audio;
 
 public class AudioPlayer
 {
-	public AudioPlayer(IAudioPlayer audioPlayer, string filePath)
+	public AudioPlayer(IAudioPlayer audioPlayer, string filePath="")
 	{
 		this._audioPlayer = audioPlayer;
 		this._filePath = filePath;
