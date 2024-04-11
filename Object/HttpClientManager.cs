@@ -89,8 +89,6 @@ public class HttpClientManager
 
     public async Task PatchAsync(string requestUri, StringContent content)
     {
-
-
         using HttpResponseMessage response = await _httpClient.PatchAsync(
             requestUri, content);
 
