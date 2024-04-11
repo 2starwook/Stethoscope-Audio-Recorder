@@ -96,7 +96,7 @@ public class DBManager
     }
 
     // TODO - Move to other object
-    public async Task<string> ImportAudioFile()
+    static public async Task<string> ImportAudioFile()
     {
         var srcPath = await StorageAPI.GetFilePath();
         var filename = FileAPI.GetUniqueID() + ".wav";
