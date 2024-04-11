@@ -53,6 +53,8 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddPatientViewModel>();
         services.AddSingleton<NET_MAUI_BLE.ViewModel.WifiViewModel>();
 
+        services.AddSingleton<NET_MAUI_BLE.Controls.AudioControl>();
+
         services.AddSingleton<NET_MAUI_BLE.Object.DB.DBManager>();
 	}
 }
