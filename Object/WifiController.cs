@@ -8,7 +8,7 @@ public class WifiController
 {
     public WifiController()
     {
-        _baseAddress = Config.HTTP_BASE_ADDRESS_TEST;
+        _baseAddress = Config.HTTP_BASE_ADDRESS;
         _httpClientManager = new HttpClientManager(_baseAddress);
     }
 
