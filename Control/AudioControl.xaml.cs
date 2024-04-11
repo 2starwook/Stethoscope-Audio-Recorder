@@ -16,6 +16,7 @@ public partial class AudioControl : ContentView
         PauseResumeText = "Pause";
         InitializeComponent();
     }
+    // TODO - Implement: Showing runtime of audio and where it is at
 
     private AudioController _audioController;
     private bool _playingView;
