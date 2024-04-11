@@ -34,4 +34,10 @@ public class Config
 
     public static string COLLECTION_RECORDS = "records";
     // Name of collection for records
+
+    public static string HTTP_BASE_ADDRESS = "http://192.168.4.1:1337";
+    // Base address for HTTP on Arduino chip
+
+    public static string HTTP_BASE_ADDRESS_TEST = "http://127.0.0.1:8000";
+    // Base address for HTTP on local testing server
 }
