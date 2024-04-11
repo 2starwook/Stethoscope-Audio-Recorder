@@ -20,6 +20,7 @@ public partial class RecordViewModel : ObservableObject
         PauseResumeText = "Pause";
     }
     // TODO - Replace it with AudioControl
+    // TODO - Add Changing record name
 
     private AudioController _audioController;
     private DBManager _databaseManager;
