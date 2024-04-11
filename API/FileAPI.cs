@@ -21,6 +21,11 @@ public static class FileAPI
         return null;
     }
 
+    public static string GetFullPath(string filename)
+    {
+        return Path.Combine(Config.rootPath, filename);
+    }
+
     public static void WriteCacheData(string filename, byte[] data)
     {
         var fullPath = Path.Combine(Config.rootCachePath, filename);
