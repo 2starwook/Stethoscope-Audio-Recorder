@@ -1,9 +1,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Text;
 using System.Text.Json;
 
 using NET_MAUI_BLE.Object.Wifi;
+using NET_MAUI_BLE.Object.DB;
+using NET_MAUI_BLE.Message.DbMessage;
+using NET_MAUI_BLE.API;
 
 
 namespace NET_MAUI_BLE.ViewModel;
@@ -12,26 +16,25 @@ public partial class HomeViewModel : ObservableObject
 {
 	public HomeViewModel()
 	{
-        TestLabel = "Empty";
+        this.databaseManager = DependencyService.Get<DBManager>();
         wifiController = new WifiController();
         AudioControlVisible = false;
         audioSource = "";
     }
 
+    private DBManager databaseManager;
     private WifiController wifiController;
-    [ObservableProperty]
-    string testLabel;
     [ObservableProperty]
     bool audioControlVisible;
     [ObservableProperty]
     string audioSource;
 
     [RelayCommand]
-    void Appearing()
+    async Task Appearing()
     {
         try
         {
-
+            await databaseManager.LoadDataAsync();
         }
         catch (Exception e)
         {
@@ -71,5 +74,8 @@ public partial class HomeViewModel : ObservableObject
     {
         System.Diagnostics.Debug.WriteLine("GetAudio Button clicked");
         AudioSource = await wifiController.GetAudio();
+        var recordName = $"recording_{TimeAPI.GetCurrentDateTime()}";
+        var recordId = await databaseManager.AddRecordAsync(AudioSource, recordName);
+        WeakReferenceMessenger.Default.Send(new AddRecordMessage(recordId));
     }
 }
