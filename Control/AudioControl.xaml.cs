@@ -47,11 +47,11 @@ public partial class AudioControl : ContentView
         propertyChanged: (bindable, oldValue, newValue) =>
         {
             var control = (AudioControl)bindable;
-        },
-        validateValue: (bindable, value) =>
-        {
-            return FileAPI.isExist(FileAPI.GetCachePath(value.ToString()));
         }
+        //validateValue: (bindable, value) =>
+        //{
+        //    return FileAPI.isExist(FileAPI.GetCachePath(value.ToString()));
+        //}
         );
 
     [RelayCommand]
