@@ -13,10 +13,12 @@ public partial class WifiViewModel : ObservableObject
 	public WifiViewModel()
 	{
         TestLabel = "Empty";
-        //var baseAddress = "http://127.0.0.1:8000";
+        // var baseAddress = "http://127.0.0.1:8000";
         var baseAddress = "http://192.168.4.1:1337";
         //wifiController = new WifiController();
         httpClientManager = new HttpClientManager(baseAddress);
+        AudioControlVisible = false;
+        audioSource = "";
     }
 
     // WifiController wifiController;
@@ -24,6 +26,22 @@ public partial class WifiViewModel : ObservableObject
 
     [ObservableProperty]
     string testLabel;
+    [ObservableProperty]
+    bool audioControlVisible;
+    [ObservableProperty]
+    string audioSource;
+
+    partial void OnAudioSourceChanged(string value)
+    {
+        if (value != "")
+        {
+            AudioControlVisible = true;
+        }
+        else
+        {
+            AudioControlVisible = false;
+        }
+    }
 
     [RelayCommand]
     async Task Test()
@@ -44,28 +62,6 @@ public partial class WifiViewModel : ObservableObject
     async Task GetAudio()
     {
         System.Diagnostics.Debug.WriteLine("GetAudio Button clicked");
-        //await httpClientManager.GetAsync("/");
+        AudioSource = await httpClientManager.GetAudio();
     }
-
-    [RelayCommand]
-    async Task GetStreamAudio()
-    {
-        System.Diagnostics.Debug.WriteLine("GetStreamAudio Button clicked");
-        //await httpClientManager.GetAsync("/");
-    }
-
-    [RelayCommand]
-    async Task SendL()
-    {
-        System.Diagnostics.Debug.WriteLine("SendL Button clicked");
-        await httpClientManager.GetAsync("/L");
-    }
-
-    [RelayCommand]
-    async Task SendH()
-    {
-        System.Diagnostics.Debug.WriteLine("SendH Button clicked");
-        await httpClientManager.GetAsync("/H");
-    }
-
 }
