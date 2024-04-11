@@ -105,7 +105,7 @@ public partial class AddRecordViewModel : ObservableObject, IRecipient<AddPatien
     [RelayCommand]
     async Task SelectFile()
     {
-        var path = await _databaseManager.ImportAudioFile();
+        var path = await DBManager.ImportAudioFile();
         if (string.IsNullOrWhiteSpace(path))
             return;
         FilePath = FileButtonText = path;
