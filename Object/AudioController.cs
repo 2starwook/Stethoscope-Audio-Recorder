@@ -7,24 +7,23 @@ public class AudioController
 {
 	public AudioController(IAudioManager audioManager)
 	{
-		this._audioManager = audioManager;
+		this.audioManager = audioManager;
 		//TODO - Convert to Async
 	}
 
-	private readonly IAudioManager _audioManager;
-	private AudioPlayer _currentAudioPlayer;
+	private readonly IAudioManager audioManager;
+	private IAudioPlayer currentAudioPlayer;
+    private readonly string filePath;
 
     public async Task OpenFile(string filePath)
 	{
-		try
+        try
 		{
-			if (_currentAudioPlayer == null
-				|| !_currentAudioPlayer.IsSameFilePath(filePath))
+			if (currentAudioPlayer == null || this.filePath != filePath)
 			{
-				this._currentAudioPlayer = new AudioPlayer(
-					_audioManager.CreatePlayer(
-						await FileSystem.OpenAppPackageFileAsync(filePath)), filePath);
-			}
+				this.currentAudioPlayer = audioManager.CreatePlayer(
+						await FileSystem.OpenAppPackageFileAsync(filePath));
+            }
 		}
 		catch
 		{
@@ -37,8 +36,7 @@ public class AudioController
         try
         {
 
-            this._currentAudioPlayer = new AudioPlayer(
-				_audioManager.CreatePlayer(audioStream));
+            this.currentAudioPlayer = audioManager.CreatePlayer(audioStream);
         }
         catch
         {
@@ -48,31 +46,31 @@ public class AudioController
 
     public void AddEventHandler(EventHandler e)
 	{
-		this._currentAudioPlayer.AddEventHandler(e);
+        this.currentAudioPlayer.PlaybackEnded += e;
 	}
 
 	public bool HasAudioPlayer()
 	{
-		return this._currentAudioPlayer != null;
+        return this.currentAudioPlayer != null;
 	}
 
 	public void Play()
 	{
-		this._currentAudioPlayer.Play();
-	}
+		this.currentAudioPlayer.Play();
+    }
 
 	public void Stop()
 	{
-		this._currentAudioPlayer.Stop();
+		this.currentAudioPlayer.Stop();
 	}
 
 	public void Pause()
 	{
-		this._currentAudioPlayer.Pause();
+		this.currentAudioPlayer.Pause();
 	}
 
 	public bool IsPlaying()
 	{
-		return this._currentAudioPlayer.IsPlaying();
+		return this.currentAudioPlayer.IsPlaying;
 	}
 }
