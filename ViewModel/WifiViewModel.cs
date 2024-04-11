@@ -13,17 +13,12 @@ public partial class WifiViewModel : ObservableObject
 	public WifiViewModel()
 	{
         TestLabel = "Empty";
-        // var baseAddress = "http://127.0.0.1:8000";
-        var baseAddress = "http://192.168.4.1:1337";
-        //wifiController = new WifiController();
-        httpClientManager = new HttpClientManager(baseAddress);
+        wifiController = new WifiController();
         AudioControlVisible = false;
         audioSource = "";
     }
 
-    // WifiController wifiController;
-    HttpClientManager httpClientManager;
-
+    private WifiController wifiController;
     [ObservableProperty]
     string testLabel;
     [ObservableProperty]
@@ -62,6 +57,6 @@ public partial class WifiViewModel : ObservableObject
     async Task GetAudio()
     {
         System.Diagnostics.Debug.WriteLine("GetAudio Button clicked");
-        AudioSource = await httpClientManager.GetAudio();
+        AudioSource = await wifiController.GetAudio();
     }
 }
