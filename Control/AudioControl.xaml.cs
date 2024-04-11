@@ -16,6 +16,7 @@ public partial class AudioControl : ContentView
         PauseResumeText = "Pause";
         InitializeComponent();
     }
+
     private AudioController _audioController;
     private bool _playingView;
     public bool PlayingView {
