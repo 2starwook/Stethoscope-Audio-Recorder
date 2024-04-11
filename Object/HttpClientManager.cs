@@ -46,7 +46,7 @@ public class HttpClientManager
     // TODO - Move this file to WifiController
     public async Task<string> GetAudio()
     {
-        using HttpResponseMessage response = await _httpClient.GetAsync("/audio");
+        using HttpResponseMessage response = await _httpClient.GetAsync("/R10");
         response.EnsureSuccessStatusCode()
             .WriteRequestToConsole();
         var unique_id = FileAPI.GetUniqueID();
