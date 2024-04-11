@@ -19,6 +19,7 @@ public partial class RecordViewModel : ObservableObject
         PlayingView = false;
         PauseResumeText = "Pause";
     }
+    // TODO - Replace it with AudioControl
 
     private AudioController _audioController;
     private DBManager _databaseManager;
