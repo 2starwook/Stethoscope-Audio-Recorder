@@ -32,35 +32,39 @@ public class HttpClientManager
 
     private HttpClient _httpClient;
 
+    public async Task<byte[]> GetBinaryAsync(string requestUri)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+        response.EnsureSuccessStatusCode()
+            .WriteRequestToConsole();
+        return await response.Content.ReadAsByteArrayAsync();
+    }
+
+    public async Task<string> GetStringAsync(string requestUri)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+        response.EnsureSuccessStatusCode()
+            .WriteRequestToConsole();
+        return await response.Content.ReadAsStringAsync();
+    }
+
+    public async Task<Stream> GetStreamAsync(string requestUri)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+        response.EnsureSuccessStatusCode()
+            .WriteRequestToConsole();
+        return await response.Content.ReadAsStreamAsync();
+    }
+
     public async Task<JObject> GetAsync(string requestUri)
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
-        
+
         response.EnsureSuccessStatusCode()
             .WriteRequestToConsole();
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
-        return JObject.Parse(jsonResponse);    
-    }
-
-    // TODO - Move this file to WifiController
-    public async Task<string> GetAudio()
-    {
-        using HttpResponseMessage response = await _httpClient.GetAsync("/R10");
-        response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
-        var unique_id = FileAPI.GetUniqueID();
-        var fileName = $"{unique_id}.wav";
-        try
-        {
-            var binaryData = await response.Content.ReadAsByteArrayAsync();
-            FileAPI.WriteCacheData(fileName, binaryData);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Exception occurred");
-        }
-        return FileAPI.GetCachePath(fileName);
+        return JObject.Parse(jsonResponse);
     }
 
     public async Task PostAsync(string requestUri, StringContent content)
