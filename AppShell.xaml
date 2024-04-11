@@ -19,9 +19,6 @@
         <Tab Title="Records">
             <ShellContent ContentTemplate="{DataTemplate pages:RecordsPage}" />
         </Tab>
-        <Tab Title="TestPage">
-            <ShellContent ContentTemplate="{DataTemplate pages:TestPage}" />
-        </Tab>
     </TabBar>
 
 </Shell>
