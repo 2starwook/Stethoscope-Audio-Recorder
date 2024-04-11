@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using NET_MAUI_BLE.API;
 
 
 namespace NET_MAUI_BLE.Object.Wifi;
@@ -40,6 +41,26 @@ public class HttpClientManager
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
         return JObject.Parse(jsonResponse);    
+    }
+
+    // TODO - Move this file to WifiController
+    public async Task<string> GetAudio()
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync("/audio");
+        response.EnsureSuccessStatusCode()
+            .WriteRequestToConsole();
+        var unique_id = FileAPI.GetUniqueID();
+        var fileName = $"{unique_id}.wav";
+        try
+        {
+            var binaryData = await response.Content.ReadAsByteArrayAsync();
+            FileAPI.WriteCacheData(fileName, binaryData);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Exception occurred");
+        }
+        return FileAPI.GetCachePath(fileName);
     }
 
     public async Task PostAsync(string requestUri, StringContent content)
