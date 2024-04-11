@@ -62,7 +62,7 @@ public partial class HomeViewModel : ObservableObject
             Encoding.UTF8,
             "application/json");
 
-        System.Diagnostics.Debug.WriteLine("Test1 Button clicked");
+        System.Diagnostics.Debug.WriteLine("Test Button clicked");
         //await httpClientManager.GetAsync("/");
     }
 
