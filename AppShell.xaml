@@ -7,9 +7,6 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar x:Name="mainTab">
-        <Tab Title="Wifi">
-            <ShellContent ContentTemplate="{DataTemplate pages:WifiPage}" />
-        </Tab>
         <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
         </Tab>
