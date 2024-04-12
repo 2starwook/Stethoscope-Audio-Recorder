@@ -78,11 +78,13 @@
 	  <None Remove="Object\Message\" />
 	  <None Remove="Object\View\" />
 	  <None Remove="Control\" />
+	  <None Remove="Converter\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Enum\" />
 	  <Folder Include="Object\Message\" />
 	  <Folder Include="Object\View\" />
 	  <Folder Include="Control\" />
+	  <Folder Include="Converter\" />
 	</ItemGroup>
 </Project>
