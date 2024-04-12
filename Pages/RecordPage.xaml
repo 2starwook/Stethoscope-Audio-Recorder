@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="NET_MAUI_BLE.Pages.RecordPage"
+             xmlns:controls="clr-namespace:NET_MAUI_BLE.Controls"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
+             x:Class="NET_MAUI_BLE.Pages.RecordPage"
              x:DataType="viewmodel:RecordViewModel">
 <ContentPage.Behaviors>
     <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
@@ -14,42 +15,9 @@
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
     </ResourceDictionary>
 </ContentPage.Resources>
-    <Grid RowDefinitions="20, *"
+    <!--<Grid RowDefinitions="20, *"
           Padding="10">
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*, *, *"
-              Margin="0, 0, 0, 0"
-              VerticalOptions="End"
-              ColumnSpacing="10">
-            <Grid.Triggers>
-                <DataTrigger TargetType="Grid"
-                            Binding="{Binding PlayingView}" Value="True">
-                    <Setter Property="ColumnDefinitions" Value="*,0,*,*" />
-                </DataTrigger>
-                <DataTrigger TargetType="Grid"
-                            Binding="{Binding PlayingView}" Value="False">
-                    <Setter Property="ColumnDefinitions" Value="*,*" />
-                </DataTrigger>
-            </Grid.Triggers>
-            <Button Grid.Column="0"
-                    Text="Share"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=ShareCommand}"
-                    CommandParameter="{Binding RecordId}"/>
-            <Button Grid.Column="1"
-                    Text="Play"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordViewModel}}, Path=PlayCommand}"
-                    CommandParameter="{Binding RecordId}"
-                    IsVisible="{Binding PlayingView, Converter={StaticResource InvertedBoolConverter}}"/>
-            <Button Grid.Column="2"
-                    Text="{Binding PauseResumeText}"
-                    Command="{Binding PauseResumeCommand}"
-                    IsVisible="{Binding PlayingView}"
-                    Margin="0, 0, 5, 0"/>
-            <Button Grid.Column="3"
-                    Text="Stop"
-                    Command="{Binding StopCommand}"
-                    IsVisible="{Binding PlayingView}"
-                    Margin="5, 0, 0, 0"/>
-        </Grid>
-    </Grid>
+        
+    </Grid>-->
+    <controls:AudioControl Source="{Binding AudioSource}"/>
 </ContentPage>
