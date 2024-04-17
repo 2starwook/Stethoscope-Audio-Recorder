@@ -71,7 +71,12 @@ public partial class AudioControl : ContentView
         }
     }
     public double Duration => _audioController.Duration();
-    
+    public double Volume
+    {
+        get => _audioController.Volume();
+        set => _audioController.SetVolume(value);
+    }
+
 
     private void OnLoading(object sender, EventArgs e)
     {

@@ -28,6 +28,12 @@
             <Slider Value="{Binding CurrentPosition, Source={x:Reference this}}"
                     Maximum="{Binding Duration, Source={x:Reference this}}"
                     WidthRequest="300"/>
+            <Label Text="Volume:"
+                   HorizontalOptions="Center"/>
+            <Slider Minimum="0"
+                    Maximum="1"
+                    Value="{Binding Volume, Source={x:Reference this}}"
+                    WidthRequest="300"/>
         </StackLayout>
         <Grid ColumnDefinitions="*, *, *, *"
               Margin="0, 0, 0, 0"
