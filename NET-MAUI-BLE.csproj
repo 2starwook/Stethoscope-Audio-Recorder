@@ -69,7 +69,6 @@
 		<PackageReference Include="MongoDB.Driver" Version="2.23.1" />
 		<PackageReference Include="Plugin.BLE" Version="3.0.0" />
 		<PackageReference Include="Plugin.Maui.Audio" Version="2.1.0" />
-		<PackageReference Include="SkiaSharp" Version="2.88.7" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
