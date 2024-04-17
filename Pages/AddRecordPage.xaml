@@ -42,31 +42,6 @@
                        HorizontalOptions="Start"
                        WidthRequest="300"/>
             </Grid>
-            <Grid ColumnDefinitions="130, 300, 100">
-                <Label Grid.Row="0" Grid.Column="0"
-                       Text="Patient: "
-                       SemanticProperties.HeadingLevel="Level1"
-                       FontSize="32"
-                       Padding="0, 0, 10, 0"/>
-                <Picker Grid.Row="0" Grid.Column="1"
-                        Title="Select a patient to be assigned"
-                        ItemsSource="{Binding Patients}"
-                        ItemDisplayBinding="{Binding name}"
-                        SelectedItem="{Binding SelectedPatient}"
-                        FontSize="20"
-                        HorizontalOptions="Start"
-                        WidthRequest="300"/>
-                <Button Grid.Row="0" Grid.Column="2"
-                        Text="Add Patient"
-                        Command="{Binding AddPatientCommand}"
-                        WidthRequest="105"
-                        Margin="30, 0, 0, 0"
-                        BackgroundColor="Black"
-                        TextColor="White"
-                        BorderColor="White"
-                        BorderWidth="2"/>
-            </Grid>
-
             <Button Text="Submit"
                     Command="{Binding SubmitCommand}"
                     HorizontalOptions="Start"

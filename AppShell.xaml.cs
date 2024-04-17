@@ -12,7 +12,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(RecordsPage), typeof(RecordsPage));
 		Routing.RegisterRoute(nameof(RecordPage), typeof(RecordPage));
 		Routing.RegisterRoute(nameof(AddRecordPage), typeof(AddRecordPage));
-		Routing.RegisterRoute(nameof(AddPatientPage), typeof(AddPatientPage));
 		BindingContext = this;
 	}
 
