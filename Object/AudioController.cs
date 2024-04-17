@@ -84,9 +84,9 @@ public class AudioController
 		return this.currentAudioPlayer?.Duration ?? 1.0;
 	}
 
-	public double GetVolume()
+	public double Volume()
 	{
-		return this.currentAudioPlayer.Volume;
+		return this.currentAudioPlayer?.Volume ?? 1;
 	}
 
 	public void SetVolume(double newVolume)
@@ -95,7 +95,10 @@ public class AudioController
 		{
 			throw new Exception($"Invalid newVolume {newVolume}");
 		}
-		this.currentAudioPlayer.Volume = newVolume;
+		if (currentAudioPlayer != null)
+		{
+			this.currentAudioPlayer.Volume = newVolume;
+		}
 	}
 
 	public void Seek(double position)
