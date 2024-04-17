@@ -13,16 +13,16 @@ public class AudioController
 
 	private readonly IAudioManager audioManager;
 	private IAudioPlayer currentAudioPlayer;
-    private readonly string filePath;
+    private string filePath;
 
-    public async Task OpenFile(string filePath)
+    public void OpenFile(string filePath)
 	{
         try
 		{
 			if (currentAudioPlayer == null || this.filePath != filePath)
 			{
-				this.currentAudioPlayer = audioManager.CreatePlayer(
-						await FileSystem.OpenAppPackageFileAsync(filePath));
+				this.currentAudioPlayer = audioManager.CreatePlayer(File.Open(filePath, FileMode.Open));
+				this.filePath = filePath;
             }
 		}
 		catch
@@ -72,5 +72,39 @@ public class AudioController
 	public bool IsPlaying()
 	{
 		return this.currentAudioPlayer.IsPlaying;
+	}
+
+	public double CurrentPosition()
+	{
+		return this.currentAudioPlayer?.CurrentPosition ?? 0.0;
+	}
+
+	public double Duration()
+	{
+		return this.currentAudioPlayer?.Duration ?? 1.0;
+	}
+
+	public double GetVolume()
+	{
+		return this.currentAudioPlayer.Volume;
+	}
+
+	public void SetVolume(double newVolume)
+	{
+		if (0 > newVolume || newVolume > 1)
+		{
+			throw new Exception($"Invalid newVolume {newVolume}");
+		}
+		this.currentAudioPlayer.Volume = newVolume;
+	}
+
+	public void Seek(double position)
+	{
+		this.currentAudioPlayer.Seek(position);
+	}
+
+	public void Dispose()
+	{
+		this.currentAudioPlayer?.Dispose();
 	}
 }

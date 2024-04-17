@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:NET_MAUI_BLE.Converters"
@@ -11,36 +11,55 @@
         <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
     </ResourceDictionary>
 </ContentView.Resources>
-    <Grid ColumnDefinitions="*, *, *, *"
-          Margin="0, 0, 0, 0"
-          VerticalOptions="End"
-          ColumnSpacing="10">
-        <Grid.Triggers>
-            <DataTrigger TargetType="Grid"
-                        Binding="{Binding PlayingView, Source={x:Reference this}}" Value="True">
-                <Setter Property="ColumnDefinitions" Value="*,0,*,*" />
-            </DataTrigger>
-            <DataTrigger TargetType="Grid"
-                        Binding="{Binding PlayingView, Source={x:Reference this}}" Value="False">
-                <Setter Property="ColumnDefinitions" Value="*,*" />
-            </DataTrigger>
-        </Grid.Triggers>
-        <Button Grid.Column="0"
-                Text="Share"
-                Command="{Binding ShareCommand, Source={x:Reference this}}"/>
-        <Button Grid.Column="1"
-                Text="Play"
-                Command="{Binding PlayCommand, Source={x:Reference this}}"
-                IsVisible="{Binding PlayingView, Source={x:Reference this}, Converter={StaticResource InvertedBoolConverter}}"/>
-        <Button Grid.Column="2"
-                Text="{Binding PauseResumeText, Source={x:Reference this}}"
-                Command="{Binding PauseResumeCommand, Source={x:Reference this}}"
-                IsVisible="{Binding PlayingView, Source={x:Reference this}}"
-                Margin="0, 0, 5, 0"/>
-        <Button Grid.Column="3"
-                Text="Stop"
-                Command="{Binding StopCommand, Source={x:Reference this}}"
-                IsVisible="{Binding PlayingView, Source={x:Reference this}}"
-                Margin="5, 0, 0, 0"/>
+    <Grid RowDefinitions="*, *">
+        <StackLayout>
+            <Label HorizontalOptions="Center">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Position: {0}/{1}">
+                        <Binding Path="CurrentPosition"
+                                 Source="{x:Reference this}"
+                                 Converter="{StaticResource SecondsToStringConverter}" />
+                        <Binding Path="Duration"
+                                 Source="{x:Reference this}"
+                                 Converter="{StaticResource SecondsToStringConverter}" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            <Slider Value="{Binding CurrentPosition, Source={x:Reference this}}"
+                    Maximum="{Binding Duration, Source={x:Reference this}}"
+                    WidthRequest="300"/>
+        </StackLayout>
+        <Grid ColumnDefinitions="*, *, *, *"
+              Margin="0, 0, 0, 0"
+              VerticalOptions="End"
+              ColumnSpacing="10">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid"
+                             Binding="{Binding PlayingView, Source={x:Reference this}}" Value="True">
+                    <Setter Property="ColumnDefinitions" Value="*,0,*,*" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid"
+                             Binding="{Binding PlayingView, Source={x:Reference this}}" Value="False">
+                    <Setter Property="ColumnDefinitions" Value="*,*" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Button Grid.Column="0"
+                    Text="Share"
+                    Command="{Binding ShareCommand, Source={x:Reference this}}"/>
+            <Button Grid.Column="1"
+                    Text="Play"
+                    Command="{Binding PlayCommand, Source={x:Reference this}}"
+                    IsVisible="{Binding PlayingView, Source={x:Reference this}, Converter={StaticResource InvertedBoolConverter}}"/>
+            <Button Grid.Column="2"
+                    Text="{Binding PauseResumeText, Source={x:Reference this}}"
+                    Command="{Binding PauseResumeCommand, Source={x:Reference this}}"
+                    IsVisible="{Binding PlayingView, Source={x:Reference this}}"
+                    Margin="0, 0, 5, 0"/>
+            <Button Grid.Column="3"
+                    Text="Stop"
+                    Command="{Binding StopCommand, Source={x:Reference this}}"
+                    IsVisible="{Binding PlayingView, Source={x:Reference this}}"
+                    Margin="5, 0, 0, 0"/>
+        </Grid>
     </Grid>
 </ContentView>
