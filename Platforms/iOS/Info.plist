@@ -28,9 +28,5 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Allow the Course Demonstration App to access Bluetooth devices as a client.</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Allow the Course Demonstration App to access Bluetooth devices in the background.</string>
 </dict>
 </plist>

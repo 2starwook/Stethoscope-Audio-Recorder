@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
-using Plugin.BLE;
 
 
 namespace NET_MAUI_BLE;
@@ -21,7 +20,6 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton(CrossBluetoothLE.Current);
 		builder.Services.AddSingleton(AudioManager.Current);
 		builder.Services.AddSingleton(FileSaver.Default);
 		builder.Services.AddSingleton(FolderPicker.Default);
