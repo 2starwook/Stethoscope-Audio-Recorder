@@ -10,7 +10,6 @@ public partial class AudioVisualizationControl : ContentView
 {
     public AudioVisualizationControl()
     {
-        IsLoading = false;
         InitializeComponent();
         Loaded += OnLoading;
         Unloaded += OnUnloading;
@@ -44,25 +43,13 @@ public partial class AudioVisualizationControl : ContentView
             OnPropertyChanged(nameof(AudioImageSource));
         }
     }
-    private bool isLoading;
-    public bool IsLoading
-    {
-        get => isLoading;
-        set
-        {
-            isLoading = value;
-            OnPropertyChanged(nameof(IsLoading));
-        }
-    }
 
 
     private async void OnLoading(object sender, EventArgs e)
     {
-        IsLoading = true;
         // TODO - FIXME: Loading image does not show up
         this.fileName = FileAPI.GetFile(AudioSource);
         await StartVisualization(AudioSource);
-        IsLoading = false;
     }
 
     private void OnUnloading(object sender, EventArgs e)
