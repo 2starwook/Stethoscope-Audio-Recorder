@@ -21,8 +21,11 @@ public class AudioController
 		{
 			if (currentAudioPlayer == null || this.filePath != filePath)
 			{
-				this.currentAudioPlayer = audioManager.CreatePlayer(File.Open(filePath, FileMode.Open));
-				this.filePath = filePath;
+				using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				{
+					this.currentAudioPlayer = audioManager.CreatePlayer(stream);
+					this.filePath = filePath;
+				}
             }
 		}
 		catch
