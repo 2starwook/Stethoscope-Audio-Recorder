@@ -54,6 +54,7 @@ public partial class AudioVisualizationControl : ContentView
 
     private void OnUnloading(object sender, EventArgs e)
     {
+        AudioImageSource = ImageSource.FromFile("spinner.png");
     }
 
     private async Task StartVisualization(string wavFilePath)
