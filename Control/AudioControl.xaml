@@ -12,10 +12,25 @@
         <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
     </ResourceDictionary>
 </ContentView.Resources>
-    <Grid RowDefinitions="150, 300, 100">
+    <Grid RowDefinitions="100, 290, 200, 100">
         <StackLayout Grid.Row="0">
-            <Label HorizontalOptions="Center"
-                   Margin="0, 20, 0, 0">
+            <Label Text="Volume:"
+                   HorizontalOptions="Center"
+                   Margin="0, 20, 0, 0"/>
+            <Slider Minimum="0"
+                    Maximum="1"
+                    Value="{Binding Volume, Source={x:Reference this}}"
+                    WidthRequest="300"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1">
+            <controls:AudioVisualizationControl
+                AudioSource="{Binding Source, Source={x:Reference this}}"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2">
+            <Slider Value="{Binding CurrentPosition, Source={x:Reference this}}"
+                    Maximum="{Binding Duration, Source={x:Reference this}}"
+                    WidthRequest="1200"/>
+            <Label HorizontalOptions="Center">
                 <Label.Text>
                     <MultiBinding StringFormat="{}Position: {0}/{1}">
                         <Binding Path="CurrentPosition"
@@ -27,19 +42,6 @@
                     </MultiBinding>
                 </Label.Text>
             </Label>
-            <Slider Value="{Binding CurrentPosition, Source={x:Reference this}}"
-                    Maximum="{Binding Duration, Source={x:Reference this}}"
-                    WidthRequest="1200"/>
-            <Label Text="Volume:"
-                   HorizontalOptions="Center"/>
-            <Slider Minimum="0"
-                    Maximum="1"
-                    Value="{Binding Volume, Source={x:Reference this}}"
-                    WidthRequest="300"/>
-        </StackLayout>
-        <StackLayout Grid.Row="1">
-            <controls:AudioVisualizationControl
-                AudioSource="{Binding Source, Source={x:Reference this}}"/>
         </StackLayout>
         <Grid Grid.Row="2"
               ColumnDefinitions="*, *, *, *"
