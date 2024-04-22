@@ -1,3 +1,4 @@
+using NAudio.Wave;
 using NET_MAUI_BLE.AppConfig;
 
 
@@ -56,6 +57,11 @@ public static class FileAPI
         return Directory.GetFiles(path);
     }
 
+    public static string GetFile(string path)
+    {
+        return Path.GetFileName(path);
+    }
+
     public static void DeleteFile(string path)
     {
         File.Delete(path);
@@ -69,6 +75,19 @@ public static class FileAPI
     public static bool isExist(string path)
     {
         return Path.Exists(path);
+    }
+
+    public static bool isWavFormat(string path)
+    {
+        try
+        {
+            var reader = new WaveFileReader(path);
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+        return true;
     }
 
 }
