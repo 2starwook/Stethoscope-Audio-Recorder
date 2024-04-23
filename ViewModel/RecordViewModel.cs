@@ -10,16 +10,13 @@ namespace NET_MAUI_BLE.ViewModel;
 [QueryProperty("RecordId", "RecordId")]
 public partial class RecordViewModel : ObservableObject
 {
-    public RecordViewModel()
-    {
-        _databaseManager = DependencyService.Get<DBManager>();
-    }
-
-    private DBManager _databaseManager;
     [ObservableProperty]
 	private string recordId;
+
     [ObservableProperty]
     private string audioSource;
+
+    private DBManager _databaseManager = DependencyService.Get<DBManager>();
 
     [RelayCommand]
     void Appearing()

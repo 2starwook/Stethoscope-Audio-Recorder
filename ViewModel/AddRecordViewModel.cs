@@ -11,19 +11,16 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class AddRecordViewModel : ObservableObject
 {
-	public AddRecordViewModel()
-	{
-        this._databaseManager = DependencyService.Get<DBManager>();
-        FileButtonText = "Select a File";
-    }
-
-    private DBManager _databaseManager;
     [ObservableProperty]
 	private string recordName;
+
     [ObservableProperty]
 	private string filePath;
+
     [ObservableProperty]
-    private string fileButtonText;
+    private string fileButtonText = "Select a File";
+
+    private DBManager _databaseManager = DependencyService.Get<DBManager>();
 
     public void Refresh()
     {

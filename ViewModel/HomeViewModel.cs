@@ -14,20 +14,13 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class HomeViewModel : ObservableObject
 {
-	public HomeViewModel()
-	{
-        this.databaseManager = DependencyService.Get<DBManager>();
-        wifiController = new WifiController();
-        AudioControlVisible = false;
-        audioSource = "";
-    }
+    [ObservableProperty]
+    private string audioSource = "";
 
-    private DBManager databaseManager;
-    private WifiController wifiController;
-    [ObservableProperty]
-    bool audioControlVisible;
-    [ObservableProperty]
-    string audioSource;
+    private DBManager databaseManager = DependencyService.Get<DBManager>();
+    private WifiController wifiController = new WifiController();
+    public delegate void DataReceivedEvent(bool isSuccessful);
+    public event DataReceivedEvent AudioReceivedEvent;
 
     [RelayCommand]
     async Task Appearing()

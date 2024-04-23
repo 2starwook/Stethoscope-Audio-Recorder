@@ -15,16 +15,14 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
 {
     public RecordsViewModel()
     {
-        this.databaseManager = DependencyService.Get<DBManager>();
         WeakReferenceMessenger.Default.Register(this);
-        IsLoading = false;
     }
 
-    private DBManager databaseManager;
+    private DBManager databaseManager = DependencyService.Get<DBManager>();
     [ObservableProperty]
     private ObservableCollection<RecordInfo> records;
     [ObservableProperty]
-    private bool isLoading;
+    private bool isLoading = false;
 
     [RelayCommand]
     async Task Appearing()
