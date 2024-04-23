@@ -20,6 +20,10 @@ static class HttpResponseMessageExtensions
     }
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// Ref. https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/rest?view=net-maui-8.0
 public class HttpClientManager 
 {
     public HttpClientManager(string baseAddress)
