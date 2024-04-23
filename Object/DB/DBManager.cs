@@ -9,6 +9,7 @@ public class DBManager
     // Manage Database: Add/Remove/Modify data
 	public DBManager()
     {
+        // TODO - Implement: Check Network Connection
         this.recordsManager = new RecordsManager<Record>();
         this.currentRecords = new Dictionary<string, Record>();
         this.isRecordDataLoaded = false;
