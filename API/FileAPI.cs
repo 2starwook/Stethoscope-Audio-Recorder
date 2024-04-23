@@ -67,6 +67,9 @@ public static class FileAPI
         File.Delete(path);
     }
 
+    /// <summary>
+    /// Get "unique" hexadecimal upper id
+    /// </summary>
     public static string GetUniqueID()
     {
         return Guid.NewGuid().ToString("n").ToUpper();
@@ -77,6 +80,9 @@ public static class FileAPI
         return Path.Exists(path);
     }
 
+    /// <summary>
+    /// Check if given file is in WAV format
+    /// </summary>
     public static bool isWavFormat(string path)
     {
         try
