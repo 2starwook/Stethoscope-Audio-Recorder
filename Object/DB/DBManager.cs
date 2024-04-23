@@ -17,7 +17,6 @@ public class DBManager
 
     private RecordsManager<Record> recordsManager;
     private bool isRecordDataLoaded;
-
     public Dictionary<string, Record> currentRecords;
 
     public async Task LoadDataAsync()
