@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 
 
@@ -5,7 +6,7 @@ namespace NET_MAUI_BLE.Object.Wifi;
 
 static class HttpResponseMessageExtensions
 {
-    internal static void WriteRequestToConsole(this HttpResponseMessage response)
+    internal static void WriteRequestToTrace(this HttpResponseMessage response)
     {
         if (response is null)
         {
@@ -13,9 +14,9 @@ static class HttpResponseMessageExtensions
         }
 
         var request = response.RequestMessage;
-        Console.Write($"{request?.Method} ");
-        Console.Write($"{request?.RequestUri} ");
-        Console.WriteLine($"HTTP/{request?.Version}");
+        Trace.Write($"{request?.Method} ");
+        Trace.Write($"{request?.RequestUri} ");
+        Trace.WriteLine($"HTTP/{request?.Version}");
     }
 }
 
@@ -35,7 +36,7 @@ public class HttpClientManager
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
         return await response.Content.ReadAsByteArrayAsync();
     }
 
@@ -43,7 +44,7 @@ public class HttpClientManager
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
         return await response.Content.ReadAsStringAsync();
     }
 
@@ -51,7 +52,7 @@ public class HttpClientManager
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
         return await response.Content.ReadAsStreamAsync();
     }
 
@@ -60,7 +61,7 @@ public class HttpClientManager
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
         return JObject.Parse(jsonResponse);
@@ -72,10 +73,10 @@ public class HttpClientManager
             requestUri, content);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
+        Trace.WriteLine($"{jsonResponse}\n");
     }
 
     public async Task PutAsync(string requestUri, StringContent content)
@@ -84,10 +85,10 @@ public class HttpClientManager
             requestUri, content);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
+        Trace.WriteLine($"{jsonResponse}\n");
     }
 
     public async Task PatchAsync(string requestUri, StringContent content)
@@ -96,10 +97,10 @@ public class HttpClientManager
             requestUri, content);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
+        Trace.WriteLine($"{jsonResponse}\n");
     }
 
     public async Task DeleteAsync(string requestUri)
@@ -107,10 +108,10 @@ public class HttpClientManager
         using HttpResponseMessage response = await _httpClient.DeleteAsync(requestUri);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
+        Trace.WriteLine($"{jsonResponse}\n");
     }
 
     public async Task OptionsAsync(string requestUri)
@@ -121,12 +122,12 @@ public class HttpClientManager
         using HttpResponseMessage response = await _httpClient.SendAsync(request);
 
         response.EnsureSuccessStatusCode()
-            .WriteRequestToConsole();
+            .WriteRequestToTrace();
 
         foreach (var header in response.Content.Headers)
         {
-            Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+            Trace.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
         }
-        Console.WriteLine();
+        Trace.WriteLine("");
     }
 }

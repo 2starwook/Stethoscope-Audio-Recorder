@@ -8,7 +8,7 @@ using NET_MAUI_BLE.Object.Wifi;
 using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Message.DbMessage;
 using NET_MAUI_BLE.API;
-
+using System.Diagnostics;
 
 namespace NET_MAUI_BLE.ViewModel;
 
@@ -31,7 +31,7 @@ public partial class HomeViewModel : ObservableObject
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e.ToString()}");
+            Debug.WriteLine($"{e}");
         }
     }
 
@@ -65,10 +65,4 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     async Task GetAudio()
     {
-        System.Diagnostics.Debug.WriteLine("GetAudio Button clicked");
-        AudioSource = await wifiController.GetAudio();
-        var recordName = $"recording_{TimeAPI.GetCurrentDateTime()}";
-        var recordId = await databaseManager.AddRecordAsync(AudioSource, recordName);
-        WeakReferenceMessenger.Default.Send(new AddRecordMessage(recordId));
-    }
-}
+        Trace.WriteLine("GetAudio Button clicked");
