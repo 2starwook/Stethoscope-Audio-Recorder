@@ -12,4 +12,8 @@ public class Item
         return Id.ToString();
     }
 
+    public void SetId(string id)
+    {
+        Id = new ObjectId(id);
+    }
 }
