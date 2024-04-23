@@ -20,13 +20,10 @@
         <Button Text="Record"
                 WidthRequest="100"
                 Command="{Binding GetAudioCommand}"/>
-        <!--<Button Text="Test"
-                WidthRequest="200"
-                Command="{Binding TestCommand}"/>
-        <Label Text="{Binding TestLabel}"
-               HorizontalTextAlignment="Center"
-               FontSize="Large"/>-->
-        <controls:AudioControl Source="{Binding AudioSource}"
-                               IsVisible="{Binding AudioControlVisible}"/>
+        <Label x:Name="ResultMessage"
+               HorizontalOptions="Center"
+               FontSize="20"
+               Margin="0, 30, 0, 0"
+               Opacity="0"/>
     </StackLayout>
 </ContentPage>
