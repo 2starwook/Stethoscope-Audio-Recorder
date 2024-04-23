@@ -40,8 +40,7 @@ public class DBManager
     public async Task<string> AddRecordAsync(string audioFilePath,
                                              string recordName)
     {
-        var record = new Record(recordName, File.ReadAllBytes(audioFilePath), null);
-        await recordsManager.InsertRecordAsync(record);
+        var record = new Record(recordName, File.ReadAllBytes(audioFilePath));
         currentRecords.Add(record.GetId(), record);
         return record.GetId();
     }
