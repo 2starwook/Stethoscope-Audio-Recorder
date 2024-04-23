@@ -58,6 +58,7 @@ public partial class AudioVisualizationControl : ContentView
 
     private async Task StartVisualization(string wavFilePath)
     {
+        // FIXME: Synchronize sound and image file
         // Initialize the WaveFileReader to read audio data
         var stream = new FileStream(wavFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
         try
