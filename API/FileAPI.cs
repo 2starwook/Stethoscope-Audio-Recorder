@@ -69,7 +69,7 @@ public static class FileAPI
 
     public static string GetUniqueID()
     {
-        return Guid.NewGuid().ToString().ToUpper();
+        return Guid.NewGuid().ToString("n").ToUpper();
     }
 
     public static bool isExist(string path)
