@@ -47,7 +47,6 @@ public partial class AudioVisualizationControl : ContentView
 
     private async void OnLoading(object sender, EventArgs e)
     {
-        // TODO - FIXME: Loading image does not show up
         this.fileName = FileAPI.GetFile(AudioSource);
         await StartVisualization(AudioSource);
     }
