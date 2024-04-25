@@ -1,4 +1,4 @@
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using Realms;
 using NET_MAUI_BLE.Services;
 
