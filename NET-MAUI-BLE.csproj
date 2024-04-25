@@ -76,17 +76,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Enum\" />
-	  <None Remove="Object\Message\" />
-	  <None Remove="Object\View\" />
 	  <None Remove="Control\" />
 	  <None Remove="Converter\" />
+	  <None Remove="atlasConfig.json" />
+	  <None Remove="Services\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Enum\" />
-	  <Folder Include="Object\Message\" />
-	  <Folder Include="Object\View\" />
 	  <Folder Include="Control\" />
 	  <Folder Include="Converter\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="atlasConfig.json" />
 	</ItemGroup>
 </Project>
