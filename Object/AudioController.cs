@@ -1,8 +1,8 @@
+using System.Diagnostics;
 using Plugin.Maui.Audio;
 
 
 namespace NET_MAUI_BLE.Object.Audio;
-
 public class AudioController
 {
 	public AudioController(IAudioManager audioManager)
@@ -28,9 +28,10 @@ public class AudioController
 				}
             }
 		}
-		catch
+		catch (Exception e)
 		{
 			// File doesn't exist
+			Debug.WriteLine(e);
 		}
     }
 
@@ -38,12 +39,12 @@ public class AudioController
     {
         try
         {
-
             this.currentAudioPlayer = audioManager.CreatePlayer(audioStream);
         }
-        catch
+        catch (Exception e)
         {
-            // File doesn't exist
+			// File doesn't exist
+			Debug.WriteLine(e);
         }
     }
 
