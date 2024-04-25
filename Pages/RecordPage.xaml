@@ -15,9 +15,5 @@
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
     </ResourceDictionary>
 </ContentPage.Resources>
-    <!--<Grid RowDefinitions="20, *"
-          Padding="10">
-        
-    </Grid>-->
     <controls:AudioControl Source="{Binding AudioSource}"/>
 </ContentPage>

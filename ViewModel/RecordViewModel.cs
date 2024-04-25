@@ -1,22 +1,33 @@
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using NET_MAUI_BLE.API;
-using NET_MAUI_BLE.Object.DB;
+using NET_MAUI_BLE.Models;
 
 
 namespace NET_MAUI_BLE.ViewModel;
 
-[QueryProperty("RecordId", "RecordId")]
-public partial class RecordViewModel : ObservableObject
+public partial class RecordViewModel : ObservableObject, IQueryAttributable
 {
+    private Item_ item;
+
     [ObservableProperty]
 	private string recordId;
 
     [ObservableProperty]
     private string audioSource;
 
-    private DBManager _databaseManager = DependencyService.Get<DBManager>();
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        item = query["item"] as Item_;
+        RecordId = item.GetId();
+        var fileName = $"{RecordId}.wav";
+        var binaryData = item.BinaryData;
+        // TODO - Implement File System
+        FileAPI.WriteCacheData(fileName, binaryData);
+        AudioSource = FileAPI.GetCachePath(fileName);
+    }
 
     [RelayCommand]
     void Appearing()
@@ -24,14 +35,10 @@ public partial class RecordViewModel : ObservableObject
         try
         {
             UIAPI.HideTab();
-            var fileName = $"{RecordId}.wav";
-            var binaryData = _databaseManager.currentRecords[RecordId].BinaryData;
-            FileAPI.WriteCacheData(fileName, binaryData);
-            AudioSource = FileAPI.GetCachePath(fileName);
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e}");
+            Debug.WriteLine(e);
         }
     }
 
@@ -44,7 +51,7 @@ public partial class RecordViewModel : ObservableObject
         }
         catch (Exception e)
         {
-            System.Diagnostics.Debug.WriteLine($"{e}");
+            Debug.WriteLine(e);
         }
     }
 }

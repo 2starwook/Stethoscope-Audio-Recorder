@@ -1,10 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+using Realms;
 
 using NET_MAUI_BLE.Object.DB;
-using NET_MAUI_BLE.Message.DbMessage;
 using NET_MAUI_BLE.API;
+using NET_MAUI_BLE.Services;
 
 
 namespace NET_MAUI_BLE.ViewModel;
@@ -20,7 +20,7 @@ public partial class AddRecordViewModel : ObservableObject
     [ObservableProperty]
     private string fileButtonText = "Select a File";
 
-    private DBManager _databaseManager = DependencyService.Get<DBManager>();
+    private Realm realm;
 
     public void Refresh()
     {
@@ -34,6 +34,7 @@ public partial class AddRecordViewModel : ObservableObject
     {
         try
         {
+            realm = RealmService.GetMainThreadRealm();
             UIAPI.HideTab();
             Refresh();
         }
@@ -59,8 +60,7 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
 	async Task Submit()
 	{
-        var recordId = await _databaseManager.AddRecordAsync(FilePath, RecordName);
-        WeakReferenceMessenger.Default.Send(new AddRecordMessage(recordId));
+        await RealmAPI.Add(realm, RecordName, FileAPI.ReadData(FilePath));
         await Shell.Current.GoToAsync("..");
     }
 

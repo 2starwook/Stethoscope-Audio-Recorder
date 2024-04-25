@@ -4,8 +4,10 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:NET_MAUI_BLE.ViewModel"
              xmlns:records="clr-namespace:NET_MAUI_BLE.Object.View"
+             xmlns:models="clr-namespace:NET_MAUI_BLE.Models"
              x:Class="NET_MAUI_BLE.Pages.RecordsPage"
-             x:DataType="viewmodel:RecordsViewModel">
+             x:DataType="viewmodel:RecordsViewModel"
+             x:Name="this">
  <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <!--<viewmodel:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
@@ -24,30 +26,38 @@
         <ActivityIndicator Grid.Row="0"
                            Grid.Column= "1"
                            IsRunning="{Binding IsLoading}"/>
-        <CollectionView Grid.Row="1"  Grid.Column="1"
-                        ItemsSource="{Binding Records}">
+        <CollectionView ItemsSource="{Binding Items}"
+                  SelectionMode="None"
+             Grid.Row="1"
+             BackgroundColor="Black">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type records:RecordInfo}">
-                    <SwipeView>
+                <DataTemplate x:DataType="{x:Type models:Item_}">
+                    <SwipeView Padding="0, 5">
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
-                                           BackgroundColor="Red"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=DeleteCommand}"
-                                           CommandParameter="{Binding Id}" />
+                                            BackgroundColor="Red"
+                                            Command="{Binding DeleteCommand, Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}}"
+                                            CommandParameter="{Binding .}" />
                             </SwipeItems>
                         </SwipeView.RightItems>
-                        <Grid Padding="0,5">
-                            <Frame>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}, Path=TapCommand}"
-                                        CommandParameter="{Binding Id}"/>
-                                </Frame.GestureRecognizers>
-                                <Label Text="{Binding Name}"
-                                        FontSize="24" />
-                            </Frame>
-                        </Grid>
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding TapCommand, Source={RelativeSource AncestorType={x:Type viewmodel:RecordsViewModel}}}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <HorizontalStackLayout VerticalOptions="Center">
+                                <Label Text="{Binding RecordName}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       FontSize="Large"/>
+                                <!--<Label Text="(mine)"
+                                       Margin="15"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding IsMine}"/>-->
+                            </HorizontalStackLayout>
+                        </Frame>
                     </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

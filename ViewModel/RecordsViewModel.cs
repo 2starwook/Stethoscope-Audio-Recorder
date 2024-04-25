@@ -1,76 +1,55 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+using Realms;
+using System.Diagnostics;
 
-using NET_MAUI_BLE.Message.DbMessage;
-using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.Pages;
-using NET_MAUI_BLE.Object.View;
+using NET_MAUI_BLE.Models;
+using NET_MAUI_BLE.Services;
+using NET_MAUI_BLE.API;
 
 
 namespace NET_MAUI_BLE.ViewModel;
 
-public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMessage>
+public partial class RecordsViewModel : ObservableObject
 {
-    public RecordsViewModel()
-    {
-        WeakReferenceMessenger.Default.Register(this);
-    }
-
-    private DBManager databaseManager = DependencyService.Get<DBManager>();
-    [ObservableProperty]
-    private ObservableCollection<RecordInfo> records;
     [ObservableProperty]
     private bool isLoading = false;
 
+    [ObservableProperty]
+    private string connectionStatusIcon = "wifi_on.png";
+
+    [ObservableProperty]
+    private IQueryable<Item_> items;
+
+    [ObservableProperty]
+    public string dataExplorerLink = RealmService.DataExplorerLink;
+
+    private Realm realm;
+    private bool isOnline = true;
+
     [RelayCommand]
-    async Task Appearing()
+    void Appearing()
     {
-        if (Records == null)
-        {
-            await LoadDataAsync();
-        }
-    }
-
-    private void AddRecord(Record record)
-    {
-        Records.Add(new RecordInfo(record.RecordName, record.GetId()));
-    }
-
-    private async Task LoadDataAsync()
-    {
-        IsLoading = true;
-        await databaseManager.LoadRecordDataAsync();
-        Records = new ObservableCollection<RecordInfo>();
-        try
-        {
-            foreach (var record in databaseManager.currentRecords.Values)
-            {
-                AddRecord(record);
-            }
-        }
-        catch (Exception e)
-        {
-            System.Diagnostics.Debug.WriteLine($"{e}");
-        }
-        IsLoading = false;
+        realm = RealmService.GetMainThreadRealm();
+        Items = realm.All<Item_>().OrderBy(i => i.Id);
     }
 
     [RelayCommand]
-    async Task Delete(string id)
+    async Task Delete(Item_ item)
     {
-        await databaseManager.DeleteRecordAsync(id);
-        Records.Remove(Records.SingleOrDefault(i => i.Id == id));
+        Trace.WriteLine("Delete command executed");
+        await RealmAPI.Delete(realm, item);
     }
 
     [RelayCommand]
-    async Task Tap(string s)
+    async Task Tap(Item_ item)
     {
+        Trace.WriteLine("Tap command executed");
         await Shell.Current.GoToAsync($"{nameof(RecordPage)}?",
             new Dictionary<string, object>
             {
-                ["RecordId"] = s,
+                ["item"] = item,
             });
     }
 
@@ -80,14 +59,20 @@ public partial class RecordsViewModel : ObservableObject, IRecipient<AddRecordMe
         await Shell.Current.GoToAsync($"/{nameof(AddRecordPage)}");
     }
 
-    public void Receive(AddRecordMessage message)
+    [RelayCommand]
+    public void ChangeConnectionStatus()
     {
-        MainThread.BeginInvokeOnMainThread(() =>
+        isOnline = !isOnline;
+
+        if (isOnline)
         {
-            Record addedRecord;
-            var res = databaseManager.currentRecords
-                        .TryGetValue(message.Value, out addedRecord);
-            AddRecord(addedRecord);
-        });
+            realm.SyncSession.Start();
+        }
+        else
+        {
+            realm.SyncSession.Stop();
+        }
+
+        ConnectionStatusIcon = isOnline ? "wifi_on.png" : "wifi_off.png";
     }
 }
