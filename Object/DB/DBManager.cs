@@ -50,14 +50,4 @@ public class DBManager
         await recordsManager.DeleteRecordAsync(id);
         currentRecords.Remove(id);
     }
-
-    // TODO - Move to other object
-    static public async Task<string> ImportAudioFile()
-    {
-        var srcPath = await StorageAPI.GetFilePath();
-        var filename = FileAPI.GetUniqueID() + ".wav";
-        var dstPath = Path.Combine(Config.dataDirPath, filename);
-        File.Copy(srcPath.ToString(), dstPath);
-        return dstPath;
-    }
 }
