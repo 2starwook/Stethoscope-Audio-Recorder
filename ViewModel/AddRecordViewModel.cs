@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Realms;
 
-using NET_MAUI_BLE.Object.DB;
 using NET_MAUI_BLE.API;
 using NET_MAUI_BLE.Services;
 

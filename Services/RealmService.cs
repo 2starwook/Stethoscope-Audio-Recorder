@@ -110,19 +110,19 @@ public static class RealmService
         };
     }
 
-    private static (IQueryable<Item_> Query, string Name) GetQueryForSubscriptionType(Realm realm, SubscriptionType subType)
+    private static (IQueryable<Item> Query, string Name) GetQueryForSubscriptionType(Realm realm, SubscriptionType subType)
     {
-        IQueryable<Item_> query = null;
+        IQueryable<Item> query = null;
         string queryName = null;
 
         if (subType == SubscriptionType.Mine)
         {
-            query = realm.All<Item_>().Where(i => i.OwnerId == CurrentUser.Id);
+            query = realm.All<Item>().Where(i => i.OwnerId == CurrentUser.Id);
             queryName = "mine";
         }
         else if (subType == SubscriptionType.All)
         {
-            query = realm.All<Item_>();
+            query = realm.All<Item>();
             queryName = "all";
         }
         else

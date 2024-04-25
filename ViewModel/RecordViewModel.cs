@@ -10,7 +10,7 @@ namespace NET_MAUI_BLE.ViewModel;
 
 public partial class RecordViewModel : ObservableObject, IQueryAttributable
 {
-    private Item_ item;
+    private Item item;
 
     [ObservableProperty]
 	private string recordId;
@@ -20,7 +20,7 @@ public partial class RecordViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        item = query["item"] as Item_;
+        item = query["item"] as Item;
         RecordId = item.GetId();
         var fileName = $"{RecordId}.wav";
         var binaryData = item.BinaryData;

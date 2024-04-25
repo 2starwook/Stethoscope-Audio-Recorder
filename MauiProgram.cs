@@ -48,7 +48,5 @@ public static class MauiProgram
 		services.AddSingleton<NET_MAUI_BLE.ViewModel.AddRecordViewModel>();
 
         services.AddSingleton<NET_MAUI_BLE.Controls.AudioControl>();
-
-        services.AddSingleton<NET_MAUI_BLE.Object.DB.DBManager>();
 	}
 }

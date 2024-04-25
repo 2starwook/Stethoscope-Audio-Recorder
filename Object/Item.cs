@@ -4,7 +4,7 @@ using NET_MAUI_BLE.Services;
 
 namespace NET_MAUI_BLE.Models;
 
-public partial class Item_ : IRealmObject
+public partial class Item : IRealmObject
 {
     [PrimaryKey]
     [MapTo("_id")]

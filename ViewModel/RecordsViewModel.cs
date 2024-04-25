@@ -20,7 +20,7 @@ public partial class RecordsViewModel : ObservableObject
     private string connectionStatusIcon = "wifi_on.png";
 
     [ObservableProperty]
-    private IQueryable<Item_> items;
+    private IQueryable<Item> items;
 
     [ObservableProperty]
     public string dataExplorerLink = RealmService.DataExplorerLink;
@@ -32,18 +32,18 @@ public partial class RecordsViewModel : ObservableObject
     void Appearing()
     {
         realm = RealmService.GetMainThreadRealm();
-        Items = realm.All<Item_>().OrderBy(i => i.Id);
+        Items = realm.All<Item>().OrderBy(i => i.Id);
     }
 
     [RelayCommand]
-    async Task Delete(Item_ item)
+    async Task Delete(Item item)
     {
         Trace.WriteLine("Delete command executed");
         await RealmAPI.Delete(realm, item);
     }
 
     [RelayCommand]
-    async Task Tap(Item_ item)
+    async Task Tap(Item item)
     {
         Trace.WriteLine("Tap command executed");
         await Shell.Current.GoToAsync($"{nameof(RecordPage)}?",

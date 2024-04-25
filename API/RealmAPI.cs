@@ -12,7 +12,7 @@ public static class RealmAPI
     {
         await realm.WriteAsync(() =>
         {
-            var new_item = new Item_()
+            var new_item = new Item()
             {
                 OwnerId = RealmService.CurrentUser.Id,
                 RecordName = recordName,
@@ -23,7 +23,7 @@ public static class RealmAPI
         });
     }
 
-    public static async Task Delete(Realm realm, Item_ item)
+    public static async Task Delete(Realm realm, Item item)
     {
         await realm.WriteAsync(() =>
         {
@@ -31,9 +31,9 @@ public static class RealmAPI
         });
     }
 
-    public static IQueryable<Item_> GetAll(Realm realm)
+    public static IQueryable<Item> GetAll(Realm realm)
     {
-        return realm.All<Item_>().OrderBy(i => i.Id);
+        return realm.All<Item>().OrderBy(i => i.Id);
     }
 
 }
