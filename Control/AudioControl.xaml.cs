@@ -80,7 +80,7 @@ public partial class AudioControl : ContentView
 
     private void OnLoading(object sender, EventArgs e)
     {
-        _audioController.OpenFile(FileAPI.GetCachePath(Source));
+        _audioController.OpenFile(Source);
         OnPropertyChanged(nameof(Duration));
     }
 
@@ -93,7 +93,7 @@ public partial class AudioControl : ContentView
     public async Task Share()
     {
         var tempName = "file.wav";
-        var binaryData = FileAPI.ReadCacheData(Source);
+        var binaryData = FileAPI.ReadData(Source);
         await StorageAPI.ExportData(tempName, binaryData);
     }
 
