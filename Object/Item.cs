@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using Realms;
 using NET_MAUI_BLE.Services;
 
@@ -21,13 +21,6 @@ public partial class Item_ : IRealmObject
     [MapTo("BinaryData")]
     [Required]
     public byte[] BinaryData { get; set; }
-
-    [MapTo("summary")]
-    [Required]
-    public string Summary { get; set; }
-
-    [MapTo("isComplete")]
-    public bool IsComplete { get; set; }
 
     public bool IsMine => OwnerId == RealmService.CurrentUser.Id;
 
