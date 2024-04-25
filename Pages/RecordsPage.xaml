@@ -22,13 +22,10 @@
                 MaximumWidthRequest="150"
                 MaximumHeightRequest="50"
                 CornerRadius="20"/>
-        <ActivityIndicator Grid.Row="0"
-                           Grid.Column= "1"
-                           IsRunning="{Binding IsLoading}"/>
         <CollectionView ItemsSource="{Binding Items}"
-                  SelectionMode="None"
-             Grid.Row="1"
-             BackgroundColor="Black">
+                        SelectionMode="None"
+                        Grid.Row="1"
+                        BackgroundColor="Black">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type models:Item}">
                     <SwipeView Padding="0, 5">

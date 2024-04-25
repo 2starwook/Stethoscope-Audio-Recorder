@@ -14,19 +14,9 @@ namespace NET_MAUI_BLE.ViewModel;
 public partial class RecordsViewModel : ObservableObject
 {
     [ObservableProperty]
-    private bool isLoading = false;
-
-    [ObservableProperty]
-    private string connectionStatusIcon = "wifi_on.png";
-
-    [ObservableProperty]
     private IQueryable<Item> items;
 
-    [ObservableProperty]
-    public string dataExplorerLink = RealmService.DataExplorerLink;
-
     private Realm realm;
-    private bool isOnline = true;
 
     [RelayCommand]
     void Appearing()
@@ -58,22 +48,5 @@ public partial class RecordsViewModel : ObservableObject
     async Task AddFile()
     {
         await Shell.Current.GoToAsync($"/{nameof(AddRecordPage)}");
-    }
-
-    [RelayCommand]
-    public void ChangeConnectionStatus()
-    {
-        isOnline = !isOnline;
-
-        if (isOnline)
-        {
-            realm.SyncSession.Start();
-        }
-        else
-        {
-            realm.SyncSession.Stop();
-        }
-
-        ConnectionStatusIcon = isOnline ? "wifi_on.png" : "wifi_off.png";
     }
 }
