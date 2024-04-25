@@ -6,7 +6,6 @@ using Plugin.Maui.Audio;
 
 
 namespace NET_MAUI_BLE.Controls;
-
 public partial class AudioControl : ContentView
 {
     public AudioControl()

@@ -37,13 +37,4 @@ public static class StorageAPI
 		#pragma warning restore CA1416 // Validate platform compatibility
         return pickedFile.FullPath;
     }
-
-    static public async Task<string> ImportAudioFile()
-    {
-        var srcPath = await StorageAPI.GetFilePath();
-        var filename = FileAPI.GetUniqueID() + ".wav";
-        var dstPath = Path.Combine(Config.dataDirPath, filename);
-        File.Copy(srcPath.ToString(), dstPath);
-        return dstPath;
-    }
 }

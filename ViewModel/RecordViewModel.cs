@@ -22,11 +22,11 @@ public partial class RecordViewModel : ObservableObject, IQueryAttributable
     {
         item = query["item"] as Item;
         RecordId = item.GetId();
-        var fileName = $"{RecordId}.wav";
-        var binaryData = item.BinaryData;
-        // TODO - Implement File System
-        FileAPI.WriteCacheData(fileName, binaryData);
-        AudioSource = FileAPI.GetCachePath(fileName);
+        AudioSource = FilesystemAPI.GetAudioFilePath(RecordId);
+        if (!FilesystemAPI.IsAudioExist(RecordId))
+        {
+            FileAPI.WriteData(AudioSource, item.BinaryData);
+        }
     }
 
     [RelayCommand]

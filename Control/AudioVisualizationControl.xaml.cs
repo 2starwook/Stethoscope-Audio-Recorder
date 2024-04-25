@@ -2,7 +2,7 @@ using SkiaSharp;
 using NAudio.Wave;
 
 using NET_MAUI_BLE.API;
-
+using System.Diagnostics;
 
 namespace NET_MAUI_BLE.Controls;
 
@@ -19,7 +19,8 @@ public partial class AudioVisualizationControl : ContentView
     {
     }
 
-    private string fileName;
+    private string name;
+    private string imagePath;
     private ImageSource audioImageSource;
     private WaveFileReader reader;
     public string AudioSource
@@ -47,8 +48,16 @@ public partial class AudioVisualizationControl : ContentView
 
     private async void OnLoading(object sender, EventArgs e)
     {
-        this.fileName = FileAPI.GetFile(AudioSource);
-        await StartVisualization(AudioSource);
+        this.name = FileAPI.GetFileName(AudioSource, false);
+        this.imagePath = FilesystemAPI.GetImageFilePath(name);
+        if (!FilesystemAPI.IsImageExist(name))
+        {
+            await StartVisualization(AudioSource);
+        }
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            UpdateAudioImageSource();
+        });
     }
 
     private void OnUnloading(object sender, EventArgs e)
@@ -58,7 +67,6 @@ public partial class AudioVisualizationControl : ContentView
 
     private async Task StartVisualization(string wavFilePath)
     {
-        // FIXME: Synchronize sound and image file
         // Initialize the WaveFileReader to read audio data
         var stream = new FileStream(wavFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
         try
@@ -67,28 +75,14 @@ public partial class AudioVisualizationControl : ContentView
         }
         catch (FormatException)
         {
-            Console.WriteLine($"Given file format isn't WAVE, instance of RIFF");
+            Debug.WriteLine($"Given file format isn't WAVE, instance of RIFF");
             return;
         }
 
-        await UpdateWaveformImage();
-        stream.Close();
-    }
-
-    private async Task UpdateWaveformImage()
-    {
-        // Calculate the waveform image
         SKImage wavImage = await Task.FromResult(CalculateWaveformImage(reader));
+        SaveWaveformImageToFile(wavImage);
 
-        // Save the waveform image to a temporary file
-        string tempImagePath = SaveWaveformImageToFile(wavImage);
-
-        // Use MainThread.BeginInvokeOnMainThread to ensure UI updates are done on the UI thread
-        MainThread.BeginInvokeOnMainThread(() =>
-        {
-            // Update the Image control with the new image
-            AudioImageSource = ImageSource.FromFile(tempImagePath);
-        });
+        stream.Close();
     }
 
     private SKImage CalculateWaveformImage(WaveFileReader reader)
@@ -165,19 +159,18 @@ public partial class AudioVisualizationControl : ContentView
         }
     }
 
-    private string SaveWaveformImageToFile(SKImage waveForImage)
+    private void SaveWaveformImageToFile(SKImage waveForImage)
     {
-        // Create a temporary file path
-        var filePath = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.LocalApplicationData), $"{fileName}.png");
-
-
         // Encode the waveform bitmap as PNG
         using (var data = waveForImage.Encode(SKEncodedImageFormat.Png, 100))
-        using (var fileStream = File.OpenWrite(filePath))
+        using (var fileStream = File.OpenWrite(imagePath))
         {
             data.SaveTo(fileStream);
-            return filePath;
         }
+    }
+
+    private void UpdateAudioImageSource()
+    {
+        AudioImageSource = ImageSource.FromFile(imagePath);
     }
 }

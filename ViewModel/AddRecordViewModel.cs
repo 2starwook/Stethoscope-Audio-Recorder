@@ -66,9 +66,11 @@ public partial class AddRecordViewModel : ObservableObject
     [RelayCommand]
     async Task SelectFile()
     {
-        var path = await StorageAPI.ImportAudioFile();
-        if (string.IsNullOrWhiteSpace(path))
+        var srcPath = await StorageAPI.GetFilePath();
+        var dstPath = FileAPI.GetAudioPath($"{FileAPI.GetUniqueID()}.wav");
+        File.Copy(srcPath.ToString(), dstPath);
+        if (string.IsNullOrWhiteSpace(dstPath))
             return;
-        FilePath = FileButtonText = path;
+        FilePath = FileButtonText = dstPath;
     }
 }

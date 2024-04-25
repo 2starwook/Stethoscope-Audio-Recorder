@@ -47,6 +47,16 @@ public static class FileAPI
         return Path.Combine(Config.rootCachePath, filename);
     }
 
+    public static string GetAudioPath(string filename)
+    {
+        return Path.Combine(Config.audioDirPath, filename);
+    }
+
+    public static string GetImagePath(string filename)
+    {
+        return Path.Combine(Config.imageDirPath, filename);
+    }
+
     public static void CreateDirectory(string path)
     {
         Directory.CreateDirectory(path);
@@ -57,9 +67,16 @@ public static class FileAPI
         return Directory.GetFiles(path);
     }
 
-    public static string GetFile(string path)
+    public static string GetFileName(string path, bool withExtension=true)
     {
-        return Path.GetFileName(path);
+        if (withExtension)
+        {
+            return Path.GetFileName(path);
+        }
+        else
+        {
+            return Path.GetFileNameWithoutExtension(path);
+        }
     }
 
     public static void DeleteFile(string path)
@@ -80,6 +97,14 @@ public static class FileAPI
         return Path.Exists(path);
     }
 
+    public static void CreateDirIfNotExist(string path)
+    {
+        if (!FileAPI.isExist(path))
+        {
+            FileAPI.CreateDirectory(path);
+        }
+    }
+
     /// <summary>
     /// Check if given file is in WAV format
     /// </summary>
@@ -95,5 +120,4 @@ public static class FileAPI
         }
         return true;
     }
-
 }

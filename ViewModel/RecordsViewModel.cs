@@ -39,6 +39,7 @@ public partial class RecordsViewModel : ObservableObject
     async Task Delete(Item item)
     {
         Trace.WriteLine("Delete command executed");
+        FilesystemAPI.DeleteFile(item.GetId());
         await RealmAPI.Delete(realm, item);
     }
 
