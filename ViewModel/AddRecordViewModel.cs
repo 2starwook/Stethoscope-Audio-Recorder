@@ -7,7 +7,6 @@ using NET_MAUI_BLE.Services;
 
 
 namespace NET_MAUI_BLE.ViewModel;
-
 public partial class AddRecordViewModel : ObservableObject
 {
     [ObservableProperty]

@@ -7,7 +7,6 @@ using NET_MAUI_BLE.Models;
 
 
 namespace NET_MAUI_BLE.ViewModel;
-
 public partial class RecordViewModel : ObservableObject, IQueryAttributable
 {
     private Item item;
