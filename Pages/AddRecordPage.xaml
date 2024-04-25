@@ -42,10 +42,10 @@
                        HorizontalOptions="Start"
                        WidthRequest="300"/>
             </Grid>
-            <Button Text="Submit"
+            <Button Text="Add Record"
                     Command="{Binding SubmitCommand}"
                     HorizontalOptions="Start"
-                    WidthRequest="100"/>
+                    WidthRequest="110"/>
 
 
 
